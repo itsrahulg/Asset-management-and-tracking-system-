@@ -6,11 +6,11 @@ def homepage(request):
     return render(request,'AMTSapp/index.html')
 
 def login(request):
-    pass
+    return render(request,"AMTSapp/login.html")
 
 
 def signup(request):
-    pass
+    return render(request,"AMTSapp/signup.html")
 
 
 def user_dashboard(request):
