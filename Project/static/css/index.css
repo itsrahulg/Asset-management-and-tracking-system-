@@ -1,0 +1,117 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    background-image: url('/static/images/indexbg.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    height: 100vh;
+     
+}
+.nav-bg{
+    background: white;
+    margin-top:1rem;
+    margin-right:2rem;
+    margin-left:2rem;
+    margin-bottom:4rem;
+    padding:1rem;
+    border-radius: 10px;
+}
+.navbar-toggler {
+    background-image: url("/static/images/hamburger_menu.png");
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    width: 40px; 
+    height: 40px; 
+}
+
+header{
+
+    margin: 0.5rem;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.logo-text{
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    color:black;
+    margin-right: auto;
+    text-decoration: none;
+
+}
+
+.login-button,.signup-button{
+
+    color:black;
+    padding:5px 10px 5px ;
+    border-radius: 20px;
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+    margin-right: 10px;
+    transition: 0.5s;
+    background: none;
+    border: none;
+    
+}
+
+.login-button1,.signup-button1{
+
+    background-color: #478CCF;
+    padding:5px 10px 5px ;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+    margin-right: 10px;
+    transition: 0.5s;
+    color: whitesmoke;
+    border: white;
+    
+}
+
+
+
+
+.login-button:hover{
+
+    background-color:#478CCF;
+    padding:5px 10px 5px ;
+    border-radius: 10px;
+    color:whitesmoke;
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+    margin-right: 10px;
+    
+}
+
+
+.signup-button:hover{
+
+    background-color: white;
+    padding:5px 10px 5px ;
+    border-radius: 10px;
+    color:black;
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+    margin-right: 10px;
+    
+}
+
+.heading{
+    color:#2E4053;
+}
+
+.description{
+    color:#F2F4F4;
+    font-weight: 400;
+}
