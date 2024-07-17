@@ -59,6 +59,11 @@ def dashboard_view(request):
         return render(request, 'AMTSapp/user_dashboard.html')
 
 
+def addAsset(request):
+    return render(request,'AMTSapp/add-asset.html')
+
+def updatelog(request):
+    return render(request,'AMTSapp/update-log.html')
 
 
 

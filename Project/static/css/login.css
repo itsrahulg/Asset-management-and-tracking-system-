@@ -49,8 +49,13 @@ body{
     margin-right: auto;
     margin-left: 2rem;
     text-decoration: none;
-    
+    color: inherit;
 
+}
+
+.logo-text:hover {
+    color: inherit; /* Keep the same color on hover */
+    text-decoration: none; /* Keep the underline removed on hover */
 }
 
 .login-button,.signup-button{

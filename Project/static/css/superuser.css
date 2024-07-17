@@ -8,7 +8,7 @@
 
 
 body{
-    background-image: url('/static/images/indexbg.jpg');
+    background-image: url('/static/images/dashboard-bg.png');
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -48,7 +48,9 @@ body{
     margin-right: auto;
     margin-left: 2rem;
     text-decoration: none;
-    color: inherit;
+    color: inherit; /* Inherit the text color from the parent */
+    
+    
 
 }
 
@@ -101,29 +103,23 @@ body{
     
 }
 
-.heading{
-    color:#2E4053;
-}
 
-.description{
-    color:#F2F4F4;
-    font-weight: 400;
-}
-
-main{
+.floating-plus {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 6rem;
-    
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    padding: 10px;
 }
 
-.hero-section{
-    background-color: white;
-    margin-bottom:2rem;
-    padding:2rem;
-    border-radius: 10px;
-    width:100%;
-    height:60%;
-   
-    
+.floating-plus img {
+    max-width: 100%;
+    max-height: 100%;
 }
