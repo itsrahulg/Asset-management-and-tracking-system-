@@ -2,7 +2,9 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    
 }
+
 
 
 body{
@@ -14,10 +16,18 @@ body{
      
 }
 
+.navbar {
+    margin: 0;
+    padding: 0;
+}
+
 .nav-bg{
-    background: white;
-    padding:1rem;
-    border-radius: 10px;
+    background: rgb(124,193,255);
+    background: linear-gradient(90deg, rgba(124,193,255,1) 0%, rgba(228,252,253,1) 100%);
+    padding:0.5rem;
+    margin:0px;
+    
+    
 }
 .navbar-toggler {
     background-image: url("/static/images/hamburger_menu.png");
@@ -27,21 +37,18 @@ body{
     height: 40px; 
 }
 
-header{
-
-    margin: 0.5rem;
-    padding: 2rem;
-    border-radius: 10px;
-}
 
 .logo-text{
 
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 30px;
-    font-weight: 500;
+    font-family: "Playwrite BE WAL", cursive;
+    font-optical-sizing: auto;
+    font-size: 20px;
+    font-weight: 600;
     color:black;
     margin-right: auto;
+    margin-left: 2rem;
     text-decoration: none;
+    
 
 }
 
@@ -53,7 +60,7 @@ header{
     font-size: 25px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
-    margin-right: 10px;
+    margin-right: 35px;
     transition: 0.5s;
     background: none;
     background-color: #478CCF ;
@@ -63,28 +70,29 @@ header{
 
 .login-button:hover{
 
-    background-color:#478CCF;
+    background-color:whitesmoke;
     padding:5px 10px 5px ;
     border-radius: 10px;
-    color:whitesmoke;
+    color:black;
     font-size: 25px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
-    margin-right: 10px;
+    border-color: blue;
+    
     
 }
 
 
 .signup-button:hover{
 
-    background-color: #478CCF;
+    background-color: whitesmoke;
     padding:5px 10px 5px ;
     border-radius: 10px;
-    color:whitesmoke;
+    color:black;
     font-size: 25px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
-    margin-right: 10px;
+    border-color: blue;
     
 }
 
@@ -100,12 +108,12 @@ header{
 main{
     display: flex;
     justify-content: center;
+    margin-top: 8rem;
     
 }
 
 .hero-section{
     background-color: white;
-   
     margin-bottom:4rem;
     padding:2rem;
     border-radius: 10px;
