@@ -13,12 +13,9 @@ body{
     height: 100vh;
      
 }
+
 .nav-bg{
     background: white;
-    margin-top:1rem;
-    margin-right:2rem;
-    margin-left:2rem;
-    margin-bottom:2rem;
     padding:1rem;
     border-radius: 10px;
 }
@@ -103,11 +100,12 @@ header{
 main{
     display: flex;
     justify-content: center;
+    
 }
 
 .hero-section{
     background-color: white;
-  
+   
     margin-bottom:4rem;
     padding:2rem;
     border-radius: 10px;
