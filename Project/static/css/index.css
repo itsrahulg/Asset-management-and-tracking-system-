@@ -108,17 +108,17 @@ body{
 main{
     display: flex;
     justify-content: center;
-    margin-top: 8rem;
+    margin-top: 6rem;
     
 }
 
 .hero-section{
     background-color: white;
-    margin-bottom:4rem;
+    margin-bottom:2rem;
     padding:2rem;
     border-radius: 10px;
     width:100%;
-    height:70%;
+    height:60%;
    
     
 }

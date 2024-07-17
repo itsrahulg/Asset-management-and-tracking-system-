@@ -8,7 +8,9 @@ from .forms import SignUpForm
 
 from django.contrib.auth.forms import AuthenticationForm
 
+from .forms import CustomAuthenticationForm
 
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -17,7 +19,7 @@ def homepage(request):
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -26,7 +28,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('dashboard')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'AMTSapp/login.html', {'form': form})
 
 
@@ -49,7 +51,7 @@ def logout_view(request):
     return redirect('')
 
 
-
+@login_required
 def dashboard_view(request):
     if request.user.is_superuser:
         return render(request, 'AMTSapp/administrator_dashboard.html')
