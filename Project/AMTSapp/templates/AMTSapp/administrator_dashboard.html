@@ -13,25 +13,32 @@
     <!-- google-fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+BE+WAL:wght@100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container-fluid nav-bg">
-            <a class="logo-text" href="#">AssetGuard ( super-user )</a>
+            <a class="logo-text" href="#">AssetGuard (super-user)</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""></span>
             </button>
     
             <div class="collapse navbar-collapse" id="navbarsExample03">
-                <div class="ms-auto d-flex align-items-start flex-column flex-sm-row">
+                <form class="d-flex ms-auto">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+    
+                <div class="ms-2 d-flex align-items-center">
                     <a href="{% url 'log' %}" class="btn login-button me-2">View Logs</a>
-                    <a href="{% url 'logout' %}" class="btn login-button me-2">Logout</a>
+                    <a href="{% url 'logout' %}" class="btn login-button">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
+    
+    
 
     <a href="{% url 'addAsset' %}" class="floating-plus">
         <img src="{% static 'images/plus.png' %}" alt="Plus Icon">
