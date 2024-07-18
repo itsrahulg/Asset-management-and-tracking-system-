@@ -23,7 +23,7 @@ body{
 
 .nav-bg{
     background: rgb(124,193,255);
-    background: linear-gradient(90deg, rgba(124,193,255,1) 0%, rgba(228,252,253,1) 100%);
+    background: linear-gradient(90deg, rgba(124,193,255,1) 0%, rgba(22,246,255,1) 100%);
     padding:0.5rem;
     margin:0px;
     
@@ -40,13 +40,12 @@ body{
 
 .logo-text{
 
-    font-family: "Playwrite BE WAL", cursive;
+    font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 700;
     color:black;
     margin-right: auto;
-    margin-left: 2rem;
     text-decoration: none;
     color: inherit;
 

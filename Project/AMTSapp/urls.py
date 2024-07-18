@@ -9,5 +9,7 @@ urlpatterns = [
     path('dashboard',views.dashboard_view,name="dashboard"),
     path('addAsset',views.addAsset,name="addAsset"),
     path('log',views.updatelog,name="log"),
+    path('google-login/', views.google_login, name='google_login'),
+    path('oauth2callback/', views.google_callback, name='google_callback'),
     
 ]

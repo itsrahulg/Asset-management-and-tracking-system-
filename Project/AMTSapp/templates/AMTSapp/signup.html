@@ -11,13 +11,14 @@
     <link rel="icon" type="image/x-icon" href="{% static 'images/asset-icon.png' %}">
 
      <!-- google-fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Playwrite+BE+WAL:wght@100..400&display=swap" rel="stylesheet">
+    <!-- google-fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
         <div class="container-fluid nav-bg">
             <a class="logo-text" href="#">Asset Management and Tracking System</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,14 +34,14 @@
         </div>
     </nav>
 
-    <div class="container my-3" style="border-radius: 8px; padding: 2rem; background-color: white;">
+    <div class="container my-3 mt-5 mb-4 signup-box" style="border-radius: 8px; padding: 2rem; background-color: white;">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-md-center">
                 <img src="{% static 'images/register.jpg' %}" alt="Image Description" class="img-fluid custom-img" style="border-radius: 8px;">
             </div>
             <div class="col-md-6">
                 <h2 class="text-center">Sign Up</h2>
-                <form method="post" class="needs-validation" novalidate>
+                <form method="post" novalidate>
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_username" style="font-size: 1.25rem;">Username</label>
@@ -71,6 +72,15 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3" style="width: 100%;">Sign Up</button>
+
+                    <hr class="my-2 mb-3">
+
+                    <!-- Google Sign-In Button -->
+                    <a href="{% url 'google_login' %}" class="btn btn-danger" style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" style="width: 20px; height: 20px; margin-right: 10px;">
+                        Sign up with Google
+                    </a>
+
                 </form>
             </div>
         </div>
