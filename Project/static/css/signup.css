@@ -101,11 +101,52 @@ body{
 }
 
 .custom-img {
-    max-width: 85%; /* Adjust the size as needed */
-    height: 80%;   /* Maintain aspect ratio */
+    max-width: 90%; /* Adjust the size as needed */
+    height: 90%;   /* Maintain aspect ratio */
 }
 
 .nav-bg {
     background-color: #343a40; /* Example background color for the navbar */
 }
 
+.signup-box {
+    background-color: #FFF8F3; /* Cream color */
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.signup-form {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.signup-form .form-group input {
+    font-size: 1rem;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+.signup-form .btn {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+}
+
+.signup-form .btn-danger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.signup-form .invalid-feedback {
+    display: block;
+}

@@ -18,9 +18,9 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-sm navbar-dark">
         <div class="container-fluid nav-bg">
-            <a class="logo-text" href="#">Asset Management and Tracking System</a>
+            <a class="logo-text" href="#">AssetGuard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""></span>
             </button>
@@ -34,57 +34,56 @@
         </div>
     </nav>
 
-    <div class="container my-3 mt-5 mb-4 signup-box" style="border-radius: 8px; padding: 2rem; background-color: white;">
+    <div class="container my-3 mt-3 mb-5 signup-box">
         <div class="row">
             <div class="col-md-6 d-flex justify-content-md-center">
-                <img src="{% static 'images/register.jpg' %}" alt="Image Description" class="img-fluid custom-img" style="border-radius: 8px;">
+                <img src="{% static 'images/register.png' %}" alt="Image Description" class="img-fluid custom-img">
             </div>
             <div class="col-md-6">
-                <h2 class="text-center">Sign Up</h2>
-                <form method="post" novalidate>
+                
+                <form method="post" novalidate class="signup-form">
+                    <h2 class="text-center mb-3">Create Account 🖊</h2>
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="id_username" style="font-size: 1.25rem;">Username</label>
                         {{ form.username }}
-                        <div class="invalid-feedback">
-                            Please provide a valid username.
-                        </div>
+                      
                     </div>
                     <div class="form-group mt-4">
-                        <label for="id_email" style="font-size: 1.25rem;">Email</label>
                         {{ form.email }}
-                        <div class="invalid-feedback">
-                            Please provide a valid email.
-                        </div>
+                       
                     </div>
                     <div class="form-group mt-4">
-                        <label for="id_password1" style="font-size: 1.25rem;">Password</label>
                         {{ form.password1 }}
-                        <div class="invalid-feedback">
-                            Please provide a valid password.
-                        </div>
+                     
                     </div>
                     <div class="form-group mt-4">
-                        <label for="id_password2" style="font-size: 1.25rem;">Confirm Password</label>
                         {{ form.password2 }}
-                        <div class="invalid-feedback">
-                            Please confirm your password.
-                        </div>
+                       
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3" style="width: 100%;">Sign Up</button>
-
-                    <hr class="my-2 mb-3">
-
+                    <button type="submit" class="btn btn-primary mt-3 mb-3">Sign Up</button>
+    
+                   
+    
                     <!-- Google Sign-In Button -->
-                    <a href="{% url 'google_login' %}" class="btn btn-danger" style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                    <a href="{% url 'google_login' %}" class="btn btn-danger" style="display: flex; align-items: center; justify-content: center;">
                         <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" style="width: 20px; height: 20px; margin-right: 10px;">
                         Sign up with Google
                     </a>
+
+                    <hr class="my-2 mb-3">
+
+                    <div class="text-center mt-3">
+                        <a href="{% url 'login' %}" style="color: blue; text-decoration: none;">Have an account? Login</a>
+                    </div>
+
 
                 </form>
             </div>
         </div>
     </div>
+
+    <br>
+    
     
     
 

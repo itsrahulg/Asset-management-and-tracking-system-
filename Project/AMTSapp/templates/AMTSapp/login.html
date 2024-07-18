@@ -20,7 +20,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark">
         <div class="container-fluid nav-bg">
-            <a class="logo-text" href="#">Asset Management and Tracking System</a>
+            <a class="logo-text" href="#">AssetGuard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""></span>
             </button>
@@ -35,46 +35,52 @@
     </nav>
       
 
-    <div class="container my-3 login-box" style="background-color: white; border-radius: 8px; padding: 2rem;">
+    <div class="container my-3 login-box" style="background-color: #FFF8F3; /* Cream color */">
         <div class="row">
-            <div class="col-md-6 d-flex justify-content-md-center">
-                <img src="{% static 'images/login-form.jpg' %}" alt="Image Description" class="img-fluid custom-img" style="border-radius: 8px;">
+            <div class="col-md-6 d-flex justify-content-md-center order-md-2">
+                <img src="{% static 'images/login-form.png' %}" alt="Image Description" class="img-fluid custom-img">
             </div>
-            <div class="col-md-6">
-                <h2 class="text-center">Login</h2>
-                <form method="post" class="needs-validation" novalidate>
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_username" style="font-size: 1.25rem; margin-bottom: 1rem;">Username</label>
-                        {{ form.username }}
-                        <div class="invalid-feedback">
-                            Please provide a valid username.
+            <div class="col-md-6 order-md-1">
+                <div class="login-form" style="background-color: white; padding: 2rem; border-radius: 8px; width: 100%; max-width: 400px; margin: auto;">
+                    <h2 class="text-center mb-3"> Welcome back 🤩</h2>
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.username }}
+                        
                         </div>
-                    </div>
-                    <div class="form-group mt-4">
-                        <label for="id_password" style="font-size: 1.25rem; margin-bottom: 1rem;">Password</label>
-                        {{ form.password }}
-                        <div class="invalid-feedback">
-                            Please provide a valid password.
+                        <div class="form-group mt-4">
+                            {{ form.password }}
+                            
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3 mb-2" style="width: 100%;">Login</button>
-
-                    <hr class="my-2 mb-3">
-
-                    <!-- Google Sign-In Button -->
-                    <a href="{% url 'google_login' %}" class="btn btn-danger" style="width: 100%; display: flex; align-items: center; justify-content: center;">
-                        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" style="width: 20px; height: 20px; margin-right: 10px;">
-                        Sign in with Google
-                    </a>
-                </form>
+                        <button type="submit" class="btn btn-primary mt-3 mb-2" style="width: 100%;">Login</button>
+        
+                        <!-- Google Sign-In Button -->
+                        <a href="{% url 'google_login' %}" class="btn btn-danger" style="width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 10px;">
+                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" style="width: 20px; height: 20px; margin-right: 10px;">
+                            Sign in with Google
+                        </a>
     
-                <!-- Separator -->
-              
-    
+                        <hr class="my-2 mb-3">
+                       
+                        <div class="text-center mt-3">
+                            <a href="{% url 'signup' %}" style="color: blue; text-decoration: none;">Don't have an account? Sign up</a>
+                        </div>
+
+
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    <br>
+    <br>
+
+   
+    
+    
     
     
     
