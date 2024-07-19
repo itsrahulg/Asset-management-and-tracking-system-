@@ -92,7 +92,6 @@ body{
 }
 
 .navbar .icon-button:hover .nav-icon {
-    opacity: 0.8;
     transform: scale(1.2);
 
 }

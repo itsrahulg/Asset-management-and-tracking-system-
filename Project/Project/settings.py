@@ -1,4 +1,7 @@
 
+# settings.py
+LOGIN_URL = 'login'  # Name of your login URL
+
 
 import os
 

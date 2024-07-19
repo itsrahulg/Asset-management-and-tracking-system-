@@ -12,6 +12,7 @@ from .forms import CustomAuthenticationForm
 
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.decorators import login_required
 
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -116,13 +117,13 @@ def dashboard_view(request):
     else:
         return render(request, 'AMTSapp/user_dashboard.html')
 
-
+@login_required
 def addAsset(request):
     return render(request,'AMTSapp/add-asset.html')
-
+@login_required
 def updatelog(request):
     return render(request,'AMTSapp/update-log.html')
 
-
+@login_required
 def adduser(request):
     return render(request,'AMTSapp/add-superuser.html')
