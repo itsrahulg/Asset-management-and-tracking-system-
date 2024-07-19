@@ -12,17 +12,30 @@ from .forms import CustomAuthenticationForm
 
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.decorators import login_required
 
+
+#for admin creating other superusers
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
+from .forms import SuperUserCreationForm
+
+
+#for doing google sign in 
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.conf import settings
 import requests as http_requests
 
 # Create your views here.
+#---------------------------------------------------------------------
+
+
 
 def homepage(request):
     return render(request,'AMTSapp/index.html')
+
+
+
 
 
 def google_login(request):
@@ -91,6 +104,11 @@ def login_view(request):
     return render(request, 'AMTSapp/login.html', {'form': form})
 
 
+
+
+
+
+
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -105,9 +123,16 @@ def signup_view(request):
     return render(request, 'AMTSapp/signup.html', {'form': form})
 
 
+
+
+
 def logout_view(request):
     logout(request)
     return redirect('')
+
+
+
+
 
 
 @login_required
@@ -127,3 +152,25 @@ def updatelog(request):
 @login_required
 def adduser(request):
     return render(request,'AMTSapp/add-superuser.html')
+
+
+
+
+
+
+
+
+def is_superuser(user):
+    return user.is_superuser
+
+@user_passes_test(is_superuser)
+def create_superuser(request):
+    if request.method == 'POST':
+        form = SuperUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Superuser created successfully.')
+            return redirect('dashboard')
+    else:
+        form = SuperUserCreationForm()
+    return render(request, 'AMTSapp/create_superuser.html', {'form': form})

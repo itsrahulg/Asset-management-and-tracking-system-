@@ -12,5 +12,6 @@ urlpatterns = [
     path('google-login/', views.google_login, name='google_login'),
     path('oauth2callback/', views.google_callback, name='google_callback'),
     path('adduser',views.adduser,name="adduser"),
+    path('create-superuser/', views.create_superuser, name='create_superuser'),
     
 ]

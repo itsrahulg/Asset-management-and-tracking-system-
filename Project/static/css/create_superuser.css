@@ -1,0 +1,123 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+
+body{
+    background-image: url('/static/images/dashboard-bg.png');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+   
+     
+}
+
+main{
+    display:flex;
+    justify-content: center;
+
+}
+.navbar {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bg{
+    background: rgb(124,193,255);
+    background: linear-gradient(90deg, rgba(124,193,255,1) 0%, rgba(22,246,255,1) 100%);
+    padding:0.5rem;
+    margin:0px;
+    
+    
+}
+.navbar-toggler {
+    background-image: url("/static/images/hamburger_menu.png");
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    width: 40px; 
+    height: 40px; 
+}
+
+
+.logo-text{
+
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 30px;
+    font-weight: 700;
+    color:black;
+    margin-right: auto;
+    text-decoration: none;
+    color: inherit;
+
+}
+
+.logo-text:hover {
+    color: inherit; 
+    text-decoration: none; 
+}
+
+
+
+.icon-placeholder {
+    margin-left: 10px;
+}
+
+.nav-icon {
+    width: 20px; 
+    height: 20px; 
+}
+
+
+/* Center the form container */
+
+/* Form container styling */
+.card {
+    width: 100%;
+    
+    border: none;
+    border-radius: 10px;
+    background-color: #FFF8F3; /* Cream color */
+}
+
+.card-body {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.form-label {
+    font-size: 1.25rem;
+}
+
+.form-control-lg {
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-lg {
+    font-size: 1.25rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Box shadow for floating effect */
+.shadow-sm {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Margin adjustments */
+.my-5 {
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+}
