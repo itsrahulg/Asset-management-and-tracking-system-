@@ -19,7 +19,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container-fluid nav-bg">
-            <a class="logo-text" href="#">AssetGuard (super-user)</a>
+            <a class="logo-text" href="#">AssetGuard (Admin)</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""></span>
             </button>
@@ -29,16 +29,29 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-light" type="submit">Search</button>
                 </form>
-
-                
     
                 <div class="ms-2 d-flex align-items-center">
-                    <a href="{% url 'log' %}" class="btn login-button me-2">View Logs</a>
-                    <a href="{% url 'logout' %}" class="btn login-button">Logout</a>
+                    <a href="{% url 'addAsset' %}" class="btn icon-button me-2">
+                        <img src="{% static 'images/add-item.png' %}" alt="add item" class="nav-icon">
+                    </a>
+                   
+                    <a href="{% url 'log' %}" class="btn icon-button me-2">
+                        <img src="{% static 'images/history.png' %}" alt="view logs" class="nav-icon">
+                    </a>
+
+                    <a href="{% url 'adduser' %}" class="btn icon-button me-2">
+                        <img src="{% static 'images/add-user.png' %}" alt="add user" class="nav-icon">
+                    </a>
+                    
+                    <a href="{% url 'logout' %}" class="btn icon-button">
+                        <img src="{% static 'images/logout-icon.png' %}" alt="logout" class="nav-icon">
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
+    
+    
     
     
 

@@ -124,4 +124,5 @@ def updatelog(request):
     return render(request,'AMTSapp/update-log.html')
 
 
-
+def adduser(request):
+    return render(request,'AMTSapp/add-superuser.html')

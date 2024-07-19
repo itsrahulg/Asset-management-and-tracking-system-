@@ -11,5 +11,6 @@ urlpatterns = [
     path('log',views.updatelog,name="log"),
     path('google-login/', views.google_login, name='google_login'),
     path('oauth2callback/', views.google_callback, name='google_callback'),
+    path('adduser',views.adduser,name="adduser"),
     
 ]
