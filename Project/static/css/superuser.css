@@ -56,7 +56,7 @@ body{
     text-decoration: none; /* Keep the underline removed on hover */
 }
 
-.login-button,.signup-button{
+/* .login-button,.signup-button{
 
     color:whitesmoke;
     padding:5px 10px 5px ;
@@ -98,7 +98,7 @@ body{
     font-weight: 300;
     border-color: blue;
     
-}
+} */
 
 
 .floating-plus {
@@ -120,3 +120,6 @@ body{
     max-width: 100%;
     max-height: 100%;
 }
+
+
+
