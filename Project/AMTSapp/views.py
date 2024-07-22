@@ -12,7 +12,7 @@ from .forms import CustomAuthenticationForm
 
 from django.contrib.auth.decorators import login_required
 
-
+from .models import Asset
 
 #for admin creating other superusers
 from django.contrib.auth.decorators import user_passes_test
@@ -25,6 +25,12 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.conf import settings
 import requests as http_requests
+
+#to create a new asset
+from .forms import AddAssetForm
+
+
+
 
 # Create your views here.
 #---------------------------------------------------------------------
@@ -142,9 +148,7 @@ def dashboard_view(request):
     else:
         return render(request, 'AMTSapp/user_dashboard.html')
 
-@login_required
-def addAsset(request):
-    return render(request,'AMTSapp/add-asset.html')
+
 @login_required
 def updatelog(request):
     return render(request,'AMTSapp/update-log.html')
@@ -174,3 +178,29 @@ def create_superuser(request):
     else:
         form = SuperUserCreationForm()
     return render(request, 'AMTSapp/create_superuser.html', {'form': form})
+
+
+
+
+
+
+#view to add a new asset
+@login_required
+def add_asset(request):
+    if request.method == 'POST':
+        form = AddAssetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirect to a success page or the list of assets
+    else:
+        form = AddAssetForm()
+    return render(request, 'AMTSapp/add-asset.html', {'form': form})
+
+
+
+
+
+#assets by location
+def assets_by_location(request, location):
+    assets = Asset.objects.filter(location=location)
+    return render(request, 'AMTSapp/assets_by_location.html', {'assets': assets, 'location': location})

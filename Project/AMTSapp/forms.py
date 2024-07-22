@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import AuthenticationForm
 
+from .models import Asset
+
 
 #login form
 class CustomAuthenticationForm(AuthenticationForm):
@@ -37,6 +39,8 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Confirm Password'})
 
     
+
+
 
 
 #to create other admins in the app
@@ -70,3 +74,26 @@ class SuperUserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+
+
+
+
+
+
+#to input an asset into the database
+class AddAssetForm(forms.ModelForm):
+    class Meta:
+        model = Asset
+        fields = ['type_of_asset', 'specifications', 'date_of_purchase', 'make_and_model', 'stock_register_number', 'account_head', 'location']
+        widgets = {
+            'type_of_asset': forms.Select(attrs={'class': 'form-control'}),
+            'specifications': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'make_and_model': forms.TextInput(attrs={'class': 'form-control'}),
+            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+

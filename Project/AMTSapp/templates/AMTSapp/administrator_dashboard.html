@@ -17,7 +17,7 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-5">
         <div class="container-fluid nav-bg">
             <a class="logo-text" href="#">AssetGuard (Admin)</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +43,10 @@
                         <img src="{% static 'images/add-user.png' %}" alt="add user" class="nav-icon">
                     </a>
 
+                    <a href="" class="btn icon-button me-2">
+                        <img src="{% static 'images/question-mark.png' %}" alt="add item" class="nav-icon">
+                    </a>
+
                     <a href="{% url 'logout' %}" class="btn icon-button">
                         <img src="{% static 'images/logout-icon.png' %}" alt="logout" class="nav-icon">
                     </a>
@@ -50,19 +54,74 @@
             </div>
         </div>
     </nav>
+    <br>
+    <br>
     
     
-    
-    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-5">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="ISL Lab">
+                    <div class="card-body">
+                        <h5 class="card-title">Intelligent Systems Laboratory</h5>
+                        <a href="{% url 'assets_by_location' 'isl_lab' %}" class="btn btn-primary">View Assets</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="CC Lab">
+                    <div class="card-body">
+                        <h5 class="card-title">Computer Centre</h5>
+                        <a href="{% url 'assets_by_location' 'cc_lab' %}" class="btn btn-primary">View Assets</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Project Lab">
+                    <div class="card-body">
+                        <h5 class="card-title">Research/Project Lab</h5>
+                        <a href="{% url 'assets_by_location' 'project_lab' %}" class="btn btn-primary">View Assets</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="IBM Lab">
+                    <div class="card-body">
+                        <h5 class="card-title">IBM Lab</h5>
+                        <a href="{% url 'assets_by_location' 'ibm_lab' %}" class="btn btn-primary">View Assets</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="G1 Class">
+                    <div class="card-body">
+                        <h5 class="card-title">G1 Class</h5>
+                        <a href="{% url 'assets_by_location' 'g1_class' %}" class="btn btn-primary">View Assets</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="G2 Class">
+                    <div class="card-body">
+                        <h5 class="card-title">G2 Class</h5>
+                        <a href="{% url 'assets_by_location' 'g2_class' %}" class="btn btn-primary">View Assets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-   
-    
-   <main>
-    <a href="{% url 'addAsset' %}" class="floating-plus">
-        <img src="{% static 'images/plus.png' %}" alt="Plus Icon">
-    </a>
-   </main>
-
+    <main>
+        <a href="{% url 'addAsset' %}" class="floating-plus">
+            <img src="{% static 'images/plus.png' %}" alt="Plus Icon">
+        </a>
+    </main>
 
    
    

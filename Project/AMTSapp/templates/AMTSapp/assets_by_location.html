@@ -1,0 +1,37 @@
+<!-- assets_by_location.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assets by Location</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Assets in {{ location }}</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Type of Asset</th>
+                    <th>Specifications</th>
+                    <th>Date of Purchase</th>
+                    <th>Make and Model</th>
+                    <th>Stock Register Number</th>
+                    <th>Account Head</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in assets %}
+                <tr>
+                    <td>{{ asset.type_of_asset }}</td>
+                    <td>{{ asset.specifications }}</td>
+                    <td>{{ asset.date_of_purchase }}</td>
+                    <td>{{ asset.make_and_model }}</td>
+                    <td>{{ asset.stock_register_number }}</td>
+                    <td>{{ asset.account_head }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

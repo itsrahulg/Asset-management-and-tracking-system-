@@ -26,11 +26,52 @@
     
             <div class="collapse navbar-collapse" id="navbarsExample03">
                 <div class="ms-auto d-flex align-items-start flex-column flex-sm-row">
-               
+                    
+                    <div class="ms-2 d-flex align-items-center">
+                        <a href="" class="btn icon-button me-2">
+                            <img src="{% static 'images/question-mark.png' %}" alt="add item" class="nav-icon">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+
+    <div class="container mt-5 bg-light container-custom">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_type_of_asset">Type of Asset</label>
+                {{ form.type_of_asset }}
+            </div>
+            <div class="form-group">
+                <label for="id_specifications">Specifications</label>
+                {{ form.specifications }}
+            </div>
+            <div class="form-group">
+                <label for="id_date_of_purchase">Date of Purchase</label>
+                {{ form.date_of_purchase }}
+            </div>
+            <div class="form-group">
+                <label for="id_make_and_model">Make and Model</label>
+                {{ form.make_and_model }}
+            </div>
+            <div class="form-group">
+                <label for="id_stock_register_number">Stock Register Number</label>
+                {{ form.stock_register_number }}
+            </div>
+            <div class="form-group">
+                <label for="id_account_head">Account Head</label>
+                {{ form.account_head }}
+            </div>
+            <div class="form-group">
+                <label for="id_location">Location</label>
+                {{ form.location }}
+            </div>
+            <button type="submit" class="btn btn-primary add-button">Add Asset</button>
+        </form>
+    </div>
       
 
    
