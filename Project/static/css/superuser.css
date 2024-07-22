@@ -108,7 +108,7 @@ body{
 
 
 .container {
-    margin-top: 80px; /* Adjust this value to create space below the navbar */
+    margin-top: 100px; /* Adjust this value to create space below the navbar */
 }
 
 .card-img-top {
@@ -128,4 +128,13 @@ body{
 
 .card {
     transition: transform 0.3s ease;
+}
+
+
+
+.search-input {
+    border-radius: 50px; /* Makes the search bar pill-shaped */
+    width: 400px; /* Adjust the length of the search bar */
+    padding: 0.75rem 1.25rem; /* Adjust padding for better appearance */
+    height: 40px;
 }
