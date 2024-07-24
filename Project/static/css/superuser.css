@@ -130,6 +130,17 @@ body{
     transition: transform 0.3s ease;
 }
 
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-title {
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+}
+
 
 
 .search-input {
