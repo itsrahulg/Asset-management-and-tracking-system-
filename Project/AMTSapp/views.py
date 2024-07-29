@@ -191,7 +191,7 @@ def add_asset(request):
         form = AddAssetForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')  # Redirect to a success page or the list of assets
+            return redirect('addAsset')  
     else:
         form = AddAssetForm()
     return render(request, 'AMTSapp/add-asset.html', {'form': form})
@@ -203,4 +203,24 @@ def add_asset(request):
 #assets by location
 def assets_by_location(request, location):
     assets = Asset.objects.filter(location=location)
-    return render(request, 'AMTSapp/assets_by_location.html', {'assets': assets, 'location': location})
+    grouped_assets = {}
+    
+    for asset in assets:
+        asset_type = asset.type_of_asset
+        if asset_type not in grouped_assets:
+            grouped_assets[asset_type] = {}
+        
+        if asset_type == 'hardware':
+            hardware_type = asset.hardware_type or 'Unknown'
+            if hardware_type not in grouped_assets[asset_type]:
+                grouped_assets[asset_type][hardware_type] = []
+            grouped_assets[asset_type][hardware_type].append(asset)
+        else:
+            if 'Other' not in grouped_assets[asset_type]:
+                grouped_assets[asset_type]['Other'] = []
+            grouped_assets[asset_type]['Other'].append(asset)
+    
+    return render(request, 'AMTSapp/assets_by_location.html', {
+        'grouped_assets': grouped_assets,
+        'location': location
+    })

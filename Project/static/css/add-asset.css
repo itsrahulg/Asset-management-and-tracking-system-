@@ -8,7 +8,7 @@
 
 
 body{
-    background-image: url('/static/images/dashboard-bg.png');
+    background-image: url('/static/images/backgrounds/dashboard-bg.jpg');
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;

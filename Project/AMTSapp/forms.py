@@ -85,9 +85,24 @@ class SuperUserCreationForm(forms.ModelForm):
 class AddAssetForm(forms.ModelForm):
     class Meta:
         model = Asset
-        fields = ['type_of_asset', 'specifications', 'date_of_purchase', 'make_and_model', 'stock_register_number', 'account_head', 'location']
+        fields = [
+            'ASSET_ID', 'type_of_asset', 'hardware_type', 'brand', 'model', 
+            'processor', 'ram', 'rom', 'motherboard', 'power_supply', 
+            'graphics_card', 'specifications', 'date_of_purchase', 
+            'make_and_model', 'stock_register_number', 'account_head', 'location'
+        ]
         widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
             'type_of_asset': forms.Select(attrs={'class': 'form-control'}),
+            'hardware_type': forms.Select(attrs={'class': 'form-control'}),
+            'brand': forms.TextInput(attrs={'class': 'form-control'}),
+            'model': forms.TextInput(attrs={'class': 'form-control'}),
+            'processor': forms.TextInput(attrs={'class': 'form-control'}),
+            'ram': forms.TextInput(attrs={'class': 'form-control'}),
+            'rom': forms.TextInput(attrs={'class': 'form-control'}),
+            'motherboard': forms.TextInput(attrs={'class': 'form-control'}),
+            'power_supply': forms.TextInput(attrs={'class': 'form-control'}),
+            'graphics_card': forms.TextInput(attrs={'class': 'form-control'}),
             'specifications': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'make_and_model': forms.TextInput(attrs={'class': 'form-control'}),
@@ -95,5 +110,15 @@ class AddAssetForm(forms.ModelForm):
             'account_head': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.Select(attrs={'class': 'form-control'}),
         }
-
-
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['hardware_type'].required = False
+        self.fields['processor'].required = False
+        self.fields['ram'].required = False
+        self.fields['rom'].required = False
+        self.fields['motherboard'].required = False
+        self.fields['power_supply'].required = False
+        self.fields['graphics_card'].required = False
+        self.fields['brand'].required = False
+        self.fields['model'].required = False
