@@ -1,4 +1,3 @@
-# models.py
 from django.db import models
 
 class Asset(models.Model):
@@ -6,6 +5,7 @@ class Asset(models.Model):
         ('hardware', 'Hardware'),
         ('software', 'Software'),
         ('furniture', 'Furniture'),
+        ('book', 'Book'),
         ('other', 'Other'),
     ]
 
@@ -14,8 +14,12 @@ class Asset(models.Model):
         ('cc_lab', 'CC Lab'),
         ('project_lab', 'Project Lab'),
         ('ibm_lab', 'IBM Lab'),
-        ('g1_class', 'G1 Class'),
-        ('g2_class', 'G2 Class'),
+        ('g1_class_first_year', 'G1 Class First Year'),
+        ('g1_class_second_year', 'G1 Class Second Year'),
+        ('g2_class_first_year', 'G2 Class First Year'),
+        ('g2_class_second_year', 'G2 Class Second Year'),
+        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
+        ('library', 'Library'),
     ]
 
     type_of_asset = models.CharField(max_length=50, choices=ASSET_TYPES)
