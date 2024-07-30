@@ -22,9 +22,8 @@
         <div class="container-fluid nav-bg">
             <a class="logo-text" href="#">AssetGuard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class=""></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
-    
             <div class="collapse navbar-collapse" id="navbarsExample03">
                 <div class="ms-auto d-flex align-items-start flex-column flex-sm-row">
                     <a href="{% url '' %}" class="btn login-button me-2">Home</a>
@@ -33,50 +32,38 @@
             </div>
         </div>
     </nav>
-      
 
-    <div class="container my-3 login-box" style="background-color: #FFF8F3; /* Cream color */">
+    <div class="container my-3 login-box">
         <div class="row">
-            <div class="col-md-6 d-flex justify-content-md-center order-md-2">
+            <div class="col-md-6 order-md-2 d-flex justify-content-center">
                 <img src="{% static 'images/login-img.png' %}" alt="Image Description" class="img-fluid custom-img">
             </div>
-            <div class="col-md-6 order-md-1">
-                <div class="login-form" style="background-color: white; padding: 2rem; border-radius: 8px; width: 100%; max-width: 400px; margin: auto;">
+            <div class="col-md-6 order-md-1 d-flex align-items-center">
+                <div class="login-form">
                     <h2 class="text-center mb-3"> Welcome back 🤩</h2>
                     <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
                         <div class="form-group">
                             {{ form.username }}
-                        
                         </div>
                         <div class="form-group mt-4">
                             {{ form.password }}
-                            
                         </div>
                         <button type="submit" class="btn btn-primary mt-3 mb-2" style="width: 100%;">Login</button>
-        
-                        <!-- Google Sign-In Button -->
-                        <a href="{% url 'google_login' %}" class="btn btn-danger" style="width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 10px;">
-                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" style="width: 20px; height: 20px; margin-right: 10px;">
+                        <a href="{% url 'google_login' %}" class="btn btn-danger google-signin-btn">
+                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="google-logo">
                             Sign in with Google
                         </a>
-    
                         <hr class="my-2 mb-3">
-                       
                         <div class="text-center mt-3">
-                            <a href="{% url 'signup' %}" style="color: blue; text-decoration: none;">Don't have an account? Sign up</a>
+                            <a href="{% url 'signup' %}" class="signup-link">Don't have an account? Sign up</a>
                         </div>
-
-
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <br>
-    <br>
+   
 
    
     
