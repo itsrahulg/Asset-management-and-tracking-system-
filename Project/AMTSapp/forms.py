@@ -86,10 +86,10 @@ class AddAssetForm(forms.ModelForm):
     class Meta:
         model = Asset
         fields = [
-            'ASSET_ID', 'type_of_asset', 'hardware_type', 'brand', 'model', 
-            'processor', 'ram', 'rom', 'motherboard', 'power_supply', 
-            'graphics_card', 'specifications', 'date_of_purchase', 
-            'make_and_model', 'stock_register_number', 'account_head', 'location'
+            'ASSET_ID', 'type_of_asset', 'hardware_type', 'brand', 'model',
+            'processor', 'ram', 'rom', 'motherboard', 'power_supply',
+            'graphics_card', 'date_of_purchase', 'stock_register_number', 
+            'account_head', 'location'
         ]
         widgets = {
             'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
@@ -103,14 +103,12 @@ class AddAssetForm(forms.ModelForm):
             'motherboard': forms.TextInput(attrs={'class': 'form-control'}),
             'power_supply': forms.TextInput(attrs={'class': 'form-control'}),
             'graphics_card': forms.TextInput(attrs={'class': 'form-control'}),
-            'specifications': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'make_and_model': forms.TextInput(attrs={'class': 'form-control'}),
             'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
             'account_head': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.Select(attrs={'class': 'form-control'}),
         }
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['hardware_type'].required = False

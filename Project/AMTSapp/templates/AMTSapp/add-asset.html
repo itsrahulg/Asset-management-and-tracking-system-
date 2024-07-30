@@ -47,63 +47,92 @@
     <div class="container mt-5 bg-light container-custom">
         <form method="post" novalidate>
             {% csrf_token %}
-            <div class="form-group">
-                <label for="id_ASSET_ID">Asset ID</label>
-                {{ form.ASSET_ID }}
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="id_ASSET_ID">Asset ID</label>
+                    {{ form.ASSET_ID }}
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="id_type_of_asset">Type of Asset</label>
+                    {{ form.type_of_asset }}
+                </div>
             </div>
-            <div class="form-group">
-                <label for="id_type_of_asset">Type of Asset</label>
-                {{ form.type_of_asset }}
+            <div class="row" id="hardware_type_group" style="display: none;">
+                <div class="col-md-12 form-group">
+                    <label for="id_hardware_type">Hardware Type</label>
+                    {{ form.hardware_type }}
+                </div>
             </div>
-            <div class="form-group" id="hardware_type_group" style="display: none;">
-                <label for="id_hardware_type">Hardware Type</label>
-                {{ form.hardware_type }}
+            <div class="row" id="detailed_hardware_fields" style="display: none;">
+                <div class="col-md-12 form-group">
+                    <label for="id_processor">Processor</label>
+                    {{ form.processor }}
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="id_ram">RAM</label>
+                    {{ form.ram }}
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="id_rom">ROM</label>
+                    {{ form.rom }}
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="id_graphics_card">Graphics Card</label>
+                    {{ form.graphics_card }}
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="id_motherboard">Motherboard</label>
+                    {{ form.motherboard }}
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="id_power_supply">Power Supply</label>
+                    {{ form.power_supply }}
+                </div>
             </div>
-            <div class="form-group" id="detailed_hardware_fields" style="display: none;">
-                <label for="id_processor">Processor</label>
-                {{ form.processor }}
-                <label for="id_ram">RAM</label>
-                {{ form.ram }}
-                <label for="id_rom">ROM</label>
-                {{ form.rom }}
-                <label for="id_graphics_card">Graphics Card</label>
-                {{ form.graphics_card }}
-                <label for="id_motherboard">Motherboard</label>
-                {{ form.motherboard }}
-                <label for="id_power_supply">Power Supply</label>
-                {{ form.power_supply }}
+            <div class="row" id="brand_model_fields" style="display: none;">
+                <div class="col-md-12 form-group">
+                    <label for="id_brand">Brand</label>
+                    {{ form.brand }}
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="id_model">Model</label>
+                    {{ form.model }}
+                </div>
             </div>
-            <div class="form-group" id="brand_model_fields" style="display: none;">
-                <label for="id_brand">Brand</label>
-                {{ form.brand }}
-                <label for="id_model">Model</label>
-                {{ form.model }}
+            <div class="row" id="generic_brand_model_fields" style="display: none;">
+                <div class="col-md-12 form-group">
+                    <label for="id_brand">Brand</label>
+                    {{ form.brand }}
+                </div>
+                <div class="col-md-12 form-group">
+                    <label for="id_model">Model</label>
+                    {{ form.model }}
+                </div>
             </div>
-            <div class="form-group" id="generic_brand_model_fields" style="display: none;">
-                <label for="id_brand">Brand</label>
-                {{ form.brand }}
-                <label for="id_model">Model</label>
-                {{ form.model }}
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="id_date_of_purchase">Date of Purchase</label>
+                    {{ form.date_of_purchase }}
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="id_stock_register_number">Stock Register Number</label>
+                    {{ form.stock_register_number }}
+                </div>
             </div>
-            <div class="form-group">
-                <label for="id_date_of_purchase">Date of Purchase</label>
-                {{ form.date_of_purchase }}
-            </div>
-            <div class="form-group">
-                <label for="id_stock_register_number">Stock Register Number</label>
-                {{ form.stock_register_number }}
-            </div>
-            <div class="form-group">
-                <label for="id_account_head">Account Head</label>
-                {{ form.account_head }}
-            </div>
-            <div class="form-group">
-                <label for="id_location">Location</label>
-                {{ form.location }}
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="id_account_head">Account Head</label>
+                    {{ form.account_head }}
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="id_location">Location</label>
+                    {{ form.location }}
+                </div>
             </div>
             <button type="submit" class="btn btn-primary add-button">Add Asset</button>
         </form>
     </div>
+    
       
 
    

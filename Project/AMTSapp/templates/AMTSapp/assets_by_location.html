@@ -7,20 +7,22 @@
 <body>
     <div class="container mt-5">
         <h2>Assets in {{ location }}</h2>
-
+        
         {% for asset_type, sub_types in grouped_assets.items %}
             <h3>{{ asset_type|title }}</h3>
-
+            
             {% for sub_type, assets in sub_types.items %}
-                <h4>{{ sub_type|title }}</h4>
+                <h4 class="mt-4">{{ sub_type|title }}</h4>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            
+                            <th>Asset ID</th>
+                            <th>Brand</th>
+                            <th>Model</th>
                             <th>Date of Purchase</th>
                             <th>Stock Register Number</th>
                             <th>Account Head</th>
-                            {% if asset_type == 'hardware' %}
+                            {% if asset_type == 'hardware' and sub_type == 'computer' %}
                                 <th>Processor</th>
                                 <th>RAM</th>
                                 <th>ROM</th>
@@ -33,11 +35,13 @@
                     <tbody>
                         {% for asset in assets %}
                             <tr>
-                                
+                                <td>{{ asset.ASSET_ID }}</td>
+                                <td>{{ asset.brand }}</td>
+                                <td>{{ asset.model }}</td>
                                 <td>{{ asset.date_of_purchase }}</td>
                                 <td>{{ asset.stock_register_number }}</td>
                                 <td>{{ asset.account_head }}</td>
-                                {% if asset_type == 'hardware' %}
+                                {% if asset_type == 'hardware' and sub_type == 'computer' %}
                                     <td>{{ asset.processor }}</td>
                                     <td>{{ asset.ram }}</td>
                                     <td>{{ asset.rom }}</td>
