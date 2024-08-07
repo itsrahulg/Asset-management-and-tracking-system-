@@ -1,66 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assets by Location</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Assets in {{ location }}</h2>
-        
-        {% for asset_type, sub_types in grouped_assets.items %}
-            <h3>{{ asset_type|title }}</h3>
-            
-            {% for sub_type, assets in sub_types.items %}
-                <h4 class="mt-4">{{ sub_type|title }}</h4>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Asset ID</th>
-                            <th>Brand</th>
-                            <th>Model</th>
-                            <th>Date of Purchase</th>
-                            <th>Stock Register Number</th>
-                            <th>Account Head</th>
-                            {% if asset_type == 'hardware' and sub_type == 'computer' %}
-                                <th>Processor</th>
-                                <th>RAM</th>
-                                <th>ROM</th>
-                                <th>Motherboard</th>
-                                <th>Power Supply</th>
-                                <th>Graphics Card</th>
-                            {% endif %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for asset in assets %}
-                            <tr>
-                                <td>{{ asset.ASSET_ID }}</td>
-                                <td>{{ asset.brand }}</td>
-                                <td>{{ asset.model }}</td>
-                                <td>{{ asset.date_of_purchase }}</td>
-                                <td>{{ asset.stock_register_number }}</td>
-                                <td>{{ asset.account_head }}</td>
-                                {% if asset_type == 'hardware' and sub_type == 'computer' %}
-                                    <td>{{ asset.processor }}</td>
-                                    <td>{{ asset.ram }}</td>
-                                    <td>{{ asset.rom }}</td>
-                                    <td>{{ asset.motherboard }}</td>
-                                    <td>{{ asset.power_supply }}</td>
-                                    <td>{{ asset.graphics_card }}</td>
-                                {% endif %}
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="12">No assets available</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    <div class="container-fluid mt-5">
+        <h1 class="mb-4 text-center">Assets in {{ location }}</h1>
+        <br>
+        <br>
+        <h2 class="mt-4">Computer Hardware Assets</h2>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Asset ID</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Processor</th>
+                <th>Processor Generation</th>
+                <th>RAM</th>
+                <th>ROM</th>
+                <th>Motherboard</th>
+                <th>Power Supply</th>
+                <th>Graphics Card</th>
+                <th>Date of Purchase</th>
+                <th>Stock Register Number</th>
+                <th>Account Head</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in grouped_assets.computer_hardware %}
+                <tr>
+                    <td>{{ asset.ASSET_ID }}</td>
+                    <td>{{ asset.brand }}</td>
+                    <td>{{ asset.model }}</td>
+                    <td>{{ asset.processor }}</td>
+                    <td>{{ asset.processor_generation }}</td>
+                    <td>{{ asset.ram }}</td>
+                    <td>{{ asset.rom }}</td>
+                    <td>{{ asset.motherboard }}</td>
+                    <td>{{ asset.power_supply }}</td>
+                    <td>{{ asset.graphics_card }}</td>
+                    <td>{{ asset.date_of_purchase }}</td>
+                    <td>{{ asset.stock_register_number }}</td>
+                    <td>{{ asset.account_head }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="13" class="text-center">No computer hardware assets found.</td>
+                </tr>
             {% endfor %}
-        {% empty %}
-            <p>No assets found for this location.</p>
-        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br>
+<h2 class="mt-4">Projector Assets</h2>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Asset ID</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Resolution</th>
+                <th>Lumens</th>
+                <th>Connectivity</th>
+                <th>Date of Purchase</th>
+                <th>Stock Register Number</th>
+                <th>Account Head</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in grouped_assets.projector %}
+                <tr>
+                    <td>{{ asset.ASSET_ID }}</td>
+                    <td>{{ asset.brand }}</td>
+                    <td>{{ asset.model }}</td>
+                    <td>{{ asset.resolution }}</td>
+                    <td>{{ asset.lumens }}</td>
+                    <td>{{ asset.connectivity }}</td>
+                    <td>{{ asset.date_of_purchase }}</td>
+                    <td>{{ asset.stock_register_number }}</td>
+                    <td>{{ asset.account_head }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center">No projector assets found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<br>
+
+        <h2 class="mt-4">Software Assets</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Software Version</th>
+                        <th>Date of Purchase</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in grouped_assets.software %}
+                        <tr>
+                            <td>{{ asset.ASSET_ID }}</td>
+                            <td>{{ asset.brand }}</td>
+                            <td>{{ asset.model }}</td>
+                            <td>{{ asset.software_version }}</td>
+                            <td>{{ asset.date_of_purchase }}</td>
+                            <td>{{ asset.stock_register_number }}</td>
+                            <td>{{ asset.account_head }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center">No software assets found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+
+
+       <br>
+
+       <h2 class="mt-4">Books</h2>
+       <div class="table-responsive">
+           <table class="table table-bordered">
+               <thead>
+                   <tr>
+                       <th>Asset ID</th>
+                       <th>Title</th>
+                       <th>Publisher</th>
+                       <th>Author</th>
+                       <th>Publishing House</th>
+                       <th>Edition</th>
+                       <th>Date of Purchase</th>
+                       <th>Stock Register Number</th>
+                       <th>Account Head</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   {% for book in grouped_assets.books %}
+                       <tr>
+                           <td>{{ book.ASSET_ID }}</td>
+                           <td>{{ book.title }}</td>
+                           <td>{{ book.publisher }}</td>
+                           <td>{{ book.author }}</td>
+                           <td>{{ book.publishing_house }}</td>
+                           <td>{{ book.edition }}</td>
+                           <td>{{ book.date_of_purchase }}</td>
+                           <td>{{ book.stock_register_number }}</td>
+                           <td>{{ book.account_head }}</td>
+                       </tr>
+                   {% empty %}
+                       <tr>
+                           <td colspan="9" class="text-center">No books found at this location.</td>
+                       </tr>
+                   {% endfor %}
+               </tbody>
+           </table>
+       </div>
+       
+        
+
+
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

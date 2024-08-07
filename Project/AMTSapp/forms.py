@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import AuthenticationForm
 
-from .models import Asset
+
 
 
 #login form
@@ -81,42 +81,130 @@ class SuperUserCreationForm(forms.ModelForm):
 
 
 
-#to input an asset into the database
-class AddAssetForm(forms.ModelForm):
+#to input an software asset into the database
+from .models import Software
+
+class SoftwareForm(forms.ModelForm):
     class Meta:
-        model = Asset
+        model = Software
         fields = [
-            'ASSET_ID', 'type_of_asset', 'hardware_type', 'brand', 'model',
-            'processor', 'ram', 'rom', 'motherboard', 'power_supply',
-            'graphics_card', 'date_of_purchase', 'stock_register_number', 
+            'ASSET_ID',
+            'brand',
+            'model',
+            'date_of_purchase',
+            'stock_register_number',
+            'account_head',
+            'location',
+            'type_of_asset',
+            'software_version',
+        ]
+        widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
+            'brand': forms.TextInput(attrs={'class': 'form-control'}),
+            'model': forms.TextInput(attrs={'class': 'form-control'}),
+            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.Select(attrs={'class': 'form-control'}),
+            'type_of_asset': forms.HiddenInput(attrs={'value': 'software'}),  # Hidden field with default value
+            'software_version': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SoftwareForm, self).__init__(*args, **kwargs)
+        # Optional: Customize form layout or field attributes here
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+
+
+
+
+#to input computer hardware into the database
+from .models import ComputerHardware
+
+class ComputerHardwareForm(forms.ModelForm):
+    class Meta:
+        model = ComputerHardware
+        fields = [
+            'ASSET_ID', 'hardware_type', 'brand', 'model', 'processor',
+            'processor_generation', 'ram', 'rom', 'motherboard', 'power_supply',
+            'graphics_card', 'date_of_purchase', 'stock_register_number',
             'account_head', 'location'
         ]
         widgets = {
             'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
-            'type_of_asset': forms.Select(attrs={'class': 'form-control'}),
-            'hardware_type': forms.Select(attrs={'class': 'form-control'}),
+            'hardware_type': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
             'brand': forms.TextInput(attrs={'class': 'form-control'}),
             'model': forms.TextInput(attrs={'class': 'form-control'}),
-            'processor': forms.TextInput(attrs={'class': 'form-control'}),
-            'ram': forms.TextInput(attrs={'class': 'form-control'}),
+            'processor': forms.Select(attrs={'class': 'form-select'}),
+            'processor_generation': forms.Select(attrs={'class': 'form-select'}),
+            'ram': forms.Select(attrs={'class': 'form-select'}),
             'rom': forms.TextInput(attrs={'class': 'form-control'}),
             'motherboard': forms.TextInput(attrs={'class': 'form-control'}),
             'power_supply': forms.TextInput(attrs={'class': 'form-control'}),
             'graphics_card': forms.TextInput(attrs={'class': 'form-control'}),
-            'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+
+
+
+
+
+#to input projector data into database
+from .models import Projector
+
+class ProjectorForm(forms.ModelForm):
+    class Meta:
+        model = Projector
+        fields = [
+            'ASSET_ID', 'brand', 'model', 'resolution', 'lumens',
+            'contrast_ratio', 'connectivity', 'lamp_life_hours',
+            'date_of_purchase', 'stock_register_number', 'account_head',
+            'location', 'type_of_asset'
+        ]
+        widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
+            'type_of_asset': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
+            'brand': forms.TextInput(attrs={'class': 'form-control'}),
+            'model': forms.TextInput(attrs={'class': 'form-control'}),
+            'resolution': forms.Select(attrs={'class': 'form-control'}),
+            'lumens': forms.NumberInput(attrs={'class': 'form-control'}),
+            'contrast_ratio': forms.TextInput(attrs={'class': 'form-control'}),
+            'connectivity': forms.Select(attrs={'class': 'form-control'}),
+            'lamp_life_hours': forms.NumberInput(attrs={'class': 'form-control'}),
+            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.Select(attrs={'class': 'form-control'}),
+            
+        }
+
+
+
+
+
+
+#to input the books into the database
+from .models import Books
+
+class BooksForm(forms.ModelForm):
+    class Meta:
+        model = Books
+        fields = ['ASSET_ID', 'title', 'publisher', 'author', 'publishing_house', 'edition', 'date_of_purchase', 'stock_register_number', 'account_head', 'location']
+        widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'publisher': forms.TextInput(attrs={'class': 'form-control'}),
+            'author': forms.TextInput(attrs={'class': 'form-control'}),
+            'publishing_house': forms.TextInput(attrs={'class': 'form-control'}),
+            'edition': forms.TextInput(attrs={'class': 'form-control'}),
+            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
             'account_head': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.Select(attrs={'class': 'form-control'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['hardware_type'].required = False
-        self.fields['processor'].required = False
-        self.fields['ram'].required = False
-        self.fields['rom'].required = False
-        self.fields['motherboard'].required = False
-        self.fields['power_supply'].required = False
-        self.fields['graphics_card'].required = False
-        self.fields['brand'].required = False
-        self.fields['model'].required = False

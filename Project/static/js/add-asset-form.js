@@ -1,39 +1,36 @@
-function updateForm() {
-    const assetType = document.getElementById('id_type_of_asset').value;
-    const hardwareType = document.getElementById('id_hardware_type').value;
-
-    const hardwareTypeField = document.getElementById('hardware_type_group');
-    const detailedHardwareFields = document.getElementById('detailed_hardware_fields');
-    const brandModelFields = document.getElementById('brand_model_fields');
-    const genericBrandModelFields = document.getElementById('generic_brand_model_fields');
-
-    // Show or hide fields based on asset type
-    if (assetType === 'hardware') {
-        hardwareTypeField.style.display = 'block';
-
-        if (hardwareType === 'computer') {
-            detailedHardwareFields.style.display = 'block';
-            brandModelFields.style.display = 'block';
-            genericBrandModelFields.style.display = 'none';
-        } else if (hardwareType) {
-            detailedHardwareFields.style.display = 'none';
-            brandModelFields.style.display = 'block';
-            genericBrandModelFields.style.display = 'none';
-        } else {
-            detailedHardwareFields.style.display = 'none';
-            brandModelFields.style.display = 'none';
-            genericBrandModelFields.style.display = 'none';
-        }
-    } else {
-        hardwareTypeField.style.display = 'none';
-        detailedHardwareFields.style.display = 'none';
-        brandModelFields.style.display = 'none';
-        genericBrandModelFields.style.display = 'block';
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('id_type_of_asset').addEventListener('change', updateForm);
-    document.getElementById('id_hardware_type').addEventListener('change', updateForm);
-    updateForm(); // Initialize form state
+    const typeOfAssetSelect = document.getElementById('id_type_of_asset');
+    const hardwareTypeContainer = document.getElementById('hardware_type_container');
+    const hardwareFields = document.getElementById('hardware_fields');
+    const hardwareTypeSelect = document.getElementById('id_hardware_type');
+    const allDynamicFields = document.querySelectorAll('.dynamic-fields');
+
+    // Show/hide hardware type container based on asset type selection
+    typeOfAssetSelect.addEventListener('change', function() {
+        const selectedType = this.value;
+        if (selectedType === 'hardware') {
+            hardwareTypeContainer.style.display = 'block';
+        } else {
+            hardwareTypeContainer.style.display = 'none';
+            hardwareFields.style.display = 'none'; // Hide all hardware fields
+        }
+
+        // Hide all other dynamic fields
+        allDynamicFields.forEach(field => field.style.display = 'none');
+    });
+
+    // Show/hide specific hardware fields based on hardware type selection
+    hardwareTypeSelect.addEventListener('change', function() {
+        const selectedHardwareType = this.value;
+        hardwareFields.style.display = selectedHardwareType ? 'block' : 'none';
+        
+        // Hide all specific hardware fields
+        allDynamicFields.forEach(field => field.style.display = 'none');
+
+        // Show fields for the selected hardware type
+        const selectedFields = document.getElementById(selectedHardwareType + '_fields');
+        if (selectedFields) {
+            selectedFields.style.display = 'block';
+        }
+    });
 });

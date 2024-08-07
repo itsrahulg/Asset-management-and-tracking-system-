@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+ 
+    <div class="container">
+        
+        <div class="container mt-5">
+            <h1 class="mb-4">All Assets</h1>
+            
+            <!-- Table for displaying a single row -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Serial No</th>
+                        <th>Type of Asset</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Software</td>
+                        <td>
+                            <!-- Button to add new software -->
+                            <a href="{% url 'software_form' %}" class="btn btn-primary">Add</a>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>2</td>
+                        <td>Computer Hardware</td>
+                        <td>
+                            <!-- Button to add new software -->
+                            <a href="{% url 'add_computer_hardware' %}" class="btn btn-primary">Add</a>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>3</td>
+                        <td>Projector</td>
+                        <td>
+                            <!-- Button to add new software -->
+                            <a href="{% url 'add_projector' %}" class="btn btn-primary">Add</a>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>4</td>
+                        <td>Books</td>
+                        <td>
+                            <!-- Button to add new software -->
+                            <a href="{% url 'add_book' %}" class="btn btn-primary">Add</a>
+                        </td>
+                    </tr>
+
+
+
+
+
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+    
+        
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
