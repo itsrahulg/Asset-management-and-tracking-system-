@@ -5,7 +5,7 @@
 }
 
 body {
-    /* background-image: url('/static/images/backgrounds/dashboard-bg.jpg'); */
+    background-image: url('/static/images/backgrounds/nav-option-bg.jpg');
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;

@@ -8,12 +8,11 @@
 
 
 body{
-    background-image: url('/static/images/dashboard-bg.png');
+    background-image: url('/static/images/backgrounds/nav-option-bg.jpg');
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
-   
      
 }
 

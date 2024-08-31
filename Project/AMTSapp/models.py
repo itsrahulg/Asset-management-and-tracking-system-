@@ -14,13 +14,13 @@ class Software(models.Model):
         ('library', 'Library'),
     ]
 
-    ASSET_ID = models.CharField(max_length=50, default='TEMP_ID')
-    brand = models.CharField(max_length=50, blank=True, default='Unknown Brand')
-    model = models.CharField(max_length=50, blank=True, default='Unknown Model')
+    ASSET_ID = models.CharField(max_length=50, default='SW-XXX')
+    brand = models.CharField(max_length=50, blank=True, default='Brand name')
+    model = models.CharField(max_length=50, blank=True, default='Model number')
     date_of_purchase = models.DateField(default='2000-01-01')  # Default to a date in the past
-    stock_register_number = models.CharField(max_length=50, default='0000')
-    account_head = models.CharField(max_length=100, default='Default Account Head')
-    location = models.CharField(max_length=50, choices=LOCATIONS, default='isl_lab')
+    stock_register_number = models.CharField(max_length=50, default='0')
+    account_head = models.CharField(max_length=100, default='Acc Head')
+    location = models.CharField(max_length=50, choices=LOCATIONS,)
     
     type_of_asset = models.CharField(max_length=50, default='software')
     software_version = models.CharField(max_length=50, blank=True, null=True, default='1.0')
@@ -84,8 +84,8 @@ class ComputerHardware(models.Model):
         ('15th Gen', '15th Gen'),
     ]
     
-        ASSET_ID = models.CharField(max_length=50, default='TEMP_ID')
-        hardware_type = models.CharField(max_length=50, default='computer')
+        ASSET_ID = models.CharField(max_length=50, default='CHW-XXX')
+        hardware_type = models.CharField(max_length=50, default='Computer')
         brand = models.CharField(max_length=50, blank=True)
         model = models.CharField(max_length=50, blank=True)
         processor = models.CharField(max_length=50, choices=PROCESSOR_BRANDS)
@@ -98,8 +98,8 @@ class ComputerHardware(models.Model):
 
         date_of_purchase = models.DateField(default='2000-01-01')  # Default to a date in the past
         stock_register_number = models.CharField(max_length=50, default='0000')
-        account_head = models.CharField(max_length=100, default='Default Account Head')
-        location = models.CharField(max_length=50, choices=LOCATIONS, default='isl_lab')
+        account_head = models.CharField(max_length=100, default='Acc Head')
+        location = models.CharField(max_length=50, choices=LOCATIONS,)
         
 
         def __str__(self):

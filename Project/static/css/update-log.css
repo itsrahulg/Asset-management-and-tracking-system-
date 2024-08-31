@@ -1,15 +1,19 @@
-* {
+*{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    
 }
 
-body {
+
+
+body{
     background-image: url('/static/images/backgrounds/nav-option-bg.jpg');
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
+     
 }
 
 .navbar {
@@ -17,13 +21,14 @@ body {
     padding: 0;
 }
 
-.nav-bg {
+.nav-bg{
     background: rgb(124,193,255);
     background: linear-gradient(90deg, rgba(124,193,255,1) 0%, rgba(22,246,255,1) 100%);
-    padding: 0.5rem;
-    margin: 0px;
+    padding:0.5rem;
+    margin:0px;
+    
+    
 }
-
 .navbar-toggler {
     background-image: url("/static/images/hamburger_menu.png");
     background-size: contain; 
@@ -32,52 +37,26 @@ body {
     height: 40px; 
 }
 
-.logo-text {
+
+.logo-text{
+
     font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
     font-size: 30px;
     font-weight: 700;
-    color: black;
+    color:black;
     margin-right: auto;
     text-decoration: none;
     color: inherit;
+
 }
 
 .logo-text:hover {
-    color: inherit; 
-    text-decoration: none; 
+    color: inherit; /* Keep the same color on hover */
+    text-decoration: none; /* Keep the underline removed on hover */
 }
 
-.icon-placeholder {
-    margin-left: 10px;
-}
 
-.nav-icon {
-    width: 20px; 
-    height: 20px; 
-}
-
-.container-custom {
-    background-color: #FFF8F3; /* Cream color */
-    border-radius: 15px;
-    padding: 30px;
-    margin: auto;
-    max-width: 900px; /* Increased max-width for a wider form */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-control-custom {
-    width: 100%;
-    max-width: 500px;
-}
-
-.add-button {
-    width: 100%;
-}
 
 .navbar .icon-button {
     background: none;
@@ -96,11 +75,40 @@ body {
 
 .navbar .icon-button:hover .nav-icon {
     transform: scale(1.2);
+
 }
 
-label {
-    font-size: 20px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.navbar .form-control {
+    max-width: 200px;
 }
 
 
+.search-input {
+    border-radius: 20px; /* Makes the search bar pill-shaped */
+    width: 400px; /* Adjust the length of the search bar */
+    padding: 0.75rem 1.25rem; /* Adjust padding for better appearance */
+    height: 40px;
+}
+
+
+
+
+.navbar .icon-button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar .icon-button .nav-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-left: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar .icon-button:hover .nav-icon {
+    transform: scale(1.2);
+
+}
