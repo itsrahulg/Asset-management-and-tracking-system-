@@ -52,18 +52,24 @@ body{
     text-decoration: none; /* Keep the underline removed on hover */
 }
 
-/* Navigation Links */
 .navbar-nav {
     margin: 0 auto; /* Center the nav links */
 }
 
 .nav-link {
-    color: black;
+    color: black; /* Ensure nav links are black */
     padding: 0.5rem 1rem;
     font-size: 18px;
     font-weight: 600;
+    transition: color 0.3s, text-decoration 0.3s;
 }
 
+.nav-link:hover, .nav-link.active {
+
+    transform: scale(1.1); /* Slightly increases the size of the text */
+    transition: transform 0.2s ease-in-out; /* Smooth transition */
+    color: black !important;
+}
 
 /* Button Styling */
 .login-button, .signup-button {
@@ -76,7 +82,7 @@ body{
     transition: background-color 0.3s, color 0.3s;
     background-color: #478CCF;
     border: none; /* Remove border */
-    margin: 0 auto;
+    margin-left: 1rem;
 }
 
 .login-button:hover, .signup-button:hover {
@@ -117,6 +123,10 @@ main{
 
 
 
+
+
+
+
 /* card styling and scroll up and scroll down animation */
 .custom-card {
     width: 90%; /* Adjust the card width */
@@ -144,6 +154,10 @@ main{
     opacity: 0; /* Hide the card */
     transform: translateY(20px); /* Move the card down slightly */
 }
+
+
+
+
 
 
 
@@ -199,6 +213,8 @@ main{
 
 
 
+
+
 /* Typewriter effect */
 h1 {
     display: flex;
@@ -229,25 +245,47 @@ h1 {
 
 
 
-/* css code for the image slider */
+
+
+
+
+
+
+/* General carousel styling */
 .carousel {
     background-color: white;
-    border-radius: 15px;
+    border-radius: 15px; /* Rounded corners for the carousel */
+    opacity: 0; /* Initially hidden */
+    transform: translateY(100%); /* Initially out of view (scroll up) */
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Transition for scroll effect */
+    width: 1000px; /* Set the desired width of the carousel */
+    height: 500px; /* Set the desired height of the carousel */
+    margin: 0 auto; /* Center the carousel horizontally */
+}
+
+.carousel.show-carousel {
+    opacity: 1;
+    transform: translateY(0); /* Bring into view (scroll down) */
 }
 
 .carousel-item img {
     object-fit: cover; /* Ensures images cover the entire carousel area */
-    height: 550px; /* Adjust height as needed */
+    width: 100%; /* Make sure images fill the carousel width */
+    height: 100%; /* Make sure images fill the carousel height */
     border-radius: 15px; /* Rounded corners for the images */
 }
 
+/* Style the carousel indicators as circles */
 .carousel-indicators {
     bottom: 10px; /* Position dots at the bottom */
 }
 
 .carousel-indicators li {
-    background-color: #000; /* Dot color */
+    width: 12px;
+    height: 12px;
+    background-color: rgba(0, 0, 0, 0.5); /* Dot color */
     border-radius: 50%; /* Circular dots */
+    margin: 0 5px;
 }
 
 .carousel-indicators .active {
@@ -263,8 +301,8 @@ h1 {
 
 
 
-
-
-
-
-
+/*footer styling */
+.footer{
+    padding:2rem;
+    
+}
