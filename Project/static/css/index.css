@@ -119,10 +119,104 @@ main{
 .hero-section{
     background-color: white;
     margin-bottom:2rem;
-    padding:2rem;
+    padding-left:3rem;
     border-radius: 10px;
     width:100%;
-    height:60%;
-   
+    height:50%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
     
 }
+
+
+.custom-card {
+    width: 90%; /* Adjust the card width */
+    max-width: 330px; /* Maximum width for smaller screens */
+    margin: 0 auto; /* Center the card within the column */
+    opacity: 0; /* Hide the card initially */
+    transform: translateY(20px); /* Move the card down slightly for the animation effect */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    margin-top: 10px;
+
+}
+
+.custom-img {
+    width: 80%; /* Adjust the image width as a percentage of the card */
+    margin: 0 auto; /* Center the image within the card */
+}
+
+.fade-in.visible {
+    opacity: 1; /* Make the card visible */
+    transform: translateY(0); /* Move the card to its original position */
+}
+
+.fade-in.hidden {
+    opacity: 0; /* Hide the card */
+    transform: translateY(20px); /* Move the card down slightly */
+}
+
+
+
+.hero-image {
+    height: auto; /* Ensure the image height adjusts proportionally */
+    max-height: 500px; /* Adjust the max height as needed */
+    width: 100%; /* Make the image wider */
+    max-width: 500px; /* Limit the width for larger screens */
+    margin: 0 auto; /* Center the image on small screens */
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+@media (max-width: 767.98px) {
+    .hero-image {
+        max-height: 400px; /* Adjust for smaller screens */
+        max-width: 100%; /* Make the image take full width */
+        margin-bottom: 1rem; /* Add some space below the image */
+    }
+
+    .hero-section .row {
+        flex-direction: column; /* Stack the image and text vertically */
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-image {
+        height: auto;
+        max-height: 450px; /* Adjust for medium and larger screens */
+        max-width: 100%; /* Make the image take full width */
+    }
+
+    .hero-section .row {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .text-lg-start {
+        text-align: center !important; /* Align text to the left on larger screens */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
