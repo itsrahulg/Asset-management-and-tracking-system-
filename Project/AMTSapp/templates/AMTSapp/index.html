@@ -21,17 +21,29 @@
         <div class="container-fluid nav-bg">
             <a class="logo-text" href="#">AssetGuard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class=""></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
-    
+            
             <div class="collapse navbar-collapse" id="navbarsExample03">
-                <div class="ms-auto d-flex align-items-start flex-column flex-sm-row">
-                    <a href="{% url 'login' %}" class="btn login-button me-2">Login</a>
-                    <a href="{% url 'signup' %}" class="btn signup-button">Sign-up</a>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'login' %}" class="btn login-button me-2">Login 🔐</a>
+                    <a href="{% url 'signup' %}" class="btn signup-button">Sign-up ✍</a>
                 </div>
             </div>
         </div>
     </nav>
+    
 
     
     <main>
@@ -41,17 +53,17 @@
                     <img src="static/images/hero-section-gif.gif" class="hero-image img-fluid" loading="lazy" alt="Hero Image">
                 </div>
                 <div class="col-12 col-lg-6 text-center text-lg-start">
-                    <h1 class="display-5 fw-bold lh-1 mb-3">AssetGuard</h1>
+                    <h1 class="display-5 fw-bold lh-1 mb-3">
+                        AssetGuard - <span class="typewriter "></span>
+                    </h1>
                     <p class="lead">"Gain control over your assets. Our innovative asset management system keeps you informed and efficient, ensuring nothing slips through the cracks."</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-center justify-content-lg-start">
-                        <button type="button" class="btn btn-lg px-4 me-md-2 my-2 login-button">Login</button>
-                        <button type="button" class="btn btn-lg px-4 my-2 signup-button">Signup</button>
-                    </div>
+                  
                 </div>
             </div>
         </div>
     </main>
     
+    <br id="features">
 
    <div class="container mt-5">
     <div class="row">
@@ -114,9 +126,51 @@
         </div>
     </div>
 
+    <br id="gallery">
+    <br>
+    <!-- image slider -->
+    <div id="carouselExampleIndicators" class="carousel slide mt-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://via.placeholder.com/800x400?text=Image+1" class="d-block w-100 rounded-corners" alt="Image 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Image+2" class="d-block w-100 rounded-corners" alt="Image 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Image+3" class="d-block w-100 rounded-corners" alt="Image 3">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Image+4" class="d-block w-100 rounded-corners" alt="Image 4">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Image+5" class="d-block w-100 rounded-corners" alt="Image 5">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Image+6" class="d-block w-100 rounded-corners" alt="Image 6">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Image+7" class="d-block w-100 rounded-corners" alt="Image 7">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Image+8" class="d-block w-100 rounded-corners" alt="Image 8">
+            </div>
+        </div>
+      
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="7"></li>
+        </ol>
+    </div>
 
-
-   
+    
+    
    <br>
    <br>
    <br>
@@ -124,7 +178,7 @@
    
 
 
-
+    <!-- for the cards to scroll up and down animation -->
     <script>
                 document.addEventListener('DOMContentLoaded', function () {
                 const cards = document.querySelectorAll('.fade-in');
@@ -147,6 +201,50 @@
                     observer.observe(card);
                 });
             });
+
+    </script>
+
+
+
+
+    <!-- for the typewriter effect in the hero-section -->
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            const words = ["Track","Search", "Filter","Manage"];
+            let i = 0;
+            const typewriterElement = document.querySelector('.typewriter');
+
+            function typeEffect(word) {
+                typewriterElement.textContent = '';
+                let j = 0;
+                const interval = setInterval(() => {
+                    typewriterElement.textContent += word[j];
+                    j++;
+                    if (j === word.length) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            eraseEffect();
+                        }, 1500); // Pause before erasing
+                    }
+                }, 150); // Typing speed
+            }
+
+            function eraseEffect() {
+                let wordLength = typewriterElement.textContent.length;
+                const interval = setInterval(() => {
+                    typewriterElement.textContent = typewriterElement.textContent.substring(0, wordLength - 1);
+                    wordLength--;
+                    if (wordLength === 0) {
+                        clearInterval(interval);
+                        i = (i + 1) % words.length;
+                        typeEffect(words[i]);
+                    }
+                }, 100); // Erasing speed
+            }
+
+            typeEffect(words[i]);
+        });
 
     </script>
 
