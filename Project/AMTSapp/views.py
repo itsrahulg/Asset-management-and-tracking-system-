@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 #for admin creating other superusers
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
-from .forms import SuperUserCreationForm
+
 
 
 #for doing google sign in 
@@ -28,9 +28,15 @@ import requests as http_requests
 
 
 
+#import statements for software add and update functionality
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Software, SoftwareUpdateLog
 from .forms import SoftwareForm
+from django.utils import timezone
 
 
+#import statement for computer assets update and log functionality
+from .models import ComputerHardware, ComputerHardwareUpdateLog
 
 
 # Create your views here.
@@ -161,6 +167,34 @@ def adduser(request):
 
 
 
+#creating and updating superuser
+from .forms import UserRoleForm
+
+
+from django.contrib.auth.models import User
+
+#to display all existing users
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'AMTSapp/user_list.html', {'users': users})
+
+
+#to update the user role
+from django.contrib.auth.models import User
+
+def update_user_role(request, pk):
+    user = get_object_or_404(User, pk=pk)
+
+    if request.method == 'POST':
+        is_superuser = 'is_superuser' in request.POST
+
+        # Update the user's superuser status
+        user.is_superuser = is_superuser
+        user.save()
+
+        return redirect('user_list')
+
+    return render(request, 'AMTSapp/update_user_role.html', {'user': user})
 
 
 
@@ -168,17 +202,7 @@ def adduser(request):
 def is_superuser(user):
     return user.is_superuser
 
-@user_passes_test(is_superuser)
-def create_superuser(request):
-    if request.method == 'POST':
-        form = SuperUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Superuser created successfully.')
-            return redirect('dashboard')
-    else:
-        form = SuperUserCreationForm()
-    return render(request, 'AMTSapp/create_superuser.html', {'form': form})
+
 
 
 
@@ -206,6 +230,48 @@ def software_form(request):
 
 
 
+#to update the software assets
+def update_software(request, pk):
+    software = get_object_or_404(Software, pk=pk)
+    
+    if request.method == 'POST':
+        form = SoftwareForm(request.POST, instance=software)
+        if form.is_valid():
+            updated_software = form.save(commit=False)
+            updated_software.save()  # Save the updated software data
+            
+            # Log the updated details in SoftwareUpdateLog
+            SoftwareUpdateLog.objects.create(
+                ASSET_ID=updated_software.ASSET_ID,
+                brand=updated_software.brand,
+                model=updated_software.model,
+                software_version=updated_software.software_version,
+                date_of_purchase=updated_software.date_of_purchase,
+                stock_register_number=updated_software.stock_register_number,
+                account_head=updated_software.account_head,
+                location=updated_software.location,
+            )
+
+            return redirect('dashboard')  # Redirect after update
+    
+    else:
+        form = SoftwareForm(instance=software)
+
+    return render(request, 'AMTSapp/software_asset_update.html', {'form': form, 'software': software})
+
+
+#to view the software update log
+def software_update_log(request):
+    logs = SoftwareUpdateLog.objects.all().order_by('-updated_at')
+    return render(request, 'AMTSapp/software_update_log.html', {'logs': logs})
+
+
+
+
+
+
+
+
 #view for adding computer asset
 from .forms import ComputerHardwareForm
 
@@ -218,6 +284,51 @@ def add_computer_hardware(request):
     else:
         form = ComputerHardwareForm()
     return render(request, 'AMTSapp/computer-asset.html', {'form': form})
+
+
+#view to update computer assets
+def update_computer_hardware(request, pk):
+    computer_hardware = get_object_or_404(ComputerHardware, pk=pk)
+    if request.method == 'POST':
+        form = ComputerHardwareForm(request.POST, instance=computer_hardware)
+        if form.is_valid():
+            updated_hardware = form.save()
+
+            # Log the update in ComputerHardwareUpdateLog
+            ComputerHardwareUpdateLog.objects.create(
+                computer_hardware=updated_hardware,
+                ASSET_ID=updated_hardware.ASSET_ID,
+                brand=updated_hardware.brand,
+                model=updated_hardware.model,
+                processor=updated_hardware.processor,
+                processor_generation=updated_hardware.processor_generation,
+                ram=updated_hardware.ram,
+                rom=updated_hardware.rom,
+                motherboard=updated_hardware.motherboard,
+                power_supply=updated_hardware.power_supply,
+                graphics_card=updated_hardware.graphics_card,
+                date_of_purchase=updated_hardware.date_of_purchase,
+                stock_register_number=updated_hardware.stock_register_number,
+                account_head=updated_hardware.account_head,
+                location=updated_hardware.location,
+            )
+            return redirect('dashboard')  # Redirect to a list or detail view
+    else:
+        form = ComputerHardwareForm(instance=computer_hardware)
+    
+    return render(request, 'AMTSapp/update_computer_hardware.html', {'form': form})
+
+
+#view to display the updated log of computer assets
+def computer_hardware_update_log(request):
+    logs = ComputerHardwareUpdateLog.objects.all()
+    return render(request, 'AMTSapp/computer_hardware_update_log.html', {'logs': logs})
+
+
+
+
+
+
 
 
 
@@ -234,6 +345,44 @@ def add_projector(request):
         form = ProjectorForm()
     return render(request, 'AMTSapp/projector-asset.html', {'form': form})
 
+
+#to render the projector update form 
+from .models import Projector, ProjectorUpdateLog
+
+def update_projector(request, id):
+    projector = get_object_or_404(Projector, id=id)
+    if request.method == 'POST':
+        form = ProjectorForm(request.POST, instance=projector)
+        if form.is_valid():
+            updated_projector = form.save()
+
+            # Log the update
+            ProjectorUpdateLog.objects.create(
+                projector=updated_projector,
+                updated_date=timezone.now(),
+                brand=updated_projector.brand,
+                model=updated_projector.model,
+                resolution=updated_projector.resolution,
+                lumens=updated_projector.lumens,
+                contrast_ratio=updated_projector.contrast_ratio,
+                connectivity=updated_projector.connectivity,
+                lamp_life_hours=updated_projector.lamp_life_hours,
+                date_of_purchase=updated_projector.date_of_purchase,
+                stock_register_number=updated_projector.stock_register_number,
+                account_head=updated_projector.account_head,
+                location=dict(Projector.LOCATIONS)[updated_projector.location]  # Full location name
+            )
+            return redirect('dashboard')
+
+    else:
+        form = ProjectorForm(instance=projector)
+    return render(request, 'AMTSapp/update_projector.html', {'form': form})
+
+
+#view to display the projector update log
+def projector_update_log(request):
+    logs = ProjectorUpdateLog.objects.all()
+    return render(request, 'AMTSapp/projector-update-log.html', {'logs': logs})
 
 
 
@@ -252,6 +401,63 @@ def add_book(request):
 
 
 
+#to render the update books form 
+from .models import Books, BookUpdateLog
+
+def update_book(request, pk):
+    book = get_object_or_404(Books, pk=pk)
+    
+    if request.method == 'POST':
+        form = BooksForm(request.POST, instance=book)
+        date_of_update = request.POST.get('date_of_update')  # Get the update date from the form
+
+        if form.is_valid() and date_of_update:
+            updated_book = form.save()
+
+            # Create log entry
+            BookUpdateLog.objects.create(
+                book=book,
+                title=updated_book.title,
+                publisher=updated_book.publisher,
+                author=updated_book.author,
+                publishing_house=updated_book.publishing_house,
+                edition=updated_book.edition,
+                date_of_purchase=updated_book.date_of_purchase,
+                stock_register_number=updated_book.stock_register_number,
+                account_head=updated_book.account_head,
+                location=updated_book.get_location_display(),
+                date_logged=timezone.now(),
+                date_of_update=date_of_update  # Manually entered date
+            )
+
+            return redirect('dashboard')
+
+    else:
+        form = BooksForm(instance=book)
+
+    return render(request, 'AMTSapp/update_book.html', {'form': form, 'book': book})
+
+
+#view to render the books update log
+def book_update_log(request):
+    logs = BookUpdateLog.objects.all()
+    return render(request, 'AMTSapp/book_update_log.html', {'logs': logs})
+
+
+
+
+#to render the computer peripherals form
+from .forms import ComputerPeripheralsForm
+
+def add_peripheral(request):
+    if request.method == 'POST':
+        form = ComputerPeripheralsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('asset_types')  # Replace 'asset_types' with your desired redirect URL
+    else:
+        form = ComputerPeripheralsForm()
+    return render(request, 'AMTSapp/computer-peripherals.html', {'form': form})
 
 
 
@@ -272,28 +478,28 @@ def add_book(request):
 
 
 
-
-
-
-from .models import ComputerHardware, Projector, Software, Books
+from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals
 
 def assets_by_location(request, location):
     computer_hardware_assets = ComputerHardware.objects.filter(location=location)
     projector_assets = Projector.objects.filter(location=location)
     software_assets = Software.objects.filter(location=location)
     books_assets = Books.objects.filter(location=location)
+    computer_peripherals_assets = ComputerPeripherals.objects.filter(location=location)
     
     grouped_assets = {
         'computer_hardware': computer_hardware_assets,
         'projector': projector_assets,
         'software': software_assets,
-        'books': books_assets
+        'books': books_assets,
+        'computer_peripherals': computer_peripherals_assets,
     }
     
     return render(request, 'AMTSapp/assets_by_location.html', {
         'grouped_assets': grouped_assets,
         'location': location
     })
+
 
 
 

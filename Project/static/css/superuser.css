@@ -89,8 +89,8 @@ body{
 }
 
 .navbar .icon-button .nav-icon {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
     margin-left: 20px;
     transition: transform 0.2s ease-in-out;

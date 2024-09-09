@@ -95,9 +95,10 @@
                             <td>{{ asset.stock_register_number }}</td>
                             <td>{{ asset.account_head }}</td>
                             <td>
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'update-computer-hardware' asset.pk %}" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
                                 </a>
+                                
                                 <a href="#" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
@@ -150,9 +151,10 @@
                             <td>{{ asset.stock_register_number }}</td>
                             <td>{{ asset.account_head }}</td>
                             <td>
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'update-projector' asset.id %}" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
                                 </a>
+                                
                                 <a href="#" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
@@ -201,7 +203,7 @@
                             <td>{{ asset.stock_register_number }}</td>
                             <td>{{ asset.account_head }}</td>
                             <td>
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'update_software' asset.pk %}" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
                                 </a>
                                 <a href="#" class="btn icon-button">
@@ -256,9 +258,10 @@
                             <td>{{ book.stock_register_number }}</td>
                             <td>{{ book.account_head }}</td>
                             <td>
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'update_book' book.pk %}" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
                                 </a>
+                                
                                 <a href="#" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
@@ -279,7 +282,70 @@
         
 
 
+
+
+
+        <!-- table to display computer peripherals -->
+        <div class="table-wrapper mt-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="8">
+                            <h2 class="table-title">Computer Peripherals</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Peripheral Type</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Date of Purchase</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for peripheral in grouped_assets.computer_peripherals %}
+                        <tr>
+                            <td>{{ peripheral.ASSET_ID }}</td>
+                            <td>{{ peripheral.peripheral_type }}</td>
+                            <td>{{ peripheral.brand }}</td>
+                            <td>{{ peripheral.model }}</td>
+                            <td>{{ peripheral.date_of_purchase }}</td>
+                            <td>{{ peripheral.stock_register_number }}</td>
+                            <td>{{ peripheral.account_head }}</td>
+                            <td>
+                                <a href="#" class="btn icon-button">
+                                    <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
+                                </a>
+                                <a href="#" class="btn icon-button">
+                                    <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
+                                </a>
+                                <a href="#" class="btn icon-button">
+                                    <img src="{% static 'images/table-icons/delete.png' %}" alt="Delete" class="table-icon">
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">No computer peripherals found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+
+
+
     </div>
+
+
+    <br>
+    <br>
+    <br>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

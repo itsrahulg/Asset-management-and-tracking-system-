@@ -40,43 +40,21 @@ class SignUpForm(UserCreationForm):
 
     
 
+#to toggle the admin status
 
 
 
-#to create other admins in the app
-class SuperUserCreationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
-    password_confirm = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+class UserRoleForm(forms.ModelForm):
+    is_admin = forms.BooleanField(required=False, label="Admin")
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['is_admin']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Username'})
-        self.fields['email'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Email'})
-        self.fields['password'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Password'})
-        self.fields['password_confirm'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Confirm Password'})
-
-    def clean_password_confirm(self):
-        password = self.cleaned_data.get('password')
-        password_confirm = self.cleaned_data.get('password_confirm')
-        if password and password_confirm and password != password_confirm:
-            raise forms.ValidationError("Passwords don't match")
-        return password_confirm
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])
-        user.is_superuser = True
-        user.is_staff = True
-        if commit:
-            user.save()
-        return user
-    
-
-
+        if self.instance:
+            self.fields['is_admin'].initial = self.instance.is_superuser
 
 
 
@@ -208,3 +186,62 @@ class BooksForm(forms.ModelForm):
             'account_head': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.Select(attrs={'class': 'form-control'}),
         }
+
+
+
+
+
+#to imput computer peripherals into the database
+from .models import ComputerPeripherals
+
+class ComputerPeripheralsForm(forms.ModelForm):
+    class Meta:
+        model = ComputerPeripherals
+        fields = [
+            'ASSET_ID', 
+            'type_of_asset', 
+            'peripheral_type', 
+            'brand', 
+            'model', 
+            'date_of_purchase', 
+            'stock_register_number', 
+            'account_head', 
+            'location'
+        ]
+        widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'placeholder': 'Enter Asset ID'}),
+            'peripheral_type': forms.Select(attrs={'placeholder': 'Select Peripheral Type'}),
+            'brand': forms.TextInput(attrs={'placeholder': 'Enter Brand'}),
+            'model': forms.TextInput(attrs={'placeholder': 'Enter Model'}),
+            'stock_register_number': forms.TextInput(attrs={'placeholder': 'Enter Stock Register Number'}),
+            'account_head': forms.TextInput(attrs={'placeholder': 'Enter Account Head'}),
+            'location': forms.Select(),
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

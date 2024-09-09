@@ -13,7 +13,8 @@ urlpatterns = [
     path('google-login/', views.google_login, name='google_login'),
     path('oauth2callback/', views.google_callback, name='google_callback'),
     path('adduser',views.adduser,name="adduser"),
-    path('create-superuser/', views.create_superuser, name='create_superuser'),
+    path('users/', views.user_list, name='user_list'),
+    path('update_user_role/<int:pk>/', views.update_user_role, name='update_user_role'),
    
    
     path('assets/<str:location>/', views.assets_by_location, name='assets_by_location'),
@@ -21,7 +22,27 @@ urlpatterns = [
     
 
     path('software/', views.software_form, name='software_form'),
-     path('add_computer_hardware/', views.add_computer_hardware, name='add_computer_hardware'),
-     path('add_projector/', views.add_projector, name='add_projector'),
-     path('add_book/', views.add_book, name='add_book'),
+    path('software/update/<int:pk>/', views.update_software, name='update_software'),
+    path('software/update-log/', views.software_update_log, name='software-update-log'),
+
+
+    path('add_computer_hardware/', views.add_computer_hardware, name='add_computer_hardware'),
+    path('computer-hardware/update/<int:pk>/', views.update_computer_hardware, name='update-computer-hardware'),
+    path('computer-hardware/update-log/', views.computer_hardware_update_log, name='computer-hardware-update-log'),
+
+
+    path('add_projector/', views.add_projector, name='add_projector'),
+    path('update-projector/<int:id>/', views.update_projector, name='update-projector'),
+    path('projector-update-log/', views.projector_update_log, name='projector-update-log'),
+
+
+    path('add_book/', views.add_book, name='add_book'),
+    path('books/update/<int:pk>/', views.update_book, name='update_book'),
+    path('books/update-log/', views.book_update_log, name='book_update_log'),
+
+
+
+
+    path('add_peripheral/', views.add_peripheral, name='add_peripheral'),
+
 ]

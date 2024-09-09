@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Update Log</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <h2>Book Update Log</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Asset ID</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Author</th>
+                    <th>Publishing House</th>
+                    <th>Edition</th>
+                    <th>Date of Purchase</th>
+                    <th>Stock Register Number</th>
+                    <th>Account Head</th>
+                    <th>Location</th>
+                    <th>Date of Update</th>
+                    <th>Date Logged</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>{{ log.book.ASSET_ID }}</td>
+                        <td>{{ log.title }}</td>
+                        <td>{{ log.publisher }}</td>
+                        <td>{{ log.author }}</td>
+                        <td>{{ log.publishing_house }}</td>
+                        <td>{{ log.edition }}</td>
+                        <td>{{ log.date_of_purchase }}</td>
+                        <td>{{ log.stock_register_number }}</td>
+                        <td>{{ log.account_head }}</td>
+                        <td>{{ log.location }}</td>
+                        <td>{{ log.date_of_update }}</td>
+                        <td>{{ log.date_logged }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="12" class="text-center">No update logs found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

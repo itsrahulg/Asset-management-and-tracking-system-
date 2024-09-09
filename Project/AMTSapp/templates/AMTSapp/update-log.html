@@ -43,7 +43,61 @@
     <br>
     <br>
     
+    
 
+    
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Asset Update Logs Dashboard</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Asset Type</th>
+                    <th>Description</th>
+                    <th>Update Log</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Software</td>
+                    <td>Details and updates for software assets</td>
+                    <td>
+                        <a href="{% url 'software-update-log' %}" class="btn btn-primary">View Software Log</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Computer Hardware Assets</td>
+                    <td>Details and updates for Computer Hardware assets</td>
+                    <td>
+                        <a href="{% url 'computer-hardware-update-log' %}" class="btn btn-primary">View Computer Hardware Log</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Projector Assets</td>
+                    <td>Details and updates for projector assets</td>
+                    <td>
+                        <a href="{% url 'projector-update-log' %}" class="btn btn-primary">View Projector asset Log</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Book Assets</td>
+                    <td>Details and updates for book assets</td>
+                    <td>
+                        <a href="{% url 'book_update_log' %}" class="btn btn-primary">View Book asset Log</a>
+                    </td>
+                </tr>
+               
+            </tbody>
+        </table>
     </div>
+    
+    
+
+    
 </body>
 </html>

@@ -29,6 +29,21 @@ class Software(models.Model):
         return f"{self.ASSET_ID} - {self.type_of_asset} - {self.brand} - {self.model}"
     
 
+#table to store updated log details for software assets
+# New model to track updates
+class SoftwareUpdateLog(models.Model):
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
+    software_version = models.CharField(max_length=50)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+    updated_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the update occurred
+
+    def __str__(self):
+        return f"Update Log for {self.ASSET_ID} at {self.updated_at}"
 
 
 
@@ -106,10 +121,35 @@ class ComputerHardware(models.Model):
             return f"{self.asset.ASSET_ID} - Computer Hardware - {self.processor}"
 
 
+#model to store the updated details of computer assets 
+class ComputerHardwareUpdateLog(models.Model):
+    computer_hardware = models.ForeignKey(ComputerHardware, on_delete=models.CASCADE)
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    processor = models.CharField(max_length=50)
+    processor_generation = models.CharField(max_length=50)
+    ram = models.CharField(max_length=50)
+    rom = models.CharField(max_length=50, blank=True)
+    motherboard = models.CharField(max_length=50, blank=True)
+    power_supply = models.CharField(max_length=50, blank=True)
+    graphics_card = models.CharField(max_length=50, blank=True)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+    date_logged = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Update Log: {self.ASSET_ID} - {self.date_logged}"
+
+
+
 
 
 
 #model for projector
+from django.utils import timezone
 class Projector(models.Model):
     LOCATIONS = [
         ('isl_lab', 'ISL Lab'),
@@ -158,6 +198,26 @@ class Projector(models.Model):
 
     
 
+#model to create an update log for the projector assets
+class ProjectorUpdateLog(models.Model):
+    projector = models.ForeignKey(Projector, on_delete=models.CASCADE)
+    updated_date = models.DateField(default=timezone.now)
+    brand = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
+    resolution = models.CharField(max_length=10)
+    lumens = models.IntegerField()
+    contrast_ratio = models.CharField(max_length=20)
+    connectivity = models.CharField(max_length=50)
+    lamp_life_hours = models.IntegerField()
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)  # Full location name
+
+    def __str__(self):
+        return f"Update Log for {self.projector.ASSET_ID}"
+    
+
 
 
 
@@ -197,27 +257,90 @@ class Books(models.Model):
 
 
 
+#model to update the books table and create an update log
+class BookUpdateLog(models.Model):
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    publisher = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    publishing_house = models.CharField(max_length=255)
+    edition = models.CharField(max_length=50, blank=True, null=True)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    date_logged = models.DateField(default=timezone.now)  # Update log timestamp
+    date_of_update = models.DateField()  # Manual entry for the update date
+
+    def __str__(self):
+        return f"Update log for {self.book.title} - {self.date_logged}"
+    
 
 
 
 
 
 
-# class Fan(models.Model):
-#     asset = models.OneToOneField(Asset, on_delete=models.CASCADE, primary_key=True)
-#     brand = models.CharField(max_length=50, blank=True)
-#     model = models.CharField(max_length=50, blank=True)
 
-#     def __str__(self):
-#         return f"{self.asset.ASSET_ID} - Fan"
 
-# class Tubelight(models.Model):
-#     asset = models.OneToOneField(Asset, on_delete=models.CASCADE, primary_key=True)
-#     brand = models.CharField(max_length=50, blank=True)
-#     model = models.CharField(max_length=50, blank=True)
 
-#     def __str__(self):
-#         return f"{self.asset.ASSET_ID} - Tubelight"
+    
+
+#computer peripherals model
+class ComputerPeripherals(models.Model):
+    LOCATIONS = [
+        ('isl_lab', 'ISL Lab'),
+        ('cc_lab', 'CC Lab'),
+        ('project_lab', 'Project Lab'),
+        ('ibm_lab', 'IBM Lab'),
+        ('g1_class_first_year', 'G1 Class First Year'),
+        ('g1_class_second_year', 'G1 Class Second Year'),
+        ('g2_class_first_year', 'G2 Class First Year'),
+        ('g2_class_second_year', 'G2 Class Second Year'),
+        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
+        ('library', 'Library'),
+    ]
+
+    PERIPHERALS = [
+        ('keyboard', 'Keyboard'),
+        ('mouse', 'Mouse'),
+        ('monitor', 'Monitor'),
+        ('printer', 'Printer'),
+        ('scanner', 'Scanner'),
+        ('ups', 'UPS'),
+        ('projector', 'Projector'),
+        ('external_hard_drive', 'External Hard Drive'),
+        ('router', 'Router'),
+        ('switch', 'Switch'),
+        ('webcam', 'Webcam'),
+        ('hdmi_cable', 'HDMI Cable'),
+        ('vga_cable', 'VGA Cable'),
+        ('usb_cable', 'USB Cable'),
+        ('ethernet_cable', 'Ethernet Cable'),
+        ('power_cable', 'Power Cable'),
+        ('adapter', 'Adapter'),
+        # Add more peripherals as needed
+    ]
+
+    ASSET_ID = models.CharField(max_length=50)  # Placeholder removed
+    type_of_asset = models.CharField(max_length=50, default='Computer Peripheral')
+    peripheral_type = models.CharField(max_length=50, choices=PERIPHERALS)
+    brand = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+    date_of_purchase = models.DateField(default='2000-01-01')
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50, choices=LOCATIONS, default='isl_lab')
+
+    def __str__(self):
+        return f"{self.ASSET_ID} - {self.peripheral_type} ({self.brand} {self.model})"
+
+
+
+
+
+
+
 
 # class NetworkSwitch(models.Model):
 #     asset = models.OneToOneField(Asset, on_delete=models.CASCADE, primary_key=True)
@@ -245,32 +368,11 @@ class Books(models.Model):
 #     def __str__(self):
 #         return f"{self.asset.ASSET_ID} - Furniture - {self.furniture_type}"
 
-# class Books(models.Model):
-#     PUBLISHING_HOUSES = [
-#         ('Penguin Random House', 'Penguin Random House'),
-#         ('HarperCollins', 'HarperCollins'),
-#         ('Simon & Schuster', 'Simon & Schuster'),
-#         ('Hachette Livre', 'Hachette Livre'),
-#         ('Macmillan Publishers', 'Macmillan Publishers'),
-#         ('Scholastic', 'Scholastic'),
-#     ]
 
-#     asset = models.OneToOneField(Asset, on_delete=models.CASCADE, primary_key=True)
-#     author = models.CharField(max_length=100, blank=True)
-#     publisher = models.CharField(max_length=100, choices=PUBLISHING_HOUSES)
-
-#     def __str__(self):
-#         return f"{self.asset.ASSET_ID} - Books - {self.author}"
 
 
 
 
     
 
-# class ComputerPeripherals(models.Model):
-#     asset = models.OneToOneField(Asset, on_delete=models.CASCADE, primary_key=True)
-#     brand = models.CharField(max_length=50, blank=True)
-#     model = models.CharField(max_length=50, blank=True)
 
-#     def __str__(self):
-#         return f"{self.asset.ASSET_ID} - Computer Peripherals"

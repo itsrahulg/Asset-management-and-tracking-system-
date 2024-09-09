@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Hardware Update Log</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container-fluid mt-5">
+        <h2 class="mb-4">Computer Hardware Update Log</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Asset ID</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Processor</th>
+                    <th>Processor Generation</th>
+                    <th>RAM</th>
+                    <th>ROM</th>
+                    <th>Motherboard</th>
+                    <th>Power Supply</th>
+                    <th>Graphics Card</th>
+                    <th>Date of Purchase</th>
+                    <th>Location</th>
+                    <th>Stock Register Number</th>
+                    <th>Date Logged</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td>{{ log.ASSET_ID }}</td>
+                        <td>{{ log.brand }}</td>
+                        <td>{{ log.model }}</td>
+                        <td>{{ log.processor }}</td>
+                        <td>{{ log.processor_generation }}</td>
+                        <td>{{ log.ram }}</td>
+                        <td>{{ log.rom }}</td>
+                        <td>{{ log.motherboard }}</td>
+                        <td>{{ log.power_supply }}</td>
+                        <td>{{ log.graphics_card }}</td>
+                        <td>{{ log.date_of_purchase }}</td>
+                        <td>{{log.location}}</td>
+                        <td>{{ log.stock_register_number }}</td>
+                        <td>{{ log.date_logged }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center">No update logs found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
