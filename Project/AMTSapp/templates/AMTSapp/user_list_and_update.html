@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List and Role Update</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user_list_and_update.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/briefcase.png' %}">
+
+    <!-- google-fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+    <div class="container mt-5">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>User</th>
+                    <th>Admin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <form method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.pk }}">
+
+                            <!-- User Checkbox -->
+                            <div class="form-check">
+                                <input type="checkbox" id="is_user_{{ user.pk }}" name="is_user" class="form-check-input" {% if not user.is_superuser %}checked{% endif %}>
+                            </div>
+                    </td>
+                    <td>
+                            <!-- Admin Checkbox -->
+                            <div class="form-check">
+                                <input type="checkbox" id="is_superuser_{{ user.pk }}" name="is_superuser" class="form-check-input" {% if user.is_superuser %}checked{% endif %}>
+                            </div>
+                    </td>
+                    <td>
+                            <button type="submit" class="btn btn-success btn-sm">Change</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@
 
 
 body{
-    /* background-image: url('/static/images/backgrounds/nav-option-bg.jpg'); */
+    /* background-image: url('/static/images/backgrounds/dashboard-bg.jpg'); */
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -57,6 +57,14 @@ body{
 }
 
 
+.floating-plus img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.floating-plus:hover {
+    transform: scale(1.2);
+}
 
 .navbar .icon-button {
     background: none;
@@ -66,8 +74,8 @@ body{
 }
 
 .navbar .icon-button .nav-icon {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
     margin-left: 20px;
     transition: transform 0.2s ease-in-out;
@@ -83,61 +91,47 @@ body{
 }
 
 
-.search-input {
-    border-radius: 20px; /* Makes the search bar pill-shaped */
-    width: 400px; /* Adjust the length of the search bar */
-    padding: 0.75rem 1.25rem; /* Adjust padding for better appearance */
-    height: 40px;
-}
-
-
-
-
-/* Container Styles */
+/* External CSS for table styling */
 .container {
-    background-color: #ffffff; /* White background */
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners */
+    background-color: #fff; /* White container */
+    padding: 2rem;
+    border-radius: 10px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
-/* Table Styles */
 .table {
+    border-collapse: collapse; /* Remove vertical lines between columns */
     width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-    background-color: #ffffff; /* Ensure table background is white */
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 10px; /* Rounded corners */
-    overflow: hidden; /* Ensures corners are rounded even inside */
+    margin-bottom: 1.5rem;
 }
 
-/* Table Head Styles */
 .table thead th {
-    background-color: #f8f9fa; /* Light grey background for the header */
-    border-bottom: 2px solid #dee2e6; /* Bottom border */
-    text-align: left;
-    padding: 10px;
+    border-bottom: 2px solid #dee2e6; /* Add bottom border to the header */
+    background-color: #f8f9fa;
 }
 
-/* Table Body Styles */
 .table tbody td {
-    padding: 10px;
-    border-bottom: 1px solid #dee2e6; /* Border between rows */
+    border-bottom: 1px solid #dee2e6; /* Add bottom border to rows */
 }
 
-/* Button Styles */
-.btn-primary {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-decoration: none;
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Row hover effect */
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+.table tbody tr td {
+    border: none; /* Remove vertical lines */
+}
+
+.form-check-input {
+    cursor: pointer;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.btn-success {
+    border-radius: 20px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
 }

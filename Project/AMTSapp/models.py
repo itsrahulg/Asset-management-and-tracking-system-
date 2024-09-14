@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class Software(models.Model):
     LOCATIONS = [
@@ -14,23 +15,20 @@ class Software(models.Model):
         ('library', 'Library'),
     ]
 
-    ASSET_ID = models.CharField(max_length=50, default='SW-XXX')
-    brand = models.CharField(max_length=50, blank=True, default='Brand name')
-    model = models.CharField(max_length=50, blank=True, default='Model number')
-    date_of_purchase = models.DateField(default='2000-01-01')  # Default to a date in the past
-    stock_register_number = models.CharField(max_length=50, default='0')
-    account_head = models.CharField(max_length=100, default='Acc Head')
-    location = models.CharField(max_length=50, choices=LOCATIONS,)
-    
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    date_of_purchase = models.DateField(default=datetime.date.today)  # Default to current date
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50, choices=LOCATIONS)
     type_of_asset = models.CharField(max_length=50, default='software')
-    software_version = models.CharField(max_length=50, blank=True, null=True, default='1.0')
+    software_version = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return f"{self.ASSET_ID} - {self.type_of_asset} - {self.brand} - {self.model}"
     
 
-#table to store updated log details for software assets
-# New model to track updates
 class SoftwareUpdateLog(models.Model):
     ASSET_ID = models.CharField(max_length=50)
     brand = models.CharField(max_length=50)
@@ -41,9 +39,31 @@ class SoftwareUpdateLog(models.Model):
     account_head = models.CharField(max_length=100)
     location = models.CharField(max_length=50)
     updated_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the update occurred
+    update_date = models.DateField()  # Field to manually enter the update date
 
     def __str__(self):
         return f"Update Log for {self.ASSET_ID} at {self.updated_at}"
+
+    # Method to display location in a more readable format
+    def get_location_display(self):
+        # Define a mapping of locations to friendly names
+        location_mapping = {
+            'isl_lab': 'ISL Lab',
+            'cc_lab': 'CC Lab',
+            'project_lab': 'Project Lab',
+            'ibm_lab': 'IBM Lab',
+            'g1_class_first_year': 'G1 Class First Year',
+            'g1_class_second_year': 'G1 Class Second Year',
+            'g2_class_first_year': 'G2 Class First Year',
+            'g2_class_second_year': 'G2 Class Second Year',
+            'wireless_communication_lab': 'Wireless Communication Laboratory',
+            'library': 'Library',
+        }
+        # Return the user-friendly name or the original value if not found
+        return location_mapping.get(self.location, self.location)
+
+
+
 
 
 
@@ -111,9 +131,9 @@ class ComputerHardware(models.Model):
         power_supply = models.CharField(max_length=50, blank=True)
         graphics_card = models.CharField(max_length=50, blank=True)
 
-        date_of_purchase = models.DateField(default='2000-01-01')  # Default to a date in the past
-        stock_register_number = models.CharField(max_length=50, default='0000')
-        account_head = models.CharField(max_length=100, default='Acc Head')
+        date_of_purchase = models.DateField(default=datetime.date.today)  # Default to current date
+        stock_register_number = models.CharField(max_length=50)
+        account_head = models.CharField(max_length=100)
         location = models.CharField(max_length=50, choices=LOCATIONS,)
         
 
@@ -179,19 +199,19 @@ class Projector(models.Model):
         ('Wireless', 'Wireless'),
     ]
 
-    ASSET_ID = models.CharField(max_length=50, default='TEMP_ID')
-    brand = models.CharField(max_length=50, blank=True, default='Brand')
-    model = models.CharField(max_length=50, blank=True, default='Model')
-    resolution = models.CharField(max_length=10, choices=RESOLUTIONS, default='1080p')
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    resolution = models.CharField(max_length=10, choices=RESOLUTIONS)
     lumens = models.IntegerField(default=2000)
-    contrast_ratio = models.CharField(max_length=20, blank=True, default='1000:1')
-    connectivity = models.CharField(max_length=50, choices=CONNECTIVITY_OPTIONS, default='HDMI')
+    contrast_ratio = models.CharField(max_length=20, blank=True)
+    connectivity = models.CharField(max_length=50, choices=CONNECTIVITY_OPTIONS,null=True)
     lamp_life_hours = models.IntegerField(default=2000)
-    date_of_purchase = models.DateField(default='2000-01-01')  # Default to a date in the past
-    stock_register_number = models.CharField(max_length=50, default='0000')
-    account_head = models.CharField(max_length=100, default='Default Account Head')
-    location = models.CharField(max_length=50, choices=LOCATIONS, default='isl_lab')
-    type_of_asset = models.CharField(max_length=50, default='hardware')
+    date_of_purchase = models.DateField(default=datetime.date.today)  # Default to current date
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50, choices=LOCATIONS)
+    type_of_asset = models.CharField(max_length=50,default='PROJECTOR')
     
     def __str__(self):
         return f"{self.ASSET_ID} - Projector - {self.brand} {self.model}"
@@ -245,11 +265,11 @@ class Books(models.Model):
     author = models.CharField(max_length=255)
     publishing_house = models.CharField(max_length=255)
     
-    edition = models.CharField(max_length=50, blank=True, null=True, default='1.0')
-    date_of_purchase = models.DateField(default='2000-01-01')
-    stock_register_number = models.CharField(max_length=50, default='0000')
-    account_head = models.CharField(max_length=100, default='Default Account Head')
-    location = models.CharField(max_length=50, choices=LOCATIONS, default='isl_lab')
+    edition = models.CharField(max_length=50, blank=True, null=True)
+    date_of_purchase = models.DateField(default=datetime.date.today)  # Default to current date
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50, choices=LOCATIONS)
 
     def __str__(self):
         return f"{self.ASSET_ID} - {self.title} by {self.author}"
@@ -327,15 +347,31 @@ class ComputerPeripherals(models.Model):
     peripheral_type = models.CharField(max_length=50, choices=PERIPHERALS)
     brand = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
-    date_of_purchase = models.DateField(default='2000-01-01')
+    date_of_purchase = models.DateField(default=datetime.date.today)  # Default to current date
     stock_register_number = models.CharField(max_length=50)
     account_head = models.CharField(max_length=100)
-    location = models.CharField(max_length=50, choices=LOCATIONS, default='isl_lab')
+    location = models.CharField(max_length=50, choices=LOCATIONS)
 
     def __str__(self):
         return f"{self.ASSET_ID} - {self.peripheral_type} ({self.brand} {self.model})"
 
 
+
+#model to create computer peripheral update log
+class ComputerPeripheralsUpdateLog(models.Model):
+    peripheral = models.ForeignKey(ComputerPeripherals, on_delete=models.CASCADE)
+    peripheral_type = models.CharField(max_length=50)
+    brand = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+    date_logged = models.DateField(default=timezone.now)  # Log creation date
+    date_of_update = models.DateField()  # Manual update date entry
+
+    def __str__(self):
+        return f"Update log for {self.peripheral.peripheral_type} - {self.date_logged}"
 
 
 

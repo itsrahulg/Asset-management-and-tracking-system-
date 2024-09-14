@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Projector</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add-asset.css' %}">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -12,8 +14,73 @@
         <h1 class="mb-4">Add Projector</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            
             <div class="form-group">
+                {{ form.ASSET_ID.label_tag }} <!-- Label for Asset ID -->
+                {{ form.ASSET_ID }} <!-- Input field for Asset ID -->
+            </div>
+
+            <div class="form-group">
+                {{ form.brand.label_tag }} <!-- Label for Brand -->
+                {{ form.brand }} <!-- Input field for Brand -->
+            </div>
+
+            <div class="form-group">
+                {{ form.model.label_tag }} <!-- Label for Model -->
+                {{ form.model }} <!-- Input field for Model -->
+            </div>
+
+            <div class="form-group">
+                {{ form.resolution.label_tag }} <!-- Label for Resolution -->
+                {{ form.resolution }} <!-- Input field for Resolution -->
+            </div>
+
+            <div class="form-group">
+                {{ form.lumens.label_tag }} <!-- Label for Lumens -->
+                {{ form.lumens }} <!-- Input field for Lumens -->
+            </div>
+
+            <div class="form-group">
+                {{ form.contrast_ratio.label_tag }} <!-- Label for Contrast Ratio -->
+                {{ form.contrast_ratio }} <!-- Input field for Contrast Ratio -->
+            </div>
+
+            <div class="form-group">
+                {{ form.connectivity.label_tag }} <!-- Label for Connectivity -->
+                {{ form.connectivity }} <!-- Input field for Connectivity -->
+            </div>
+
+            <div class="form-group">
+                {{ form.lamp_life_hours.label_tag }} <!-- Label for Lamp Life Hours -->
+                {{ form.lamp_life_hours }} <!-- Input field for Lamp Life Hours -->
+            </div>
+
+            <div class="form-group">
+                {{ form.date_of_purchase.label_tag }} <!-- Label for Date of Purchase -->
+                {{ form.date_of_purchase }} <!-- Input field for Date of Purchase -->
+            </div>
+
+            <div class="form-group">
+                {{ form.stock_register_number.label_tag }} <!-- Label for Stock Register Number -->
+                {{ form.stock_register_number }} <!-- Input field for Stock Register Number -->
+            </div>
+
+            <div class="form-group">
+                {{ form.account_head.label_tag }} <!-- Label for Account Head -->
+                {{ form.account_head }} <!-- Input field for Account Head -->
+            </div>
+
+            <div class="form-group">
+                {{ form.location.label_tag }} <!-- Label for Location -->
+                {{ form.location }} <!-- Input field for Location -->
+            </div>
+
+            <div class="form-group">
+                {{ form.type_of_asset.label_tag }} <!-- Label for Type of Asset -->
+                {{ form.type_of_asset }} <!-- Input field for Type of Asset -->
+            </div>
+
+            <div class="form-group mt-4">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
             </div>

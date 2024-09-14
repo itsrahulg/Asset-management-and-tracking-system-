@@ -169,32 +169,34 @@ def adduser(request):
 
 #creating and updating superuser
 from .forms import UserRoleForm
-
-
 from django.contrib.auth.models import User
 
-#to display all existing users
-def user_list(request):
-    users = User.objects.all()
-    return render(request, 'AMTSapp/user_list.html', {'users': users})
-
-
-#to update the user role
-from django.contrib.auth.models import User
-
-def update_user_role(request, pk):
-    user = get_object_or_404(User, pk=pk)
+# List users and handle role update
+@login_required
+def user_list_and_update(request):
+    # Exclude the current user from the list of users
+    users = User.objects.exclude(pk=request.user.pk)
 
     if request.method == 'POST':
-        is_superuser = 'is_superuser' in request.POST
+        user_id = request.POST.get('user_id')
+        user = get_object_or_404(User, pk=user_id)
 
-        # Update the user's superuser status
+        # Check if 'is_superuser' was posted and update accordingly
+        is_superuser = 'is_superuser' in request.POST
         user.is_superuser = is_superuser
+
+        # Update staff status based on whether the user is a superuser
+        if is_superuser:
+            user.is_staff = True  # Admins are considered staff
+        else:
+            user.is_staff = False  # Remove staff privileges if not admin
+
         user.save()
 
-        return redirect('user_list')
+        return redirect('user_list_and_update')
 
-    return render(request, 'AMTSapp/update_user_role.html', {'user': user})
+    return render(request, 'AMTSapp/user_list_and_update.html', {'users': users})
+
 
 
 
@@ -240,7 +242,7 @@ def update_software(request, pk):
             updated_software = form.save(commit=False)
             updated_software.save()  # Save the updated software data
             
-            # Log the updated details in SoftwareUpdateLog
+            # Log the updated details in SoftwareUpdateLog with the update_date
             SoftwareUpdateLog.objects.create(
                 ASSET_ID=updated_software.ASSET_ID,
                 brand=updated_software.brand,
@@ -250,6 +252,7 @@ def update_software(request, pk):
                 stock_register_number=updated_software.stock_register_number,
                 account_head=updated_software.account_head,
                 location=updated_software.location,
+                update_date=timezone.now()  # Set the update date here
             )
 
             return redirect('dashboard')  # Redirect after update
@@ -258,7 +261,6 @@ def update_software(request, pk):
         form = SoftwareForm(instance=software)
 
     return render(request, 'AMTSapp/software_asset_update.html', {'form': form, 'software': software})
-
 
 #to view the software update log
 def software_update_log(request):
@@ -460,11 +462,44 @@ def add_peripheral(request):
     return render(request, 'AMTSapp/computer-peripherals.html', {'form': form})
 
 
+#to render the computer peripheral update form
+from .models import ComputerPeripherals, ComputerPeripheralsUpdateLog
+
+def update_computer_peripheral(request, pk):
+    peripheral = get_object_or_404(ComputerPeripherals, pk=pk)
+
+    if request.method == 'POST':
+        form = ComputerPeripheralsForm(request.POST, instance=peripheral)
+        if form.is_valid():
+            # Save the form
+            form.save()
+
+            # Create a log entry
+            ComputerPeripheralsUpdateLog.objects.create(
+                peripheral=peripheral,
+                peripheral_type=peripheral.peripheral_type,
+                brand=peripheral.brand,
+                model=peripheral.model,
+                date_of_purchase=peripheral.date_of_purchase,
+                stock_register_number=peripheral.stock_register_number,
+                account_head=peripheral.account_head,
+                location=peripheral.location,
+                date_of_update=request.POST.get('date_of_update')  # Manual update date entry
+            )
+
+            return redirect('dashboard')  # Redirect to the list of peripherals
+
+    else:
+        form = ComputerPeripheralsForm(instance=peripheral)
+
+    return render(request, 'AMTSapp/update_computer_peripheral.html', {'form': form, 'peripheral': peripheral})
 
 
 
-
-
+#to render the computer peripherals update log
+def all_peripheral_update_logs(request):
+    logs = ComputerPeripheralsUpdateLog.objects.all().order_by('-date_logged')  # List all logs, ordered by the most recent log first
+    return render(request, 'AMTSapp/peripheral_update_log.html', {'logs': logs})
 
 
 

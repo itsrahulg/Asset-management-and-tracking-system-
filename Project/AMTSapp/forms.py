@@ -41,9 +41,6 @@ class SignUpForm(UserCreationForm):
     
 
 #to toggle the admin status
-
-
-
 class UserRoleForm(forms.ModelForm):
     is_admin = forms.BooleanField(required=False, label="Admin")
 
@@ -77,30 +74,52 @@ class SoftwareForm(forms.ModelForm):
             'software_version',
         ]
         widgets = {
-            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
-            'brand': forms.TextInput(attrs={'class': 'form-control'}),
-            'model': forms.TextInput(attrs={'class': 'form-control'}),
-            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
+            'ASSET_ID': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'SW-XXX'
+            }),
+            'brand': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Brand name'
+            }),
+            'model': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Model number'
+            }),
+            'date_of_purchase': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'stock_register_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '0'
+            }),
+            'account_head': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Acc Head'
+            }),
             'location': forms.Select(attrs={'class': 'form-control'}),
-            'type_of_asset': forms.HiddenInput(attrs={'value': 'software'}),  # Hidden field with default value
-            'software_version': forms.TextInput(attrs={'class': 'form-control'}),
+            'type_of_asset': forms.HiddenInput(attrs={
+                'value': 'software'
+            }),  # Hidden field with default value
+            'software_version': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': '1.0'
+            }),
         }
 
     def __init__(self, *args, **kwargs):
         super(SoftwareForm, self).__init__(*args, **kwargs)
         # Optional: Customize form layout or field attributes here
         for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
-
+            if field.widget.attrs.get('class') != 'form-control':
+                field.widget.attrs['class'] = 'form-control'
 
 
 
 
 #to input computer hardware into the database
 from .models import ComputerHardware
-
 class ComputerHardwareForm(forms.ModelForm):
     class Meta:
         model = ComputerHardware
@@ -111,23 +130,22 @@ class ComputerHardwareForm(forms.ModelForm):
             'account_head', 'location'
         ]
         widgets = {
-            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
-            'hardware_type': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
-            'brand': forms.TextInput(attrs={'class': 'form-control'}),
-            'model': forms.TextInput(attrs={'class': 'form-control'}),
-            'processor': forms.Select(attrs={'class': 'form-select'}),
-            'processor_generation': forms.Select(attrs={'class': 'form-select'}),
-            'ram': forms.Select(attrs={'class': 'form-select'}),
-            'rom': forms.TextInput(attrs={'class': 'form-control'}),
-            'motherboard': forms.TextInput(attrs={'class': 'form-control'}),
-            'power_supply': forms.TextInput(attrs={'class': 'form-control'}),
-            'graphics_card': forms.TextInput(attrs={'class': 'form-control'}),
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
+            'hardware_type': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly', 'placeholder': 'Computer'}),
+            'brand': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Brand'}),
+            'model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Model'}),
+            'processor': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Select Processor'}),
+            'processor_generation': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Select Processor Generation'}),
+            'ram': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Select RAM'}),
+            'rom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter ROM'}),
+            'motherboard': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Motherboard'}),
+            'power_supply': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Power Supply'}),
+            'graphics_card': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Graphics Card'}),
             'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
-            'location': forms.Select(attrs={'class': 'form-select'}),
+            'stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Stock Register Number'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
+            'location': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Select Location'}),
         }
-
 
 
 
@@ -146,24 +164,22 @@ class ProjectorForm(forms.ModelForm):
             'location', 'type_of_asset'
         ]
         widgets = {
-            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
-            'type_of_asset': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
-            'brand': forms.TextInput(attrs={'class': 'form-control'}),
-            'model': forms.TextInput(attrs={'class': 'form-control'}),
-            'resolution': forms.Select(attrs={'class': 'form-control'}),
-            'lumens': forms.NumberInput(attrs={'class': 'form-control'}),
-            'contrast_ratio': forms.TextInput(attrs={'class': 'form-control'}),
-            'connectivity': forms.Select(attrs={'class': 'form-control'}),
-            'lamp_life_hours': forms.NumberInput(attrs={'class': 'form-control'}),
-            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
-            'location': forms.Select(attrs={'class': 'form-control'}),
-            
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
+            'type_of_asset': forms.TextInput(attrs={'class': 'form-control', 'readonly': 'readonly', 'placeholder': 'Type of Asset'}),
+            'brand': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Brand'}),
+            'model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Model'}),
+            'resolution': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Select Resolution'}),
+            'lumens': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Lumens'}),
+            'contrast_ratio': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Contrast Ratio'}),
+            'connectivity': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Select Connectivity'}),
+            'lamp_life_hours': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Lamp Life Hours'}),
+            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Select Date of Purchase'}),
+            'stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Stock Register Number'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
+            'location': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Select Location'}),
+
+
         }
-
-
-
 
 
 
@@ -175,17 +191,18 @@ class BooksForm(forms.ModelForm):
         model = Books
         fields = ['ASSET_ID', 'title', 'publisher', 'author', 'publishing_house', 'edition', 'date_of_purchase', 'stock_register_number', 'account_head', 'location']
         widgets = {
-            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'publisher': forms.TextInput(attrs={'class': 'form-control'}),
-            'author': forms.TextInput(attrs={'class': 'form-control'}),
-            'publishing_house': forms.TextInput(attrs={'class': 'form-control'}),
-            'edition': forms.TextInput(attrs={'class': 'form-control'}),
-            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'stock_register_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Book Title'}),
+            'publisher': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Publisher'}),
+            'author': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Author'}),
+            'publishing_house': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Publishing House'}),
+            'edition': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Edition'}),
+            'date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Select Date of Purchase'}),
+            'stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Stock Register Number'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
             'location': forms.Select(attrs={'class': 'form-control'}),
         }
+
 
 
 
@@ -209,13 +226,44 @@ class ComputerPeripheralsForm(forms.ModelForm):
             'location'
         ]
         widgets = {
-            'ASSET_ID': forms.TextInput(attrs={'placeholder': 'Enter Asset ID'}),
-            'peripheral_type': forms.Select(attrs={'placeholder': 'Select Peripheral Type'}),
-            'brand': forms.TextInput(attrs={'placeholder': 'Enter Brand'}),
-            'model': forms.TextInput(attrs={'placeholder': 'Enter Model'}),
-            'stock_register_number': forms.TextInput(attrs={'placeholder': 'Enter Stock Register Number'}),
-            'account_head': forms.TextInput(attrs={'placeholder': 'Enter Account Head'}),
-            'location': forms.Select(),
+            'ASSET_ID': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Asset ID'
+            }),
+            'type_of_asset': forms.TextInput(attrs={
+                'class': 'form-control',
+                'readonly': 'readonly',
+                'value': 'Computer Peripheral'  # Assuming type_of_asset is always 'Computer Peripheral'
+            }),
+            'peripheral_type': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Select Peripheral Type'
+            }),
+            'brand': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Brand'
+            }),
+            'model': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Model'
+            }),
+            'date_of_purchase': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date',
+                'placeholder': 'Select Date of Purchase'
+            }),
+            'stock_register_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Stock Register Number'
+            }),
+            'account_head': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Account Head'
+            }),
+            'location': forms.Select(attrs={
+                'class': 'form-control',
+                'placeholder': 'Select Location'
+            }),
         }
 
 

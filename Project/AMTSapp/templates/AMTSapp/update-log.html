@@ -47,7 +47,6 @@
 
     
     <div class="container mt-5">
-        <h2 class="mb-4 text-center">Asset Update Logs Dashboard</h2>
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
@@ -91,11 +90,25 @@
                         <a href="{% url 'book_update_log' %}" class="btn btn-primary">View Book asset Log</a>
                     </td>
                 </tr>
+
+
+                <tr>
+                    <td>Computer Peripheral Assets</td>
+                    <td>Details and updates for Computer Peripheral assets</td>
+                    <td>
+                        <a href="{% url 'all_peripheral_update_logs' %}" class="btn btn-primary">View Computer Peripheral asset Log</a>
+                    </td>
+                </tr>
                
             </tbody>
+
         </table>
+        
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to dashboard ⬅️</a>
     </div>
-    
+    <br>
+    <br>
+    <br>
     
 
     

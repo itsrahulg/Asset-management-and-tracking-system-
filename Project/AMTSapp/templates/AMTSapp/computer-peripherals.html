@@ -1,28 +1,60 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Computer Peripheral</title>
-    <!-- Add Bootstrap CSS for styling -->
+    <title>Computer Peripherals Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add-asset.css' %}">
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Add Computer Peripheral</h1>
-        <form method="post" enctype="multipart/form-data">
+        <h1 class="mb-4 text-center">Add New Computer Peripheral</h1>
+        <form method="post" enctype="multipart/form-data"> <!-- Correct enctype for file uploads -->
             {% csrf_token %}
-            {{ form.as_p }}
-            <div class="form-group">
+
+            {{ form.ASSET_ID.label_tag }}
+            {{ form.ASSET_ID }}
+
+            {{ form.type_of_asset.label_tag }}
+            {{ form.type_of_asset }}
+
+            {{ form.peripheral_type.label_tag }}
+            {{ form.peripheral_type }}
+
+            {{ form.brand.label_tag }}
+            {{ form.brand }}
+
+            {{ form.model.label_tag }}
+            {{ form.model }}
+
+            {{ form.date_of_purchase.label_tag }}
+            {{ form.date_of_purchase }}
+
+            {{ form.stock_register_number.label_tag }}
+            {{ form.stock_register_number }}
+
+            {{ form.account_head.label_tag }}
+            {{ form.account_head }}
+
+            {{ form.location.label_tag }}
+            {{ form.location }}
+
+            <div class="form-group mt-4">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                <a href="{% url 'asset_types' %}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
-    
-    <!-- Add Bootstrap JS and dependencies -->
+
+    <br>
+    <br>
+    <br>
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

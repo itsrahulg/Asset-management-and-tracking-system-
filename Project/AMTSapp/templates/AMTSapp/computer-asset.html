@@ -1,21 +1,98 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Computer Hardware</title>
+    <title>Computer Hardware Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add-asset.css' %}">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Add Computer Hardware</h1>
-        <form method="post" enctype="multipart/form-data">
+        <h1 class="mb-4 text-center">Add Computer Hardware</h1>
+        <form method="post" enctype="multipart/form-data"> <!-- Correct enctype for file uploads -->
             {% csrf_token %}
-            {{ form.as_p }}
+
             <div class="form-group">
+                {{ form.ASSET_ID.label_tag }}
+                {{ form.ASSET_ID }}
+            </div>
+
+            <div class="form-group">
+                {{ form.hardware_type.label_tag }}
+                {{ form.hardware_type }}
+            </div>
+
+            <div class="form-group">
+                {{ form.brand.label_tag }}
+                {{ form.brand }}
+            </div>
+
+            <div class="form-group">
+                {{ form.model.label_tag }}
+                {{ form.model }}
+            </div>
+
+            <div class="form-group">
+                {{ form.processor.label_tag }}
+                {{ form.processor }}
+            </div>
+
+            <div class="form-group">
+                {{ form.processor_generation.label_tag }}
+                {{ form.processor_generation }}
+            </div>
+
+            <div class="form-group">
+                {{ form.ram.label_tag }}
+                {{ form.ram }}
+            </div>
+
+            <div class="form-group">
+                {{ form.rom.label_tag }}
+                {{ form.rom }}
+            </div>
+
+            <div class="form-group">
+                {{ form.motherboard.label_tag }}
+                {{ form.motherboard }}
+            </div>
+
+            <div class="form-group">
+                {{ form.power_supply.label_tag }}
+                {{ form.power_supply }}
+            </div>
+
+            <div class="form-group">
+                {{ form.graphics_card.label_tag }}
+                {{ form.graphics_card }}
+            </div>
+
+            <div class="form-group">
+                {{ form.date_of_purchase.label_tag }}
+                {{ form.date_of_purchase }}
+            </div>
+
+            <div class="form-group">
+                {{ form.stock_register_number.label_tag }}
+                {{ form.stock_register_number }}
+            </div>
+
+            <div class="form-group">
+                {{ form.account_head.label_tag }}
+                {{ form.account_head }}
+            </div>
+
+            <div class="form-group">
+                {{ form.location.label_tag }}
+                {{ form.location }}
+            </div>
+
+            <div class="form-group mt-4">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                <a href="{% url 'asset_types' %}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

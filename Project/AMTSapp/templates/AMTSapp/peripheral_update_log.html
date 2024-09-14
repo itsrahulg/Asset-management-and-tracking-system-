@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Peripheral Update Logs</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <h1 class="mb-4">All Peripheral Update Logs</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Peripheral</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Location</th>
+                    <th>Date of Purchase</th>
+                    <th>Date Logged</th>
+                    <th>Date of Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.peripheral.ASSET_ID }} - {{ log.peripheral.peripheral_type }}</td>
+                    <td>{{ log.brand }}</td>
+                    <td>{{ log.model }}</td>
+                    <td>{{ log.location }}</td>
+                    <td>{{ log.date_of_purchase }}</td>
+                    <td>{{ log.date_logged }}</td>
+                    <td>{{ log.date_of_update }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No update logs found for any peripherals.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'log' %}" class="btn btn-secondary mt-3">Back to List</a>
+    </div>
+</body>
+</html>

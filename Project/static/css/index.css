@@ -8,7 +8,7 @@
 
 
 body{
-    background-image: url('/static/images/indexbg.jpg');
+    /* background-image: url('/static/images/indexbg.jpg'); */
     background-size: cover; 
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -20,12 +20,15 @@ body{
 .navbar {
     margin: 0;
     padding: 0;
+    width: 100vw;
+    overflow: hidden;
+
 }
 
 .nav-bg {
     background: rgb(124,193,255);
     background: linear-gradient(90deg, rgba(124,193,255,1) 0%, rgba(22,246,255,1) 100%);
-    padding: 0.5rem;
+    padding: 0.8rem;
 }
 
 .navbar-toggler {
@@ -103,18 +106,18 @@ body{
 main{
     display: flex;
     justify-content: center;
-    margin-top: 6rem;
+    margin-top: 3rem;
     
 }
 
 .hero-section{
-    background-color: white;
-    margin-bottom:2rem;
+    /* background-color: white; */
+    /* margin-bottom:2rem; */
     padding-left:3rem;
     border-radius: 10px;
-    width:100%;
+    width:90%;
     height:50%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
 
     
 }
@@ -128,20 +131,26 @@ main{
 
 
 /* card styling and scroll up and scroll down animation */
+.cards{
+    padding: 2.5rem;
+    /* background-image: linear-gradient(to bottom, #ffffff, #f0effc, #dfe0fa, #cbd2f8, #b5c5f6, #a6bbf7, #97b1f7, #87a7f8, #839dfa, #8391fa, #8685f9, #8b78f6); */
+
+
+}
 .custom-card {
-    width: 90%; /* Adjust the card width */
+    width: 80%; /* Adjust the card width */
     max-width: 330px; /* Maximum width for smaller screens */
     margin: 0 auto; /* Center the card within the column */
     opacity: 0; /* Hide the card initially */
     transform: translateY(20px); /* Move the card down slightly for the animation effect */
     transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
     margin-top: 10px;
 
 }
 
 .custom-img {
-    width: 80%; /* Adjust the image width as a percentage of the card */
+    width: 70%; /* Adjust the image width as a percentage of the card */
     margin: 0 auto; /* Center the image within the card */
 }
 
@@ -252,13 +261,18 @@ h1 {
 
 
 /* General carousel styling */
+.image-slider{
+    margin-top: -3rem;
+    padding: 2.5rem;
+    /* background-image: linear-gradient(to bottom, #8b78f6, #7c7aef, #6f7be7, #637cde, #5a7cd4, #4f75d1, #436ecd, #3567ca, #2257cb, #1745c9, #1b30c5, #290ebf); */
+
+}
 .carousel {
-    background-color: white;
     border-radius: 15px; /* Rounded corners for the carousel */
     opacity: 0; /* Initially hidden */
     transform: translateY(100%); /* Initially out of view (scroll up) */
     transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Transition for scroll effect */
-    width: 1000px; /* Set the desired width of the carousel */
+    width: 70%; /* Set the desired width of the carousel */
     height: 500px; /* Set the desired height of the carousel */
     margin: 0 auto; /* Center the carousel horizontally */
 }
@@ -303,6 +317,8 @@ h1 {
 
 /*footer styling */
 .footer{
+    margin-top: -6rem;
     padding:2rem;
-    
+    /* background-image: linear-gradient(to bottom, #290ebf, #0023b1, #002ca1, #00318e, #00337b, #0c306f, #142d63, #182a57, #152250, #131b49, #111341, #10093a);
+     */
 }

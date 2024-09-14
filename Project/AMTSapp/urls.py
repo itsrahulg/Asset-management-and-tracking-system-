@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 
+
 urlpatterns = [
     path('',views.homepage, name=""),
     path('login', views.login_view, name="login"),
@@ -13,8 +14,7 @@ urlpatterns = [
     path('google-login/', views.google_login, name='google_login'),
     path('oauth2callback/', views.google_callback, name='google_callback'),
     path('adduser',views.adduser,name="adduser"),
-    path('users/', views.user_list, name='user_list'),
-    path('update_user_role/<int:pk>/', views.update_user_role, name='update_user_role'),
+    path('users/', views.user_list_and_update, name='user_list_and_update'),
    
    
     path('assets/<str:location>/', views.assets_by_location, name='assets_by_location'),
@@ -44,5 +44,9 @@ urlpatterns = [
 
 
     path('add_peripheral/', views.add_peripheral, name='add_peripheral'),
+    path('peripherals/update/<int:pk>/', views.update_computer_peripheral, name='update_computer_peripheral'),
+    path('peripherals/update-logs/', views.all_peripheral_update_logs, name='all_peripheral_update_logs'),
 
-]
+] 
+
+
