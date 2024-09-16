@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapped Software Assets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <h2>Scrapped Software Assets</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Asset ID</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Date of Purchase</th>
+                    <th>Stock Register Number</th>
+                    <th>Account Head</th>
+                    <th>Location</th>
+                    <th>Software Version</th>
+                    <th>Date of Movement</th>
+                    <th>Reason</th>
+                    <th>Date Logged</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in scrapped_assets %}
+                    <tr>
+                        <td>{{ asset.ASSET_ID }}</td>
+                        <td>{{ asset.brand }}</td>
+                        <td>{{ asset.model }}</td>
+                        <td>{{ asset.date_of_purchase }}</td>
+                        <td>{{ asset.stock_register_number }}</td>
+                        <td>{{ asset.account_head }}</td>
+                        <td>{{ asset.location }}</td>
+                        <td>{{ asset.software_version }}</td>
+                        <td>{{ asset.date_of_movement }}</td>
+                        <td>{{ asset.reason }}</td>
+                        <td>{{ asset.date_logged }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="11" class="text-center">No scrapped software assets found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'log' %}" class="btn btn-secondary mt-3">Back to List</a>
+    </div>
+</body>
+</html>

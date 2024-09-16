@@ -65,6 +65,38 @@ class SoftwareUpdateLog(models.Model):
 
 
 
+#models to store invalid entry and the scrapped assets details
+class InvalidSoftwareEntry(models.Model):
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+    type_of_asset = models.CharField(max_length=50)
+    software_version = models.CharField(max_length=50, blank=True, null=True)
+    date_of_movement = models.DateField()
+    reason = models.TextField()
+    date_logged = models.DateField(auto_now_add=True)
+
+
+#model to store the scrapped assets
+class ScrappedSoftwareAsset(models.Model):
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+    type_of_asset = models.CharField(max_length=50)
+    software_version = models.CharField(max_length=50, blank=True, null=True)
+    date_of_movement = models.DateField()
+    reason = models.TextField()
+    date_logged = models.DateField(auto_now_add=True)
+
+
 
 
 
@@ -142,6 +174,8 @@ class ComputerHardware(models.Model):
 
 
 #model to store the updated details of computer assets 
+from django.utils import timezone
+
 class ComputerHardwareUpdateLog(models.Model):
     computer_hardware = models.ForeignKey(ComputerHardware, on_delete=models.CASCADE)
     ASSET_ID = models.CharField(max_length=50)
@@ -159,11 +193,78 @@ class ComputerHardwareUpdateLog(models.Model):
     account_head = models.CharField(max_length=100)
     location = models.CharField(max_length=50)
     date_logged = models.DateTimeField(auto_now_add=True)
+    date_of_update = models.DateField(default=timezone.now)  # New field with default date
 
     def __str__(self):
-        return f"Update Log: {self.ASSET_ID} - {self.date_logged}"
+        # Format date_logged to show only the date
+        return f"Update Log: {self.ASSET_ID} - {self.date_logged.date()}"
+
+    def get_full_location(self):
+        # Map location abbreviations to full names
+        location_mapping = {
+            'isl_lab': 'ISL Lab',
+            'cc_lab': 'CC Lab',
+            'project_lab': 'Project Lab',
+            'ibm_lab': 'IBM Lab',
+            'g1_class_first_year': 'G1 Class First Year',
+            'g1_class_second_year': 'G1 Class Second Year',
+            'g2_class_first_year': 'G2 Class First Year',
+            'g2_class_second_year': 'G2 Class Second Year',
+            'wireless_communication_lab': 'Wireless Communication Laboratory',
+            'library': 'Library',
+        }
+        return location_mapping.get(self.location, self.location)
 
 
+
+#model to store the invalid entry details for the computer hardware assets
+class InvalidComputerHardwareEntry(models.Model):
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    processor = models.CharField(max_length=50)
+    processor_generation = models.CharField(max_length=50)
+    ram = models.CharField(max_length=50)
+    rom = models.CharField(max_length=50, blank=True)
+    motherboard = models.CharField(max_length=50, blank=True)
+    power_supply = models.CharField(max_length=50, blank=True)
+    graphics_card = models.CharField(max_length=50, blank=True)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    date_of_movement = models.DateField()
+    reason = models.TextField()
+    date_logged = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Invalid Entry - {self.ASSET_ID}"
+
+
+
+
+#model to store the scrapped computer hardware details
+class ScrappedComputerHardwareAsset(models.Model):
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    processor = models.CharField(max_length=50)
+    processor_generation = models.CharField(max_length=50)
+    ram = models.CharField(max_length=50)
+    rom = models.CharField(max_length=50, blank=True)
+    motherboard = models.CharField(max_length=50, blank=True)
+    power_supply = models.CharField(max_length=50, blank=True)
+    graphics_card = models.CharField(max_length=50, blank=True)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    date_of_movement = models.DateField()
+    reason = models.TextField()
+    date_logged = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Scrapped Asset - {self.ASSET_ID}"
 
 
 
@@ -237,6 +338,44 @@ class ProjectorUpdateLog(models.Model):
     def __str__(self):
         return f"Update Log for {self.projector.ASSET_ID}"
     
+
+
+#model for the invalid and scrapped projector assets
+class InvalidProjectorEntry(models.Model):
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    resolution = models.CharField(max_length=10)
+    lumens = models.IntegerField()
+    contrast_ratio = models.CharField(max_length=20, blank=True)
+    connectivity = models.CharField(max_length=50)
+    lamp_life_hours = models.IntegerField()
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    type_of_asset = models.CharField(max_length=50)
+    date_of_movement = models.DateField()
+    reason = models.TextField()
+
+class ScrappedProjectorAsset(models.Model):
+    ASSET_ID = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    resolution = models.CharField(max_length=10)
+    lumens = models.IntegerField()
+    contrast_ratio = models.CharField(max_length=20, blank=True)
+    connectivity = models.CharField(max_length=50)
+    lamp_life_hours = models.IntegerField()
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    type_of_asset = models.CharField(max_length=50)
+    date_of_movement = models.DateField()
+    reason = models.TextField()
+
+
 
 
 

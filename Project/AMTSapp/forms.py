@@ -118,6 +118,53 @@ class SoftwareForm(forms.ModelForm):
 
 
 
+#to delete a software ( invalid and scrapped )
+class DeleteSoftwareForm(forms.Form):
+    date_of_movement = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'date',  # HTML5 date input
+                'placeholder': 'Select a date...'
+            }
+        )
+    )
+    reason = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Enter reason for movement...'
+            }
+        ),
+        required=True
+    )
+
+
+
+#to delete a computer hardware
+class DeleteHardwareForm(forms.Form):
+    date_of_movement = forms.DateField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'type': 'date',  # This will render an HTML5 date picker
+            'placeholder': 'Enter date of movement'
+        }),
+        required=True
+    )
+    reason = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 3,
+            'placeholder': 'Enter reason for movement...'
+        }),
+        required=True
+    )
+
+
+
+
+
 #to input computer hardware into the database
 from .models import ComputerHardware
 class ComputerHardwareForm(forms.ModelForm):
@@ -180,6 +227,25 @@ class ProjectorForm(forms.ModelForm):
 
 
         }
+
+#to move the projector asset into invalid or scrapped
+class DeleteProjectorForm(forms.Form):
+    date_of_movement = forms.DateField(
+        widget=forms.TextInput(attrs={
+            'type': 'date',
+            'class': 'form-control'
+        })
+    )
+    reason = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 3,
+            'placeholder': 'Enter reason for movement...'
+        }),
+        required=True
+    )
+
+
 
 
 

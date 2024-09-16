@@ -216,6 +216,27 @@ def asset_types(request):
 
 
 
+@login_required
+def scrapped_log(request):
+    return render(request,'AMTSapp/delete_and_invalid_log.html')
+
+
+
+from .models import InvalidSoftwareEntry, ScrappedSoftwareAsset
+
+def invalid_software_entries(request):
+    invalid_entries = InvalidSoftwareEntry.objects.all()
+    return render(request, 'AMTSapp/invalid_software_entries.html', {'invalid_entries': invalid_entries})
+
+def scrapped_software_assets(request):
+    scrapped_assets = ScrappedSoftwareAsset.objects.all()
+    return render(request, 'AMTSapp/scrapped_software_assets.html', {'scrapped_assets': scrapped_assets})
+
+
+
+
+
+
 #view to render software form
 def software_form(request):
     if request.method == 'POST':
@@ -269,8 +290,81 @@ def software_update_log(request):
 
 
 
+def choose_delete_action(request, asset_id):
+    asset = get_object_or_404(Software, id=asset_id)
+    return render(request, 'AMTSapp/choose_delete_action.html', {'asset': asset})
 
 
+
+
+#view to either make an invalid entry or a scrapped asset
+from .models import Software, InvalidSoftwareEntry
+from .forms import DeleteSoftwareForm
+
+def confirm_invalid_entry(request, asset_id):
+    asset = get_object_or_404(Software, id=asset_id)
+    if request.method == 'POST':
+        form = DeleteSoftwareForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            
+            # Move to Invalid Entry
+            InvalidSoftwareEntry.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                brand=asset.brand,
+                model=asset.model,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.location,
+                type_of_asset=asset.type_of_asset,
+                software_version=asset.software_version,
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            asset.delete()
+            return redirect('scrapped-log')  # Redirect after moving to invalid entry
+
+    else:
+        form = DeleteSoftwareForm()
+
+    return render(request, 'AMTSapp/confirm_invalid_entry.html', {'asset': asset, 'form': form})
+
+
+from django.shortcuts import get_object_or_404, redirect
+from .models import Software, ScrappedSoftwareAsset
+from .forms import DeleteSoftwareForm
+
+def confirm_scrapped_asset(request, asset_id):
+    asset = get_object_or_404(Software, id=asset_id)
+    if request.method == 'POST':
+        form = DeleteSoftwareForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            
+            # Move to Scrapped Asset
+            ScrappedSoftwareAsset.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                brand=asset.brand,
+                model=asset.model,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.location,
+                type_of_asset=asset.type_of_asset,
+                software_version=asset.software_version,
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            asset.delete()
+            return redirect('scrapped-log')  # Redirect after moving to scrapped assets
+
+    else:
+        form = DeleteSoftwareForm()
+
+    return render(request, 'AMTSapp/confirm_scrapped_asset.html', {'asset': asset, 'form': form})
 
 
 
@@ -296,7 +390,7 @@ def update_computer_hardware(request, pk):
         if form.is_valid():
             updated_hardware = form.save()
 
-            # Log the update in ComputerHardwareUpdateLog
+            # Log the update in ComputerHardwareUpdateLog with the full location name and date of update
             ComputerHardwareUpdateLog.objects.create(
                 computer_hardware=updated_hardware,
                 ASSET_ID=updated_hardware.ASSET_ID,
@@ -312,7 +406,8 @@ def update_computer_hardware(request, pk):
                 date_of_purchase=updated_hardware.date_of_purchase,
                 stock_register_number=updated_hardware.stock_register_number,
                 account_head=updated_hardware.account_head,
-                location=updated_hardware.location,
+                location=updated_hardware.location,  # Use the method here  # Use the full location name
+                date_of_update=timezone.now(),  # Set the current date as date of update
             )
             return redirect('dashboard')  # Redirect to a list or detail view
     else:
@@ -320,11 +415,99 @@ def update_computer_hardware(request, pk):
     
     return render(request, 'AMTSapp/update_computer_hardware.html', {'form': form})
 
-
 #view to display the updated log of computer assets
 def computer_hardware_update_log(request):
     logs = ComputerHardwareUpdateLog.objects.all()
     return render(request, 'AMTSapp/computer_hardware_update_log.html', {'logs': logs})
+
+
+
+
+#views to display invalid computer hardware form
+from .models import ComputerHardware, InvalidComputerHardwareEntry
+from .forms import DeleteHardwareForm
+
+def confirm_invalid_computer_hardware(request, asset_id):
+    asset = get_object_or_404(ComputerHardware, id=asset_id)
+    if request.method == 'POST':
+        form = DeleteHardwareForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            InvalidComputerHardwareEntry.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                brand=asset.brand,
+                model=asset.model,
+                processor=asset.processor,
+                processor_generation=asset.processor_generation,
+                ram=asset.ram,
+                rom=asset.rom,
+                motherboard=asset.motherboard,
+                power_supply=asset.power_supply,
+                graphics_card=asset.graphics_card,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.get_location_display(),
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            asset.delete()
+            return redirect('scrapped-log')  # Adjust redirect as needed
+    else:
+        form = DeleteHardwareForm()
+
+    return render(request, 'AMTSapp/confirm_invalid_hardware.html', {'asset': asset, 'form': form})
+
+
+#view to display scrapped computer hardware asset form
+from .models import ComputerHardware, ScrappedComputerHardwareAsset
+from .forms import DeleteHardwareForm
+
+def confirm_scrapped_computer_hardware(request, asset_id):
+    asset = get_object_or_404(ComputerHardware, id=asset_id)
+    if request.method == 'POST':
+        form = DeleteHardwareForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            ScrappedComputerHardwareAsset.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                brand=asset.brand,
+                model=asset.model,
+                processor=asset.processor,
+                processor_generation=asset.processor_generation,
+                ram=asset.ram,
+                rom=asset.rom,
+                motherboard=asset.motherboard,
+                power_supply=asset.power_supply,
+                graphics_card=asset.graphics_card,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.get_location_display(),
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            asset.delete()
+            return redirect('scrapped-log')  # Adjust redirect as needed
+    else:
+        form = DeleteHardwareForm()
+
+    return render(request, 'AMTSapp/confirm_scrapped_hardware.html', {'asset': asset, 'form': form})
+
+
+#views to render the invalid and scrapped data for the computer hardware
+def invalid_computer_hardware(request):
+    invalid_assets = InvalidComputerHardwareEntry.objects.all()
+    return render(request, 'AMTSapp/invalid_computer_hardware.html', {'invalid_assets': invalid_assets})
+
+def scrapped_computer_hardware(request):
+    scrapped_assets = ScrappedComputerHardwareAsset.objects.all()
+    return render(request, 'AMTSapp/scrapped_computer_hardware.html', {'scrapped_assets': scrapped_assets})
+
+
+
 
 
 
@@ -385,6 +568,89 @@ def update_projector(request, id):
 def projector_update_log(request):
     logs = ProjectorUpdateLog.objects.all()
     return render(request, 'AMTSapp/projector-update-log.html', {'logs': logs})
+
+from .models import Projector, InvalidProjectorEntry, ScrappedProjectorAsset
+from .forms import DeleteProjectorForm
+
+# View to move a specific projector to invalid
+def invalid_projector(request, asset_id):
+    asset = get_object_or_404(Projector, id=asset_id)
+    if request.method == 'POST':
+        form = DeleteProjectorForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            InvalidProjectorEntry.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                brand=asset.brand,
+                model=asset.model,
+                resolution=asset.resolution,
+                lumens=asset.lumens,
+                contrast_ratio=asset.contrast_ratio,
+                connectivity=asset.connectivity,
+                lamp_life_hours=asset.lamp_life_hours,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.get_location_display(),
+                type_of_asset=asset.type_of_asset,
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            asset.delete()
+            return redirect('scrapped-log')
+    else:
+        form = DeleteProjectorForm()
+    
+    return render(request, 'AMTSapp/confirm_invalid_projector.html', {'asset': asset, 'form': form})
+
+# View to move a specific projector to scrapped
+def scrapped_projector(request, asset_id):
+    asset = get_object_or_404(Projector, id=asset_id)
+    if request.method == 'POST':
+        form = DeleteProjectorForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            ScrappedProjectorAsset.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                brand=asset.brand,
+                model=asset.model,
+                resolution=asset.resolution,
+                lumens=asset.lumens,
+                contrast_ratio=asset.contrast_ratio,
+                connectivity=asset.connectivity,
+                lamp_life_hours=asset.lamp_life_hours,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.get_location_display(),
+                type_of_asset=asset.type_of_asset,
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            asset.delete()
+            return redirect('scrapped-log')
+    else:
+        form = DeleteProjectorForm()
+    
+    return render(request, 'AMTSapp/confirm_scrapped_projector.html', {'asset': asset, 'form': form})
+
+# Views to display invalid and scrapped assets
+def invalid_projector_log(request):
+    invalid_projectors = InvalidProjectorEntry.objects.all()
+    return render(request, 'AMTSapp/invalid_projector_list.html', {'invalid_projectors': invalid_projectors})
+
+def scrapped_projector_log(request):
+    scrapped_projectors = ScrappedProjectorAsset.objects.all()
+    return render(request, 'AMTSapp/scrapped_projector_list.html', {'scrapped_projectors': scrapped_projectors})
+
+
+
+
+
+
+
 
 
 

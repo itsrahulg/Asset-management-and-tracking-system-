@@ -19,21 +19,36 @@ urlpatterns = [
    
     path('assets/<str:location>/', views.assets_by_location, name='assets_by_location'),
     path('asset-types/', views.asset_types, name='asset_types'),
+    path('scrapped-log/',views.scrapped_log,name="scrapped-log"),
+  
     
 
     path('software/', views.software_form, name='software_form'),
     path('software/update/<int:pk>/', views.update_software, name='update_software'),
     path('software/update-log/', views.software_update_log, name='software-update-log'),
+    path('confirm_invalid_entry/<int:asset_id>/', views.confirm_invalid_entry, name='confirm_invalid_entry'),
+    path('confirm_scrapped_asset/<int:asset_id>/', views.confirm_scrapped_asset, name='confirm_scrapped_asset'),
+    path('invalid-software-entries/', views.invalid_software_entries, name='invalid_software_entries'),
+    path('scrapped-software-assets/', views.scrapped_software_assets, name='scrapped_software_assets'),
 
 
     path('add_computer_hardware/', views.add_computer_hardware, name='add_computer_hardware'),
     path('computer-hardware/update/<int:pk>/', views.update_computer_hardware, name='update-computer-hardware'),
     path('computer-hardware/update-log/', views.computer_hardware_update_log, name='computer-hardware-update-log'),
+    path('hardware/invalid/<int:asset_id>/', views.confirm_invalid_computer_hardware, name='confirm_invalid_computer_hardware'),
+    path('hardware/scrapped/<int:asset_id>/', views.confirm_scrapped_computer_hardware, name='confirm_scrapped_computer_hardware'),
+    path('invalid-computer-hardware/', views.invalid_computer_hardware, name='invalid_computer_hardware'),
+    path('scrapped-computer-hardware/', views.scrapped_computer_hardware, name='scrapped_computer_hardware'),
+
 
 
     path('add_projector/', views.add_projector, name='add_projector'),
     path('update-projector/<int:id>/', views.update_projector, name='update-projector'),
     path('projector-update-log/', views.projector_update_log, name='projector-update-log'),
+    path('projectors/invalid/', views.invalid_projector_log, name='invalid-projector-log'),
+    path('projectors/scrapped/', views.scrapped_projector_log, name='scrapped-projector-log'),
+     path('projectors/invalid/<int:asset_id>/', views.invalid_projector, name='confirm_invalid_projector'),
+    path('projectors/scrapped/<int:asset_id>/', views.scrapped_projector, name='confirm_scrapped_projector'),
 
 
     path('add_book/', views.add_book, name='add_book'),
