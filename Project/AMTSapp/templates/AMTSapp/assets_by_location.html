@@ -215,9 +215,10 @@
                                 <a href="{% url 'update_software' asset.pk %}" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
                                 </a>
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'move_software' asset.id %}" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
+                                
                                 <a href="{% url 'confirm_invalid_entry' asset.id %}" class="btn icon-button">
                                     <img src="{% static 'images/table-icons/invalid.png' %}" alt="Delete" class="table-icon">
                                 </a>

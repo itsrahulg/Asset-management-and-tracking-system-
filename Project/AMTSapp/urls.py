@@ -20,6 +20,7 @@ urlpatterns = [
     path('assets/<str:location>/', views.assets_by_location, name='assets_by_location'),
     path('asset-types/', views.asset_types, name='asset_types'),
     path('scrapped-log/',views.scrapped_log,name="scrapped-log"),
+    path('movement_history/',views.movement_history,name="movement_history"),
   
     
 
@@ -30,6 +31,9 @@ urlpatterns = [
     path('confirm_scrapped_asset/<int:asset_id>/', views.confirm_scrapped_asset, name='confirm_scrapped_asset'),
     path('invalid-software-entries/', views.invalid_software_entries, name='invalid_software_entries'),
     path('scrapped-software-assets/', views.scrapped_software_assets, name='scrapped_software_assets'),
+    path('software/<int:id>/move/', views.move_software, name='move_software'),
+    path('moved-software/', views.moved_software_list, name='moved_software_list'),
+
 
 
     path('add_computer_hardware/', views.add_computer_hardware, name='add_computer_hardware'),

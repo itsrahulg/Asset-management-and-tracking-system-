@@ -18,7 +18,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-5">
         <div class="container-fluid nav-bg">
-            <a class="logo-text" href="#">AssetGuard (Admin)- Scrapped and invalid entry Logs</a>
+            <a class="logo-text" href="#">AssetGuard (Admin)- Movement History</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""></span>
             </button>
@@ -52,67 +52,51 @@
                 <tr>
                     <th>Asset Type</th>
                     <th>Description</th>
-                    <th>Incorrect entry</th>
-                    <th>Scrapped assets</th>
+                    <th>Movement History</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Software</td>
-                    <td>software assets</td>
+                    <td>Movement History for software assets</td>
                     <td>
-                        <a href="{% url 'invalid_software_entries' %}" class="btn btn-primary">Incorrect entry</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'scrapped_software_assets' %}" class="btn btn-primary">Scrapped Assets</a>
+                        <a href="{% url 'moved_software_list' %}" class="btn btn-primary">View Software Log</a>
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>Computer Hardware Assets</td>
-                    <td>Computer Hardware assets</td>
+                    <td>Movement History for Computer Hardware assets</td>
                     <td>
-                        <a href="{% url 'invalid_computer_hardware' %}" class="btn btn-primary">Incorrect entry</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'scrapped_computer_hardware' %}" class="btn btn-primary">Scrapped Assets</a>
+                        <a href="{% url '' %}" class="btn btn-primary">View Computer Hardware Log</a>
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>Projector Assets</td>
-                    <td>projector assets</td>
+                    <td>Movement History for projector assets</td>
                     <td>
-                        <a href="{% url 'invalid-projector-log' %}" class="btn btn-primary">Incorrect entry</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'scrapped-projector-log' %}" class="btn btn-primary">Scrapped Assets</a>
+                        <a href="{% url '' %}" class="btn btn-primary">View Projector asset Log</a>
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>Book Assets</td>
-                    <td>book assets</td>
+                    <td>Movement History for book assets</td>
                     <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Incorrect entry</a>
-                    </td>
-                    <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Scrapped Assets</a>
+                        <a href="{% url '' %}" class="btn btn-primary">View Book asset Log</a>
                     </td>
                 </tr>
 
 
                 <tr>
                     <td>Computer Peripheral Assets</td>
-                    <td>Computer Peripheral assets</td>
+                    <td>Movement History for Computer Peripheral assets</td>
                     <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Incorrect entry</a>
-                    </td>
-                    <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Scrapped Assets</a>
+                        <a href="{% url '' %}" class="btn btn-primary">View Computer Peripheral asset Log</a>
                     </td>
                 </tr>
                
@@ -128,7 +112,5 @@
     
 
     
-
-   
 </body>
 </html>

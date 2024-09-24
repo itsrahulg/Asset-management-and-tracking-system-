@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render,redirect
 
 from django.contrib.auth import login, authenticate
@@ -220,6 +221,10 @@ def asset_types(request):
 def scrapped_log(request):
     return render(request,'AMTSapp/delete_and_invalid_log.html')
 
+@login_required
+def movement_history(request):
+    return render(request,'AMTSapp/movement_history.html')
+
 
 
 from .models import InvalidSoftwareEntry, ScrappedSoftwareAsset
@@ -365,6 +370,60 @@ def confirm_scrapped_asset(request, asset_id):
         form = DeleteSoftwareForm()
 
     return render(request, 'AMTSapp/confirm_scrapped_asset.html', {'asset': asset, 'form': form})
+
+#view to add the movemet history for software asset
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Software, SoftwareMovement
+from .forms import SoftwareMovementForm
+
+def move_software(request, id):
+    # Get the software asset by its ID
+    asset = get_object_or_404(Software, id=id)
+
+    if request.method == 'POST':
+        form = SoftwareMovementForm(request.POST)
+        if form.is_valid():
+            movement = form.save(commit=False)
+            movement.software = asset  # Link the movement to the software asset
+
+            # Log the necessary details from the software asset
+            movement.asset_id = asset.ASSET_ID
+            movement.brand = asset.brand
+            movement.model = asset.model
+            movement.software_version = asset.software_version
+            movement.date_of_purchase = asset.date_of_purchase
+            movement.stock_register_number = asset.stock_register_number
+            movement.account_head = asset.account_head
+            movement.original_location = asset.location
+            
+            movement.date_logged = datetime.date.today()  # Log the current date
+            movement.save()
+
+            # Delete the original software record (or you can move it elsewhere)
+            asset.delete()
+            
+            # Redirect to the dashboard or another page after moving
+            return redirect('movement_history')
+    else:
+        form = SoftwareMovementForm()
+
+    return render(request, 'AMTSapp/move_software.html', {'form': form, 'asset': asset})
+
+
+#view to display the movement history of software assets
+from .models import SoftwareMovement
+
+def moved_software_list(request):
+    moved_software = SoftwareMovement.objects.all()
+    return render(request, 'AMTSapp/moved_software_list.html', {'moved_software': moved_software})
+
+
+
+
+
+
+
+
 
 
 
@@ -627,7 +686,8 @@ def scrapped_projector(request, asset_id):
                 location=asset.get_location_display(),
                 type_of_asset=asset.type_of_asset,
                 date_of_movement=date_of_movement,
-                reason=reason
+                reason=reason,
+                # date_logged = date_logged,
             )
             asset.delete()
             return redirect('scrapped-log')

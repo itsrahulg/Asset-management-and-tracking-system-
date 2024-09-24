@@ -141,6 +141,29 @@ class DeleteSoftwareForm(forms.Form):
     )
 
 
+#to move the software asset within the college and outside the college
+from django import forms
+from .models import SoftwareMovement
+
+class SoftwareMovementForm(forms.ModelForm):
+    class Meta:
+        model = SoftwareMovement
+        fields = ['movement_type', 'new_location', 'reason', 'date_of_movement']
+        widgets = {
+            'movement_type': forms.RadioSelect(attrs={'class': 'form-check-input'}),  # Radio button for movement type
+            'new_location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter new location'}),  # Text input for new location
+            'reason': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter reason for movement', 'rows': 3}),  # Textarea for reason
+            'date_of_movement': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),  # Date picker for movement date
+        }
+        labels = {
+            'movement_type': 'Movement Type',
+            'new_location': 'New Location',
+            'reason': 'Reason for Movement',
+            'date_of_movement': 'Date of Movement'
+        }
+
+
+
 
 #to delete a computer hardware
 class DeleteHardwareForm(forms.Form):

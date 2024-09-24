@@ -98,6 +98,34 @@ class ScrappedSoftwareAsset(models.Model):
 
 
 
+#model to store the movement history of software 
+class SoftwareMovement(models.Model):
+    MOVEMENT_CHOICES = [
+        ('within_college', 'Within the College'),
+        ('outside', 'Outside the College')
+    ]
+
+    # Original software fields (logged for historical tracking)
+    asset_id = models.CharField(max_length=50)
+    brand = models.CharField(max_length=50, blank=True)
+    model = models.CharField(max_length=50, blank=True)
+    software_version = models.CharField(max_length=50, blank=True, null=True)
+    date_of_purchase = models.DateField()
+    stock_register_number = models.CharField(max_length=50)
+    account_head = models.CharField(max_length=100)
+    original_location = models.CharField(max_length=50)  # Previous location of software
+
+    # Movement-specific fields
+    movement_type = models.CharField(max_length=20, choices=MOVEMENT_CHOICES)
+    new_location = models.CharField(max_length=255)
+    reason = models.TextField()
+    date_of_movement = models.DateField()
+    date_logged = models.DateField(default=datetime.date.today)
+
+    def __str__(self):
+        return f"{self.asset_id} moved {self.movement_type} to {self.new_location}"
+ 
+
 
 
 
@@ -357,6 +385,7 @@ class InvalidProjectorEntry(models.Model):
     type_of_asset = models.CharField(max_length=50)
     date_of_movement = models.DateField()
     reason = models.TextField()
+    date_logged = models.DateField(default=datetime.date.today)
 
 class ScrappedProjectorAsset(models.Model):
     ASSET_ID = models.CharField(max_length=50)
@@ -374,6 +403,7 @@ class ScrappedProjectorAsset(models.Model):
     type_of_asset = models.CharField(max_length=50)
     date_of_movement = models.DateField()
     reason = models.TextField()
+    date_logged = models.DateField(default=datetime.date.today)
 
 
 
