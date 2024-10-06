@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Computer Peripheral</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Move Computer Peripheral</h3>
+            </div>
+            <div class="card-body p-4"> <!-- Added padding here -->
+                <!-- Display Original Peripheral Details -->
+                <h4 class="mb-3">Peripheral Details</h4>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item"><strong>Asset ID:</strong> {{ peripheral.ASSET_ID }}</li>
+                    <li class="list-group-item"><strong>Peripheral Type:</strong> {{ peripheral.get_peripheral_type_display }}</li>
+                    <li class="list-group-item"><strong>Brand:</strong> {{ peripheral.brand }}</li>
+                    <li class="list-group-item"><strong>Model:</strong> {{ peripheral.model }}</li>
+                    <li class="list-group-item"><strong>Date of Purchase:</strong> {{ peripheral.date_of_purchase }}</li>
+                    <li class="list-group-item"><strong>Stock Register Number:</strong> {{ peripheral.stock_register_number }}</li>
+                    <li class="list-group-item"><strong>Account Head:</strong> {{ peripheral.account_head }}</li>
+                    <li class="list-group-item"><strong>Current Location:</strong> {{ peripheral.location }}</li>
+                </ul>
+
+                <!-- Movement Form -->
+                <h4 class="mb-3">Move Peripheral</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.movement_type.label }}</label>
+                        <div>
+                            {% for radio in form.movement_type %}
+                                <div class="form-check">
+                                    {{ radio.tag }}  <!-- Render the input radio -->
+                                    <label class="form-check-label" for="{{ radio.id_for_label }}">
+                                        {{ radio.choice_label }}  <!-- Render the choice label -->
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if form.movement_type.errors %}
+                            <div class="text-danger">
+                                {% for error in form.movement_type.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- New Location Field -->
+                    <div class="mb-3">
+                        <label for="new_location" class="form-label">New Location</label>
+                        {{ form.new_location }}
+                        {% if form.new_location.errors %}
+                            <div class="text-danger">
+                                {% for error in form.new_location.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Reason for Movement Field -->
+                    <div class="mb-3">
+                        <label for="reason_for_movement" class="form-label">Reason for Movement</label>
+                        {{ form.reason_for_movement }}
+                        {% if form.reason_for_movement.errors %}
+                            <div class="text-danger">
+                                {% for error in form.reason_for_movement.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Date of Movement Field -->
+                    <div class="mb-3">
+                        <label for="date_of_movement" class="form-label">Date of Movement</label>
+                        {{ form.date_of_movement }}
+                        {% if form.date_of_movement.errors %}
+                            <div class="text-danger">
+                                {% for error in form.date_of_movement.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit and Cancel Buttons -->
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Move</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

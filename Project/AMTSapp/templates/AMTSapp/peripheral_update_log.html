@@ -1,3 +1,104 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Peripheral Update Logs</title>
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table {
+            border-radius: 8px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            overflow: hidden;
+        }
+        .search-bar {
+            width: 300px;
+            float: right;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <h1 class="mb-4">All Peripheral Update Logs</h1>
+        
+      
+        <input type="text" id="searchInput" class="form-control search-bar" placeholder="Search...">
+        
+        
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Asset ID</th>
+                    <th>Peripheral</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Location</th>
+                    <th>Date of Purchase</th>
+                    <th>Date Logged</th>
+                    <th>Date of Update</th>
+                </tr>
+            </thead>
+            <tbody id="logTable">
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.peripheral.ASSET_ID }}</td>
+                    <td>{{ log.peripheral.peripheral_type }}</td>
+                    <td>{{ log.brand }}</td>
+                    <td>{{ log.model }}</td>
+                    <td>{{ log.location }}</td>
+                    <td>{{ log.date_of_purchase }}</td>
+                    <td>{{ log.date_logged }}</td>
+                    <td>{{ log.date_of_update }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No update logs found for any peripherals.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <a href="{% url 'log' %}" class="btn btn-secondary mt-3">Back to List</a>
+    </div>
+
+
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            var searchTerm = this.value.toLowerCase();
+            var rows = document.querySelectorAll('#logTable tr');
+            
+            rows.forEach(function(row) {
+                var cells = row.querySelectorAll('td');
+                var match = false;
+
+                cells.forEach(function(cell) {
+                    if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                        match = true;
+                    }
+                });
+
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> -->
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +139,8 @@
                     <th>Date of Purchase</th>
                     <th>Date Logged</th>
                     <th>Date of Update</th>
+                    <th>Updated By</th>  <!-- New column -->
+                    <th>Logged By</th>    <!-- New column -->
                 </tr>
             </thead>
             <tbody id="logTable">
@@ -51,10 +154,12 @@
                     <td>{{ log.date_of_purchase }}</td>
                     <td>{{ log.date_logged }}</td>
                     <td>{{ log.date_of_update }}</td>
+                    <td>{{ log.updated_by }}</td>  <!-- Display updated_by -->
+                    <td>{{ log.logged_by }}</td>    <!-- Display logged_by -->
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="8" class="text-center">No update logs found for any peripherals.</td>
+                    <td colspan="10" class="text-center">No update logs found for any peripherals.</td>
                 </tr>
                 {% endfor %}
             </tbody>

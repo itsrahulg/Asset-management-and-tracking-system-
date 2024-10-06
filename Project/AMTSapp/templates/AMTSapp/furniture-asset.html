@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Furniture</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add-asset.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Add Furniture</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.ASSET_ID.label_tag }}
+                {{ form.ASSET_ID }}  <!-- Render the asset ID field -->
+            </div>
+            <div class="form-group">
+                {{ form.type_of_furniture.label_tag }}
+                {{ form.type_of_furniture }}  <!-- Render the type of furniture field -->
+            </div>
+            <div class="form-group">
+                {{ form.subtype.label_tag }}
+                {{ form.subtype }}  <!-- Render the subtype field -->
+            </div>
+            <div class="form-group">
+                {{ form.date_of_purchase.label_tag }}
+                {{ form.date_of_purchase }}  <!-- Render the date of purchase field -->
+            </div>
+            <div class="form-group">
+                {{ form.account_head.label_tag }}
+                {{ form.account_head }}  <!-- Render the account head field -->
+            </div>
+            <div class="form-group">
+                {{ form.location.label_tag }}
+                {{ form.location }}  <!-- Render the location field -->
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

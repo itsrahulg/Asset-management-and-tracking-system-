@@ -138,12 +138,17 @@ def signup_view(request):
 
 
 
+from django.views.decorators.cache import never_cache
 
+from django.http import HttpResponse
 
 def logout_view(request):
     logout(request)
-    return redirect('')
-
+    response = redirect('')  # Replace 'home' with your actual homepage URL name
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 
 
@@ -211,7 +216,7 @@ def is_superuser(user):
 
 
 
-
+@login_required
 def asset_types(request):
     return render(request, 'AMTSapp/asset_types.html')
 
@@ -259,6 +264,41 @@ def software_form(request):
 
 
 #to update the software assets
+# def update_software(request, pk):
+#     software = get_object_or_404(Software, pk=pk)
+    
+#     if request.method == 'POST':
+#         form = SoftwareForm(request.POST, instance=software)
+#         if form.is_valid():
+#             updated_software = form.save(commit=False)
+#             updated_software.save()  # Save the updated software data
+            
+#             # Log the updated details in SoftwareUpdateLog with the update_date
+#             SoftwareUpdateLog.objects.create(
+#                 ASSET_ID=updated_software.ASSET_ID,
+#                 brand=updated_software.brand,
+#                 model=updated_software.model,
+#                 software_version=updated_software.software_version,
+#                 date_of_purchase=updated_software.date_of_purchase,
+#                 stock_register_number=updated_software.stock_register_number,
+#                 account_head=updated_software.account_head,
+#                 location=updated_software.location,
+#                 update_date=timezone.now()  # Set the update date here
+#             )
+
+#             return redirect('dashboard')  # Redirect after update
+    
+#     else:
+#         form = SoftwareForm(instance=software)
+
+#     return render(request, 'AMTSapp/software_asset_update.html', {'form': form, 'software': software})
+
+
+#modified view to update the software assets
+from django.utils import timezone
+
+from django.contrib.auth.models import User  # Ensure this import is present
+
 def update_software(request, pk):
     software = get_object_or_404(Software, pk=pk)
     
@@ -278,7 +318,9 @@ def update_software(request, pk):
                 stock_register_number=updated_software.stock_register_number,
                 account_head=updated_software.account_head,
                 location=updated_software.location,
-                update_date=timezone.now()  # Set the update date here
+                update_date=request.POST.get('update_date'),  # Get the date from the form
+                updated_by=request.POST.get('updated_by'),  # Get the updated_by field from the form
+                logged_by=request.user  # Assign the currently logged-in user
             )
 
             return redirect('dashboard')  # Redirect after update
@@ -287,6 +329,13 @@ def update_software(request, pk):
         form = SoftwareForm(instance=software)
 
     return render(request, 'AMTSapp/software_asset_update.html', {'form': form, 'software': software})
+
+
+
+
+
+
+
 
 #to view the software update log
 def software_update_log(request):
@@ -395,7 +444,7 @@ def move_software(request, id):
             movement.stock_register_number = asset.stock_register_number
             movement.account_head = asset.account_head
             movement.original_location = asset.location
-            
+
             movement.date_logged = datetime.date.today()  # Log the current date
             movement.save()
 
@@ -404,10 +453,13 @@ def move_software(request, id):
             
             # Redirect to the dashboard or another page after moving
             return redirect('movement_history')
+        else:
+            print(form.errors)  # Debug: print form errors if validation fails
     else:
         form = SoftwareMovementForm()
 
     return render(request, 'AMTSapp/move_software.html', {'form': form, 'asset': asset})
+
 
 
 #view to display the movement history of software assets
@@ -442,6 +494,42 @@ def add_computer_hardware(request):
 
 
 #view to update computer assets
+# def update_computer_hardware(request, pk):
+#     computer_hardware = get_object_or_404(ComputerHardware, pk=pk)
+#     if request.method == 'POST':
+#         form = ComputerHardwareForm(request.POST, instance=computer_hardware)
+#         if form.is_valid():
+#             updated_hardware = form.save()
+
+#             # Log the update in ComputerHardwareUpdateLog with the full location name and date of update
+#             ComputerHardwareUpdateLog.objects.create(
+#                 computer_hardware=updated_hardware,
+#                 ASSET_ID=updated_hardware.ASSET_ID,
+#                 brand=updated_hardware.brand,
+#                 model=updated_hardware.model,
+#                 processor=updated_hardware.processor,
+#                 processor_generation=updated_hardware.processor_generation,
+#                 ram=updated_hardware.ram,
+#                 rom=updated_hardware.rom,
+#                 motherboard=updated_hardware.motherboard,
+#                 power_supply=updated_hardware.power_supply,
+#                 graphics_card=updated_hardware.graphics_card,
+#                 date_of_purchase=updated_hardware.date_of_purchase,
+#                 stock_register_number=updated_hardware.stock_register_number,
+#                 account_head=updated_hardware.account_head,
+#                 location=updated_hardware.location,  # Use the method here  # Use the full location name
+#                 date_of_update=timezone.now(),  # Set the current date as date of update
+#             )
+#             return redirect('dashboard')  # Redirect to a list or detail view
+#     else:
+#         form = ComputerHardwareForm(instance=computer_hardware)
+    
+#     return render(request, 'AMTSapp/update_computer_hardware.html', {'form': form})
+
+
+
+#modified view to update the computer hardware
+@login_required
 def update_computer_hardware(request, pk):
     computer_hardware = get_object_or_404(ComputerHardware, pk=pk)
     if request.method == 'POST':
@@ -449,7 +537,7 @@ def update_computer_hardware(request, pk):
         if form.is_valid():
             updated_hardware = form.save()
 
-            # Log the update in ComputerHardwareUpdateLog with the full location name and date of update
+            # Log the update in ComputerHardwareUpdateLog
             ComputerHardwareUpdateLog.objects.create(
                 computer_hardware=updated_hardware,
                 ASSET_ID=updated_hardware.ASSET_ID,
@@ -465,14 +553,21 @@ def update_computer_hardware(request, pk):
                 date_of_purchase=updated_hardware.date_of_purchase,
                 stock_register_number=updated_hardware.stock_register_number,
                 account_head=updated_hardware.account_head,
-                location=updated_hardware.location,  # Use the method here  # Use the full location name
+                location=updated_hardware.location,  # Use the location field directly
                 date_of_update=timezone.now(),  # Set the current date as date of update
+                updated_by=request.POST.get('updated_by'),  # Get updated_by from the form
+                logged_by=request.user  # Set the logged-in user
             )
             return redirect('dashboard')  # Redirect to a list or detail view
     else:
         form = ComputerHardwareForm(instance=computer_hardware)
     
     return render(request, 'AMTSapp/update_computer_hardware.html', {'form': form})
+
+
+
+
+
 
 #view to display the updated log of computer assets
 def computer_hardware_update_log(request):
@@ -568,10 +663,46 @@ def scrapped_computer_hardware(request):
 
 
 
+#view to render the movement history form for computer hardware form
+from .models import ComputerHardware, ComputerHardwareMovement
+from .forms import ComputerHardwareMovementForm
+
+def move_computer_hardware(request, asset_id):
+    hardware = get_object_or_404(ComputerHardware, id=asset_id)
+    
+    if request.method == 'POST':
+        form = ComputerHardwareMovementForm(request.POST)
+        if form.is_valid():
+            movement_type = form.cleaned_data['movement_type']
+            new_location = form.cleaned_data['new_location']
+            reason = form.cleaned_data['reason']
+            date_of_movement = form.cleaned_data['date_of_movement']
+            
+            # Log the movement
+            ComputerHardwareMovement.log_movement(
+                hardware=hardware,
+                movement_type=movement_type,
+                new_location=new_location,
+                reason=reason,
+                date_of_movement=date_of_movement
+            )
+            
+            # Delete the original hardware record after moving
+            hardware.delete()
+            
+            return redirect('movement_history')
+    else:
+        form = ComputerHardwareMovementForm()
+    
+    return render(request, 'AMTSapp/move_computer_hardware.html', {'form': form, 'hardware': hardware})
 
 
+#view to render the moved computer hardware list
+from .models import ComputerHardwareMovement
 
-
+def moved_computer_hardware_list(request):
+    movements = ComputerHardwareMovement.objects.all()
+    return render(request, 'AMTSapp/moved_computer_hardware_list.html', {'movements': movements})
 
 
 
@@ -592,6 +723,40 @@ def add_projector(request):
 
 #to render the projector update form 
 from .models import Projector, ProjectorUpdateLog
+
+# def update_projector(request, id):
+#     projector = get_object_or_404(Projector, id=id)
+#     if request.method == 'POST':
+#         form = ProjectorForm(request.POST, instance=projector)
+#         if form.is_valid():
+#             updated_projector = form.save()
+
+#             # Log the update
+#             ProjectorUpdateLog.objects.create(
+#                 projector=updated_projector,
+#                 updated_date=timezone.now(),
+#                 brand=updated_projector.brand,
+#                 model=updated_projector.model,
+#                 resolution=updated_projector.resolution,
+#                 lumens=updated_projector.lumens,
+#                 contrast_ratio=updated_projector.contrast_ratio,
+#                 connectivity=updated_projector.connectivity,
+#                 lamp_life_hours=updated_projector.lamp_life_hours,
+#                 date_of_purchase=updated_projector.date_of_purchase,
+#                 stock_register_number=updated_projector.stock_register_number,
+#                 account_head=updated_projector.account_head,
+#                 location=dict(Projector.LOCATIONS)[updated_projector.location]  # Full location name
+#             )
+#             return redirect('dashboard')
+
+#     else:
+#         form = ProjectorForm(instance=projector)
+#     return render(request, 'AMTSapp/update_projector.html', {'form': form})
+
+
+
+#modified view to update the form and render it
+from .forms import ProjectorForm  # Ensure this imports your form
 
 def update_projector(request, id):
     projector = get_object_or_404(Projector, id=id)
@@ -614,13 +779,20 @@ def update_projector(request, id):
                 date_of_purchase=updated_projector.date_of_purchase,
                 stock_register_number=updated_projector.stock_register_number,
                 account_head=updated_projector.account_head,
-                location=dict(Projector.LOCATIONS)[updated_projector.location]  # Full location name
+                location=updated_projector.location,  # Use the location directly
+                updated_by=request.POST.get('updated_by'),  # Capture updated_by from form
+                logged_by=request.user.username  # Get the currently logged-in user's username
             )
             return redirect('dashboard')
 
     else:
         form = ProjectorForm(instance=projector)
+
     return render(request, 'AMTSapp/update_projector.html', {'form': form})
+
+
+
+
 
 
 #view to display the projector update log
@@ -708,6 +880,51 @@ def scrapped_projector_log(request):
 
 
 
+#view to display the movement history form for projector assets
+from .models import Projector, ProjectorMovement
+from .forms import ProjectorMovementForm
+from django.urls import reverse
+
+from .models import Projector, ProjectorMovement
+from .forms import ProjectorMovementForm
+
+def move_projector(request, id):
+    projector = get_object_or_404(Projector, id=id)
+    
+    if request.method == 'POST':
+        form = ProjectorMovementForm(request.POST)
+        if form.is_valid():
+            movement = form.save(commit=False)  # Create the movement instance but don't save yet
+            ProjectorMovement.log_movement(
+                projector=projector,
+                movement_type=movement.movement_type,
+                new_location=movement.new_location,
+                reason=movement.reason,
+                date_of_movement=movement.date_of_movement
+            )
+            projector.delete()  # Delete the projector after logging movement
+            return redirect('movement_history')  # Redirect after successful save
+        else:
+            print(form.errors)  # Debugging: Print errors to console
+    else:
+        form = ProjectorMovementForm()
+
+    return render(request, 'AMTSapp/move_projector.html', {'form': form, 'projector': projector})
+
+
+
+def moved_projector_list(request):
+    movements = ProjectorMovement.objects.all()
+    return render(request, 'AMTSapp/moved_projector_list.html', {'movements': movements})
+
+
+
+
+
+
+
+
+
 
 
 
@@ -732,19 +949,55 @@ def add_book(request):
 #to render the update books form 
 from .models import Books, BookUpdateLog
 
+# def update_book(request, pk):
+#     book = get_object_or_404(Books, pk=pk)
+    
+#     if request.method == 'POST':
+#         form = BooksForm(request.POST, instance=book)
+#         date_of_update = request.POST.get('date_of_update')  # Get the update date from the form
+
+#         if form.is_valid() and date_of_update:
+#             updated_book = form.save()
+
+#             # Create log entry
+#             BookUpdateLog.objects.create(
+#                 book=book,
+#                 title=updated_book.title,
+#                 publisher=updated_book.publisher,
+#                 author=updated_book.author,
+#                 publishing_house=updated_book.publishing_house,
+#                 edition=updated_book.edition,
+#                 date_of_purchase=updated_book.date_of_purchase,
+#                 stock_register_number=updated_book.stock_register_number,
+#                 account_head=updated_book.account_head,
+#                 location=updated_book.get_location_display(),
+#                 date_logged=timezone.now(),
+#                 date_of_update=date_of_update  # Manually entered date
+#             )
+
+#             return redirect('dashboard')
+
+#     else:
+#         form = BooksForm(instance=book)
+
+#     return render(request, 'AMTSapp/update_book.html', {'form': form, 'book': book})
+
+
+#modified view to accomodate the two extra fields in update book model
+
+from .forms import BookUpdateForm  # Ensure you're importing the correct form
+
 def update_book(request, pk):
     book = get_object_or_404(Books, pk=pk)
-    
     if request.method == 'POST':
-        form = BooksForm(request.POST, instance=book)
-        date_of_update = request.POST.get('date_of_update')  # Get the update date from the form
-
-        if form.is_valid() and date_of_update:
+        form = BookUpdateForm(request.POST, instance=book)
+        if form.is_valid():
             updated_book = form.save()
 
-            # Create log entry
+            # Log the update
             BookUpdateLog.objects.create(
-                book=book,
+                book=updated_book,  # Set the book instance here
+                date_of_update=form.cleaned_data['date_of_update'],  # Use cleaned data for date of update
                 title=updated_book.title,
                 publisher=updated_book.publisher,
                 author=updated_book.author,
@@ -753,17 +1006,24 @@ def update_book(request, pk):
                 date_of_purchase=updated_book.date_of_purchase,
                 stock_register_number=updated_book.stock_register_number,
                 account_head=updated_book.account_head,
-                location=updated_book.get_location_display(),
-                date_logged=timezone.now(),
-                date_of_update=date_of_update  # Manually entered date
+                location=updated_book.location,
+                updated_by=form.cleaned_data['updated_by'],  # Capture updated_by from form
+                logged_by=request.user.username  # Get the currently logged-in user's username
             )
-
             return redirect('dashboard')
-
+        else:
+            print(form.errors)  # Print form errors to understand what went wrong
     else:
-        form = BooksForm(instance=book)
+        form = BookUpdateForm(instance=book)
 
-    return render(request, 'AMTSapp/update_book.html', {'form': form, 'book': book})
+    return render(request, 'AMTSapp/update_book.html', {'form': form})
+
+
+
+
+
+
+
 
 
 #view to render the books update log
@@ -771,6 +1031,132 @@ def book_update_log(request):
     logs = BookUpdateLog.objects.all()
     return render(request, 'AMTSapp/book_update_log.html', {'logs': logs})
 
+
+
+#view to render the invalid entry book form
+from .models import InvalidBookEntry
+from .forms import InvalidBookForm
+
+def invalid_book(request, asset_id):
+    book = get_object_or_404(Books, id=asset_id)
+    
+    if request.method == 'POST':
+        form = InvalidBookForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            
+            InvalidBookEntry.objects.create(
+                ASSET_ID=book.ASSET_ID,
+                title=book.title,
+                publisher=book.publisher,
+                author=book.author,
+                publishing_house=book.publishing_house,
+                edition=book.edition,
+                date_of_purchase=book.date_of_purchase,
+                stock_register_number=book.stock_register_number,
+                account_head=book.account_head,
+                location=book.get_location_display(),
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            book.delete()
+            return redirect('scrapped-log')
+    else:
+        form = InvalidBookForm()
+    
+    return render(request, 'AMTSapp/confirm_invalid_book.html', {'book': book, 'form': form})
+
+
+
+#view to render the scrapped book form
+from .models import ScrappedBookAsset
+from .forms import ScrappedBookForm
+
+def scrapped_book(request, asset_id):
+    book = get_object_or_404(Books, id=asset_id)
+    
+    if request.method == 'POST':
+        form = ScrappedBookForm(request.POST)
+        if form.is_valid():
+            date_of_movement = form.cleaned_data['date_of_movement']
+            reason = form.cleaned_data['reason']
+            
+            ScrappedBookAsset.objects.create(
+                ASSET_ID=book.ASSET_ID,
+                title=book.title,
+                publisher=book.publisher,
+                author=book.author,
+                publishing_house=book.publishing_house,
+                edition=book.edition,
+                date_of_purchase=book.date_of_purchase,
+                stock_register_number=book.stock_register_number,
+                account_head=book.account_head,
+                location=book.get_location_display(),
+                date_of_movement=date_of_movement,
+                reason=reason
+            )
+            book.delete()
+            return redirect('scrapped-log')
+    else:
+        form = ScrappedBookForm()
+    
+    return render(request, 'AMTSapp/confirm_scrapped_book.html', {'book': book, 'form': form})
+
+
+
+
+# View to display the list of invalid books
+def list_invalid_books(request):
+    invalid_books = InvalidBookEntry.objects.all()
+    return render(request, 'AMTSapp/invalid_books_list.html', {'invalid_books': invalid_books})
+
+# View to display the list of scrapped books
+def list_scrapped_books(request):
+    scrapped_books = ScrappedBookAsset.objects.all()
+    return render(request, 'AMTSapp/scrapped_books_list.html', {'scrapped_books': scrapped_books})
+
+
+
+#view to render the movement history form for books
+from .models import Books, MovedBooks
+from .forms import MovedBooksForm
+
+def move_book(request, pk):
+    book = get_object_or_404(Books, pk=pk)
+    if request.method == 'POST':
+        form = MovedBooksForm(request.POST)
+        if form.is_valid():
+            moved_book = form.save(commit=False)
+            # Populate fields with data from the original book
+            moved_book.ASSET_ID = book.ASSET_ID
+            moved_book.type_of_asset = book.type_of_asset
+            moved_book.title = book.title
+            moved_book.publisher = book.publisher
+            moved_book.author = book.author
+            moved_book.publishing_house = book.publishing_house
+            moved_book.edition = book.edition
+            moved_book.date_of_purchase = book.date_of_purchase
+            moved_book.stock_register_number = book.stock_register_number
+            moved_book.account_head = book.account_head
+            moved_book.original_location = book.location  # Set original location
+
+            moved_book.save()  # Save the moved book to the database
+            
+            # Delete the original book entry after moving
+            book.delete()
+            return redirect('movement_history')  # Adjust the redirect as necessary
+    else:
+        form = MovedBooksForm()  # No need to pass book if it's not used
+
+    return render(request, 'AMTSapp/move_book.html', {'form': form, 'book': book})
+
+
+
+#view to render the moved books list
+def moved_books_list(request):
+    moved_books = MovedBooks.objects.all()
+    return render(request, 'AMTSapp/moved_book_list.html', {'moved_books': moved_books})
 
 
 
@@ -791,26 +1177,63 @@ def add_peripheral(request):
 #to render the computer peripheral update form
 from .models import ComputerPeripherals, ComputerPeripheralsUpdateLog
 
+# def update_computer_peripheral(request, pk):
+#     peripheral = get_object_or_404(ComputerPeripherals, pk=pk)
+
+#     if request.method == 'POST':
+#         form = ComputerPeripheralsForm(request.POST, instance=peripheral)
+#         if form.is_valid():
+#             # Save the form
+#             form.save()
+
+#             # Create a log entry
+#             ComputerPeripheralsUpdateLog.objects.create(
+#                 peripheral=peripheral,
+#                 peripheral_type=peripheral.peripheral_type,
+#                 brand=peripheral.brand,
+#                 model=peripheral.model,
+#                 date_of_purchase=peripheral.date_of_purchase,
+#                 stock_register_number=peripheral.stock_register_number,
+#                 account_head=peripheral.account_head,
+#                 location=peripheral.location,
+#                 date_of_update=request.POST.get('date_of_update')  # Manual update date entry
+#             )
+
+#             return redirect('dashboard')  # Redirect to the list of peripherals
+
+#     else:
+#         form = ComputerPeripheralsForm(instance=peripheral)
+
+#     return render(request, 'AMTSapp/update_computer_peripheral.html', {'form': form, 'peripheral': peripheral})
+
+
+
+#modified view to render the update form for computer peripherals
+from .models import ComputerPeripherals, ComputerPeripheralsUpdateLog
+from .forms import ComputerPeripheralsForm
+
 def update_computer_peripheral(request, pk):
     peripheral = get_object_or_404(ComputerPeripherals, pk=pk)
 
     if request.method == 'POST':
         form = ComputerPeripheralsForm(request.POST, instance=peripheral)
         if form.is_valid():
-            # Save the form
-            form.save()
+            # Save the updated peripheral
+            updated_peripheral = form.save()
 
             # Create a log entry
             ComputerPeripheralsUpdateLog.objects.create(
-                peripheral=peripheral,
-                peripheral_type=peripheral.peripheral_type,
-                brand=peripheral.brand,
-                model=peripheral.model,
-                date_of_purchase=peripheral.date_of_purchase,
-                stock_register_number=peripheral.stock_register_number,
-                account_head=peripheral.account_head,
-                location=peripheral.location,
-                date_of_update=request.POST.get('date_of_update')  # Manual update date entry
+                peripheral=updated_peripheral,
+                peripheral_type=updated_peripheral.peripheral_type,
+                brand=updated_peripheral.brand,
+                model=updated_peripheral.model,
+                date_of_purchase=updated_peripheral.date_of_purchase,
+                stock_register_number=updated_peripheral.stock_register_number,
+                account_head=updated_peripheral.account_head,
+                location=updated_peripheral.location,
+                date_of_update=request.POST.get('date_of_update'),  # Manual update date entry
+                updated_by=request.POST.get('updated_by'),  # Capture updated_by from form
+                logged_by=request.user.username  # Get the currently logged-in user's username
             )
 
             return redirect('dashboard')  # Redirect to the list of peripherals
@@ -822,6 +1245,16 @@ def update_computer_peripheral(request, pk):
 
 
 
+
+
+
+
+
+
+
+
+
+
 #to render the computer peripherals update log
 def all_peripheral_update_logs(request):
     logs = ComputerPeripheralsUpdateLog.objects.all().order_by('-date_logged')  # List all logs, ordered by the most recent log first
@@ -829,6 +1262,140 @@ def all_peripheral_update_logs(request):
 
 
 
+#to render the form for invalid computer peripherals form and the scrapped assets form
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import ComputerPeripherals, InvalidComputerPeripherals, ScrappedComputerPeripherals
+from .forms import InvalidComputerPeripheralsForm, ScrappedComputerPeripheralsForm
+
+# View for moving an asset to invalid entry
+def move_to_invalid_computer_peripherals(request, asset_id):
+    asset = get_object_or_404(ComputerPeripherals, id=asset_id)
+    
+    if request.method == 'POST':
+        form = InvalidComputerPeripheralsForm(request.POST)
+        if form.is_valid():
+            # Create an InvalidComputerPeripherals object
+            invalid_asset = InvalidComputerPeripherals.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                peripheral_type=asset.peripheral_type,
+                brand=asset.brand,
+                model=asset.model,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.location,
+                date_of_movement=form.cleaned_data['date_of_movement'],
+                reason=form.cleaned_data['reason'],
+                date_logged=datetime.date.today()
+            )
+            invalid_asset.save()
+            asset.delete()  # Remove from main table
+            return redirect('scrapped-log')
+    else:
+        form = InvalidComputerPeripheralsForm()
+    
+    return render(request, 'AMTSapp/confirm_invalid_computer_peripheral.html', {'asset': asset, 'form': form})
+
+# View for moving an asset to scrapped assets
+def move_to_scrapped_computer_peripherals(request, asset_id):
+    asset = get_object_or_404(ComputerPeripherals, id=asset_id)
+    
+    if request.method == 'POST':
+        form = ScrappedComputerPeripheralsForm(request.POST)
+        if form.is_valid():
+            # Create a ScrappedComputerPeripherals object
+            scrapped_asset = ScrappedComputerPeripherals.objects.create(
+                ASSET_ID=asset.ASSET_ID,
+                peripheral_type=asset.peripheral_type,
+                brand=asset.brand,
+                model=asset.model,
+                date_of_purchase=asset.date_of_purchase,
+                stock_register_number=asset.stock_register_number,
+                account_head=asset.account_head,
+                location=asset.location,
+                date_of_movement=form.cleaned_data['date_of_movement'],
+                reason=form.cleaned_data['reason'],
+                date_logged=datetime.date.today()
+            )
+            scrapped_asset.save()
+            asset.delete()  # Remove from main table
+            return redirect('scrapped-log')
+    else:
+        form = ScrappedComputerPeripheralsForm()
+    
+    return render(request, 'AMTSapp/confirm_scrapped_computer_peripherals.html', {'asset': asset, 'form': form})
+
+
+
+
+#views to render the invalid and scrapped computer peripherals asset list
+def invalid_computer_peripherals_list(request):
+    invalid_assets = InvalidComputerPeripherals.objects.all()
+    return render(request, 'AMTSapp/invalid_computer_peripherals_list.html', {'invalid_assets': invalid_assets})
+
+def scrapped_computer_peripherals_list(request):
+    scrapped_assets = ScrappedComputerPeripherals.objects.all()
+    return render(request, 'AMTSapp/scrapped_computer_peripherals.html', {'scrapped_assets': scrapped_assets})
+
+
+#view to render the movement history form for computer peripherals
+from .models import ComputerPeripherals, MovedComputerPeripherals
+from .forms import MovedComputerPeripheralsForm
+
+# View to move a computer peripheral
+def move_peripheral(request, pk):
+    peripheral = get_object_or_404(ComputerPeripherals, pk=pk)
+    if request.method == 'POST':
+        form = MovedComputerPeripheralsForm(request.POST)
+        if form.is_valid():
+            moved_peripheral = form.save(commit=False)
+            # Copying data from the original model
+            moved_peripheral.original_location = peripheral.location
+            moved_peripheral.ASSET_ID = peripheral.ASSET_ID
+            moved_peripheral.type_of_asset = peripheral.type_of_asset
+            moved_peripheral.peripheral_type = peripheral.peripheral_type
+            moved_peripheral.brand = peripheral.brand
+            moved_peripheral.model = peripheral.model
+            moved_peripheral.date_of_purchase = peripheral.date_of_purchase
+            moved_peripheral.stock_register_number = peripheral.stock_register_number
+            moved_peripheral.account_head = peripheral.account_head
+
+            # Save the moved peripheral
+            moved_peripheral.save()
+
+            # Delete the original peripheral record
+            peripheral.delete()
+
+            return redirect('movement_history')
+        else:
+            print(form.errors)  # Debugging line to print form errors
+    else:
+        form = MovedComputerPeripheralsForm()
+
+    return render(request, 'AMTSapp/move_peripheral.html', {'form': form, 'peripheral': peripheral})
+
+
+# View to list all moved computer peripherals list
+def moved_peripherals_list(request):
+    moved_peripherals = MovedComputerPeripherals.objects.all()
+    return render(request, 'AMTSapp/moved_peripherals.html', {'moved_peripherals': moved_peripherals})
+
+
+
+#to add a furniture asset into the database
+#view to enter the furniture asset into the database
+from .forms import FurnitureForm  # Import your form
+from django.contrib import messages
+
+def add_furniture(request):
+    if request.method == 'POST':
+        form = FurnitureForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('asset_types')  # Replace 'asset_types' with your desired redirect URL
+    else:
+        form = FurnitureForm()
+    return render(request, 'AMTSapp/furniture-asset.html', {'form': form})
 
 
 
@@ -839,7 +1406,42 @@ def all_peripheral_update_logs(request):
 
 
 
-from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals
+
+# def assets_by_location(request, location):
+#     computer_hardware_assets = ComputerHardware.objects.filter(location=location)
+#     projector_assets = Projector.objects.filter(location=location)
+#     software_assets = Software.objects.filter(location=location)
+#     books_assets = Books.objects.filter(location=location)
+#     computer_peripherals_assets = ComputerPeripherals.objects.filter(location=location)
+    
+#     grouped_assets = {
+#         'computer_hardware': computer_hardware_assets,
+#         'projector': projector_assets,
+#         'software': software_assets,
+#         'books': books_assets,
+#         'computer_peripherals': computer_peripherals_assets,
+#     }
+    
+#     return render(request, 'AMTSapp/assets_by_location.html', {
+#         'grouped_assets': grouped_assets,
+#         'location': location
+#     })
+
+from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals, Furniture  # Make sure to import Furniture
 
 def assets_by_location(request, location):
     computer_hardware_assets = ComputerHardware.objects.filter(location=location)
@@ -847,19 +1449,90 @@ def assets_by_location(request, location):
     software_assets = Software.objects.filter(location=location)
     books_assets = Books.objects.filter(location=location)
     computer_peripherals_assets = ComputerPeripherals.objects.filter(location=location)
-    
+    furniture_assets = Furniture.objects.filter(location=location)  # Added this line for furniture
+
     grouped_assets = {
         'computer_hardware': computer_hardware_assets,
         'projector': projector_assets,
         'software': software_assets,
         'books': books_assets,
         'computer_peripherals': computer_peripherals_assets,
+        'furniture': furniture_assets,  # Added furniture to the grouped assets
     }
-    
+
     return render(request, 'AMTSapp/assets_by_location.html', {
         'grouped_assets': grouped_assets,
         'location': location
     })
+
+
+
+
+
+
+#to render the user dashboard without the icons
+from django.shortcuts import render
+# from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals  # Import your models
+
+# def assets_by_location_user(request, location):
+#     # Fetch assets for the specified location
+#     computer_hardware_assets = ComputerHardware.objects.filter(location=location)
+#     projector_assets = Projector.objects.filter(location=location)
+#     software_assets = Software.objects.filter(location=location)
+#     books_assets = Books.objects.filter(location=location)
+#     computer_peripherals_assets = ComputerPeripherals.objects.filter(location=location)
+    
+#     # Group assets for rendering
+#     grouped_assets = {
+#         'computer_hardware': computer_hardware_assets,
+#         'projector': projector_assets,
+#         'software': software_assets,
+#         'books': books_assets,
+#         'computer_peripherals': computer_peripherals_assets,
+#     }
+    
+#     # Render the user view template
+#     return render(request, 'AMTSapp/assets_by_location_user.html', {
+#         'grouped_assets': grouped_assets,
+#         'location': location
+#     })
+
+
+from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals, Furniture  # Import Furniture model
+
+def assets_by_location_user(request, location):
+    # Fetch assets for the specified location
+    computer_hardware_assets = ComputerHardware.objects.filter(location=location)
+    projector_assets = Projector.objects.filter(location=location)
+    software_assets = Software.objects.filter(location=location)
+    books_assets = Books.objects.filter(location=location)
+    computer_peripherals_assets = ComputerPeripherals.objects.filter(location=location)
+    furniture_assets = Furniture.objects.filter(location=location)  # Added line to fetch furniture assets
+
+    # Group assets for rendering
+    grouped_assets = {
+        'computer_hardware': computer_hardware_assets,
+        'projector': projector_assets,
+        'software': software_assets,
+        'books': books_assets,
+        'computer_peripherals': computer_peripherals_assets,
+        'furniture': furniture_assets,  # Added furniture to the grouped assets
+    }
+    
+    # Render the user view template
+    return render(request, 'AMTSapp/assets_by_location_user.html', {
+        'grouped_assets': grouped_assets,
+        'location': location
+    })
+
+
+
+
+
+
+
+
+
 
 
 

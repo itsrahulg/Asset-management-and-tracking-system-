@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapped Book Assets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <h2>Scrapped Book Assets</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Asset ID</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Author</th>
+                    <th>Publishing House</th>
+                    <th>Edition</th>
+                    <th>Date of Purchase</th>
+                    <th>Stock Register Number</th>
+                    <th>Account Head</th>
+                    <th>Location</th>
+                    <th>Date of Movement</th>
+                    <th>Reason</th>
+                    <th>Date Logged</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in scrapped_books %}
+                <tr>
+                    <td>{{ book.ASSET_ID }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.publisher }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.publishing_house }}</td>
+                    <td>{{ book.edition }}</td>
+                    <td>{{ book.date_of_purchase }}</td>
+                    <td>{{ book.stock_register_number }}</td>
+                    <td>{{ book.account_head }}</td>
+                    <td>{{ book.location }}</td>
+                    <td>{{ book.date_of_movement }}</td>
+                    <td>{{ book.reason }}</td>
+                    <td>{{ book.date_logged }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="13" class="text-center">No scrapped books found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'scrapped-log' %}" class="btn btn-secondary mt-3">Back to List</a>
+    </div>
+</body>
+</html>

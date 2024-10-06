@@ -21,6 +21,8 @@ urlpatterns = [
     path('asset-types/', views.asset_types, name='asset_types'),
     path('scrapped-log/',views.scrapped_log,name="scrapped-log"),
     path('movement_history/',views.movement_history,name="movement_history"),
+    path('location/<str:location>/user/', views.assets_by_location_user, name='assets_by_location_user'),
+
   
     
 
@@ -43,6 +45,8 @@ urlpatterns = [
     path('hardware/scrapped/<int:asset_id>/', views.confirm_scrapped_computer_hardware, name='confirm_scrapped_computer_hardware'),
     path('invalid-computer-hardware/', views.invalid_computer_hardware, name='invalid_computer_hardware'),
     path('scrapped-computer-hardware/', views.scrapped_computer_hardware, name='scrapped_computer_hardware'),
+    path('hardware/move/<int:asset_id>/', views.move_computer_hardware, name='move_computer_hardware'),
+    path('hardware/moved/', views.moved_computer_hardware_list, name='moved_computer_hardware_list'),
 
 
 
@@ -51,13 +55,21 @@ urlpatterns = [
     path('projector-update-log/', views.projector_update_log, name='projector-update-log'),
     path('projectors/invalid/', views.invalid_projector_log, name='invalid-projector-log'),
     path('projectors/scrapped/', views.scrapped_projector_log, name='scrapped-projector-log'),
-     path('projectors/invalid/<int:asset_id>/', views.invalid_projector, name='confirm_invalid_projector'),
+    path('projectors/invalid/<int:asset_id>/', views.invalid_projector, name='confirm_invalid_projector'),
     path('projectors/scrapped/<int:asset_id>/', views.scrapped_projector, name='confirm_scrapped_projector'),
+    path('projectors/<int:id>/move/', views.move_projector, name='move_projector'),
+    path('projectors/moved/', views.moved_projector_list, name='moved_projector_list'),
 
 
     path('add_book/', views.add_book, name='add_book'),
     path('books/update/<int:pk>/', views.update_book, name='update_book'),
     path('books/update-log/', views.book_update_log, name='book_update_log'),
+    path('books/invalid/<int:asset_id>/', views.invalid_book, name='invalid_book'),
+    path('books/scrapped/<int:asset_id>/', views.scrapped_book, name='scrapped_book'),
+    path('books/invalid/', views.list_invalid_books, name='list_invalid_books'),
+    path('books/scrapped/', views.list_scrapped_books, name='list_scrapped_books'),
+    path('move_book/<int:pk>/', views.move_book, name='move_book'),
+    path('moved_books/', views.moved_books_list, name='moved_books_list'),
 
 
 
@@ -65,6 +77,16 @@ urlpatterns = [
     path('add_peripheral/', views.add_peripheral, name='add_peripheral'),
     path('peripherals/update/<int:pk>/', views.update_computer_peripheral, name='update_computer_peripheral'),
     path('peripherals/update-logs/', views.all_peripheral_update_logs, name='all_peripheral_update_logs'),
+    path('move-to-invalid-computer-peripherals/<int:asset_id>/', views.move_to_invalid_computer_peripherals, name='move_to_invalid_computer_peripherals'),
+    path('move-to-scrapped-computer-peripherals/<int:asset_id>/', views.move_to_scrapped_computer_peripherals, name='move_to_scrapped_computer_peripherals'),
+    path('invalid-computer-peripherals/', views.invalid_computer_peripherals_list, name='invalid_computer_peripherals_list'),
+    path('scrapped-computer-peripherals/', views.scrapped_computer_peripherals_list, name='scrapped_computer_peripherals_list'),
+    path('move_peripheral/<int:pk>/', views.move_peripheral, name='move_peripheral'),
+    path('moved_peripherals/', views.moved_peripherals_list, name='moved_peripherals_list'),
+
+
+
+    path('add-furniture/', views.add_furniture, name='add_furniture'),
 
 ] 
 

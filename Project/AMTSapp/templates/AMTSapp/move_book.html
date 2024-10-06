@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Book</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Move Book</h3>
+            </div>
+            <div class="card-body p-4">
+                <h4 class="mb-3">Book Details</h4>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item"><strong>Asset ID:</strong> {{ book.ASSET_ID }}</li>
+                    <li class="list-group-item"><strong>Title:</strong> {{ book.title }}</li>
+                    <li class="list-group-item"><strong>Author:</strong> {{ book.author }}</li>
+                    <li class="list-group-item"><strong>Publisher:</strong> {{ book.publisher }}</li>
+                    <li class="list-group-item"><strong>Publishing House:</strong> {{ book.publishing_house }}</li>
+                    <li class="list-group-item"><strong>Edition:</strong> {{ book.edition }}</li>
+                    <li class="list-group-item"><strong>Date of purchase:</strong> {{ book.date_of_purchase }}</li>
+                    <li class="list-group-item"><strong>Stock register number:</strong> {{ book.stock_register_number }}</li>
+                    <li class="list-group-item"><strong>Account Head:</strong> {{ book.account_head }}</li>
+                </ul>
+
+                <h4 class="mb-3">Move Book</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- Radio buttons for Movement Type -->
+                    <div class="mb-3">
+                        <label>{{ form.movement_type.label }}</label>
+                        {% for radio in form.movement_type %}
+                            <div class="form-check">
+                                {{ radio.tag }} 
+                                <label class="form-check-label" for="{{ radio.id_for_label }}">
+                                    {{ radio.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- New Location Input -->
+                    <div class="mb-3">
+                        <label for="new_location" class="form-label">New Location</label>
+                        {{ form.new_location }}
+                    </div>
+
+                    <!-- Reason for Movement Textarea -->
+                    <div class="mb-3">
+                        <label for="reason_for_movement" class="form-label">Reason for Movement</label>
+                        {{ form.reason_for_movement }}
+                    </div>
+
+                    <!-- Date of Movement -->
+                    <div class="mb-3">
+                        <label for="date_of_movement" class="form-label">Date of Movement</label>
+                        {{ form.date_of_movement }}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Move</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

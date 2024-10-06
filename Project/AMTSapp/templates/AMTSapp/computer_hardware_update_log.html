@@ -7,11 +7,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
-        body{
-            padding:1rem;
+        body {
+            padding: 1rem;
         }
-
         .table {
             border-radius: 8px;
             box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -49,8 +47,10 @@
                     <th>Date of Purchase</th>
                     <th>Location</th>
                     <th>Stock Register Number</th>
-                    <th>Date of update</th>
+                    <th>Date of Update</th>
                     <th>Date Logged</th>
+                    <th>Updated By</th> <!-- New field for updated_by -->
+                    <th>Logged By</th> <!-- New field for logged_by -->
                 </tr>
             </thead>
             <tbody id="logTable">
@@ -71,10 +71,12 @@
                         <td>{{ log.stock_register_number }}</td>
                         <td>{{ log.date_of_update }}</td>
                         <td>{{ log.date_logged }}</td>
+                        <td>{{ log.updated_by }}</td> <!-- Display updated_by -->
+                        <td>{{ log.logged_by }}</td> <!-- Display logged_by -->
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="15" class="text-center">No update logs found.</td>
+                        <td colspan="16" class="text-center">No update logs found.</td>
                     </tr>
                 {% endfor %}
             </tbody>

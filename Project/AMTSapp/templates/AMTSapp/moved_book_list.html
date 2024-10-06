@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moved Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Moved Books</h3>
+            </div>
+            <div class="card-body">
+                {% if moved_books %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Asset ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Original Location</th>
+                                <th>New Location</th>
+                                <th>Movement Type</th>
+                                <th>Reason</th>
+                                <th>Date of Movement</th>
+                                <th>Date Logged</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for movement in moved_books %}
+                                <tr>
+                                    <td>{{ movement.ASSET_ID }}</td>
+                                    <td>{{ movement.title }}</td>
+                                    <td>{{ movement.author }}</td>
+                                    <td>{{ movement.original_location }}</td>  <!-- Corrected to use original_location -->
+                                    <td>{{ movement.new_location }}</td>
+                                    <td>{{ movement.get_movement_type_display }}</td>
+                                    <td>{{ movement.reason_for_movement }}</td> <!-- Corrected to use reason_for_movement -->
+                                    <td>{{ movement.date_of_movement }}</td>
+                                    <td>{{ movement.date_logged }}</td> <!-- If you have a date_logged field, otherwise remove this line -->
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No books have been moved.</p>
+                {% endif %}
+                <a href="{% url 'movement_history' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

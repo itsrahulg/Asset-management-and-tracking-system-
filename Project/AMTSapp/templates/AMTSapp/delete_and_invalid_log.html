@@ -97,10 +97,10 @@
                     <td>Book Assets</td>
                     <td>book assets</td>
                     <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Incorrect entry</a>
+                        <a href="{% url 'list_invalid_books' %}" class="btn btn-primary">Incorrect entry</a>
                     </td>
                     <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Scrapped Assets</a>
+                        <a href="{% url 'list_scrapped_books' %}" class="btn btn-primary">Scrapped Assets</a>
                     </td>
                 </tr>
 
@@ -109,10 +109,10 @@
                     <td>Computer Peripheral Assets</td>
                     <td>Computer Peripheral assets</td>
                     <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Incorrect entry</a>
+                        <a href="{% url 'invalid_computer_peripherals_list' %}" class="btn btn-primary">Incorrect entry</a>
                     </td>
                     <td>
-                        <a href="{% url '' %}" class="btn btn-primary">Scrapped Assets</a>
+                        <a href="{% url 'scrapped_computer_peripherals_list' %}" class="btn btn-primary">Scrapped Assets</a>
                     </td>
                 </tr>
                
@@ -120,7 +120,7 @@
 
         </table>
         
-        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to dashboard ⬅️</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to dashboard</a>
     </div>
     <br>
     <br>

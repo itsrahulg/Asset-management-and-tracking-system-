@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>AMTS-MCA</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/briefcase.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/assets-by-location.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    
+    
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-5">
+        <div class="container-fluid nav-bg">
+            <a class="logo-text" href="#">AssetGuard (Admin)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarsExample03">
+                <form class="d-flex ms-auto search-form">
+                    <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                    
+                </form>
+    
+                <div class="ms-2 d-flex align-items-center">
+                   
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary" style="color: black; background-color: white; border-radius: 20px; border: none;">Back to dashboard ⬅️</a>
+                
+
+                    <!-- <a href="" class="btn icon-button me-2">
+                        <img src="{% static 'images/question-mark.png' %}" alt="add item" class="nav-icon">
+                    </a> -->
+
+                  
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+
+
+
+
+
+
+    <div class="container-fluid mt-5">
+        <!-- Computer Hardware Assets Table -->
+        <div class="table-wrapper">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="14">
+                            <h2 class="table-title">Computer Hardware Assets</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Processor</th>
+                        <th>Processor Generation</th>
+                        <th>RAM</th>
+                        <th>ROM</th>
+                        <th>Motherboard</th>
+                        <th>Power Supply</th>
+                        <th>Graphics Card</th>
+                        <th>Date of Purchase</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in grouped_assets.computer_hardware %}
+                        <tr>
+                            <td>{{ asset.ASSET_ID }}</td>
+                            <td>{{ asset.brand }}</td>
+                            <td>{{ asset.model }}</td>
+                            <td>{{ asset.processor }}</td>
+                            <td>{{ asset.processor_generation }}</td>
+                            <td>{{ asset.ram }}</td>
+                            <td>{{ asset.rom }}</td>
+                            <td>{{ asset.motherboard }}</td>
+                            <td>{{ asset.power_supply }}</td>
+                            <td>{{ asset.graphics_card }}</td>
+                            <td>{{ asset.date_of_purchase }}</td>
+                            <td>{{ asset.stock_register_number }}</td>
+                            <td>{{ asset.account_head }}</td>
+                    
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="14" class="text-center">No computer hardware assets found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    
+        <!-- Projector Assets Table -->
+        <div class="table-wrapper mt-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="10">
+                            <h2 class="table-title">Projector Assets</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Resolution</th>
+                        <th>Lumens</th>
+                        <th>Connectivity</th>
+                        <th>Date of Purchase</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in grouped_assets.projector %}
+                        <tr>
+                            <td>{{ asset.ASSET_ID }}</td>
+                            <td>{{ asset.brand }}</td>
+                            <td>{{ asset.model }}</td>
+                            <td>{{ asset.resolution }}</td>
+                            <td>{{ asset.lumens }}</td>
+                            <td>{{ asset.connectivity }}</td>
+                            <td>{{ asset.date_of_purchase }}</td>
+                            <td>{{ asset.stock_register_number }}</td>
+                            <td>{{ asset.account_head }}</td>
+                    
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="10" class="text-center">No projector assets found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+       
+        <!-- Software Assets Table -->
+        <div class="table-wrapper mt-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="9">  <!-- Changed colspan from 8 to 9 to account for the new column -->
+                            <h2 class="table-title">Software Assets</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Software Version</th>
+                        <th>Date of Purchase</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in grouped_assets.software %}
+                        <tr>
+                            <td>{{ asset.ASSET_ID }}</td>
+                            <td>{{ asset.brand }}</td>
+                            <td>{{ asset.model }}</td>
+                            <td>{{ asset.software_version }}</td>
+                            <td>{{ asset.date_of_purchase }}</td>
+                            <td>{{ asset.stock_register_number }}</td>
+                            <td>{{ asset.account_head }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">No software assets found.</td> <!-- Updated colspan to 9 -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    
+        <!-- Books Table -->
+        <div class="table-wrapper mt-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="10">
+                            <h2 class="table-title">Books</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Title</th>
+                        <th>Publisher</th>
+                        <th>Author</th>
+                        <th>Publishing House</th>
+                        <th>Edition</th>
+                        <th>Date of Purchase</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in grouped_assets.books %}
+                        <tr>
+                            <td>{{ book.ASSET_ID }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.publisher }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.publishing_house }}</td>
+                            <td>{{ book.edition }}</td>
+                            <td>{{ book.date_of_purchase }}</td>
+                            <td>{{ book.stock_register_number }}</td>
+                            <td>{{ book.account_head }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="10" class="text-center">No books found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+       
+        
+
+
+
+
+
+        <!-- table to display computer peripherals -->
+        <div class="table-wrapper mt-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="8">
+                            <h2 class="table-title">Computer Peripherals</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Peripheral Type</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Date of Purchase</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for peripheral in grouped_assets.computer_peripherals %}
+                        <tr>
+                            <td>{{ peripheral.ASSET_ID }}</td>
+                            <td>{{ peripheral.peripheral_type }}</td>
+                            <td>{{ peripheral.brand }}</td>
+                            <td>{{ peripheral.model }}</td>
+                            <td>{{ peripheral.date_of_purchase }}</td>
+                            <td>{{ peripheral.stock_register_number }}</td>
+                            <td>{{ peripheral.account_head }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">No computer peripherals found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to dashboard ⬅️</a>
+        </div>
+        
+        
+
+
+
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+         
+     <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -32,11 +32,12 @@
     
                 <div class="ms-2 d-flex align-items-center">
                    
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary" style="color: black; background-color: white; border-radius: 20px; border: none;">Back to dashboard ⬅️</a>
                 
 
-                    <a href="" class="btn icon-button me-2">
+                    <!-- <a href="" class="btn icon-button me-2">
                         <img src="{% static 'images/question-mark.png' %}" alt="add item" class="nav-icon">
-                    </a>
+                    </a> -->
 
                   
                 </div>
@@ -47,12 +48,10 @@
     <br>
 
 
-
-
-
-
+ <!-- Computer Hardware Assets Table -->
+<!-- 
     <div class="container-fluid mt-5">
-        <!-- Computer Hardware Assets Table -->
+       
         <div class="table-wrapper">
             <table class="table table-bordered">
                 <thead>
@@ -95,21 +94,23 @@
                             <td>{{ asset.stock_register_number }}</td>
                             <td>{{ asset.account_head }}</td>
                             <td>
-                                <a href="{% url 'update-computer-hardware' asset.pk %}" class="btn icon-button">
-                                    <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
+                                <a href="{% url 'update-computer-hardware' asset.pk %}" class="btn icon-button" title="Update asset details">
+                                    <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
                                 </a>
                                 
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'move_computer_hardware' asset.id %}" class="btn icon-button" title="Move asset">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
-                                <a href="{% url 'confirm_invalid_computer_hardware' asset.id %}" class="btn icon-button">
+                                
+                                <a href="{% url 'confirm_invalid_computer_hardware' asset.id %}" class="btn icon-button" title="Move to incorrect entry">
                                     <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
                                 </a>
-                                <a href="{% url 'confirm_scrapped_computer_hardware' asset.id %}" class="btn icon-button">
+                                
+                                <a href="{% url 'confirm_scrapped_computer_hardware' asset.id %}" class="btn icon-button" title="Move to scrapped assets">
                                     <img src="{% static 'images/table-icons/delete.png' %}" alt="Scrap" class="table-icon">
                                 </a>
-                                
                             </td>
+                            
                         </tr>
                     {% empty %}
                         <tr>
@@ -118,10 +119,81 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div> -->
+
+
+        <div class="container-fluid mt-5">
+            <!-- Computer Hardware Assets Table -->
+            {% if grouped_assets.computer_hardware %}
+                <div class="table-wrapper">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="14">
+                                    <h2 class="table-title">Computer Hardware Assets</h2>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Asset ID</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Processor</th>
+                                <th>Processor Generation</th>
+                                <th>RAM</th>
+                                <th>ROM</th>
+                                <th>Motherboard</th>
+                                <th>Power Supply</th>
+                                <th>Graphics Card</th>
+                                <th>Date of Purchase</th>
+                                <th>Stock Register Number</th>
+                                <th>Account Head</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for asset in grouped_assets.computer_hardware %}
+                                <tr>
+                                    <td>{{ asset.ASSET_ID }}</td>
+                                    <td>{{ asset.brand }}</td>
+                                    <td>{{ asset.model }}</td>
+                                    <td>{{ asset.processor }}</td>
+                                    <td>{{ asset.processor_generation }}</td>
+                                    <td>{{ asset.ram }}</td>
+                                    <td>{{ asset.rom }}</td>
+                                    <td>{{ asset.motherboard }}</td>
+                                    <td>{{ asset.power_supply }}</td>
+                                    <td>{{ asset.graphics_card }}</td>
+                                    <td>{{ asset.date_of_purchase }}</td>
+                                    <td>{{ asset.stock_register_number }}</td>
+                                    <td>{{ asset.account_head }}</td>
+                                    <td>
+                                        <a href="{% url 'update-computer-hardware' asset.pk %}" class="btn icon-button" title="Update asset details">
+                                            <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
+                                        </a>
+                                        
+                                        <a href="{% url 'move_computer_hardware' asset.id %}" class="btn icon-button" title="Move asset">
+                                            <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
+                                        </a>
+                                        
+                                        <a href="{% url 'confirm_invalid_computer_hardware' asset.id %}" class="btn icon-button" title="Move to incorrect entry">
+                                            <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                        </a>
+                                        
+                                        <a href="{% url 'confirm_scrapped_computer_hardware' asset.id %}" class="btn icon-button" title="Move to scrapped assets">
+                                            <img src="{% static 'images/table-icons/delete.png' %}" alt="Scrap" class="table-icon">
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
         </div>
+        
     
         <!-- Projector Assets Table -->
-        <div class="table-wrapper mt-5">
+        <!-- <div class="table-wrapper mt-5">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -155,17 +227,18 @@
                             <td>{{ asset.stock_register_number }}</td>
                             <td>{{ asset.account_head }}</td>
                             <td>
-                                <a href="{% url 'update-projector' asset.id %}" class="btn icon-button">
-                                    <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
+                                <a href="{% url 'update-projector' asset.id %}" class="btn icon-button" title="Update asset details">
+                                    <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
                                 </a>
                                 
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'move_projector' asset.id %}" class="btn icon-button" title="Move asset">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
-                                <a href="{% url 'confirm_invalid_projector' asset.id %}" class="btn icon-button">
+                                
+                                <a href="{% url 'confirm_invalid_projector' asset.id %}" class="btn icon-button" title="Move to incorrect entry">
                                     <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
                                 </a>
-                                <a href="{% url 'confirm_scrapped_projector' asset.id %}" class="btn icon-button">
+                                <a href="{% url 'confirm_scrapped_projector' asset.id %}" class="btn icon-button"  title="Move to scrapped assets">
                                     <img src="{% static 'images/table-icons/delete.png' %}" alt="Scrap" class="table-icon">
                                 </a>
                                 
@@ -178,15 +251,75 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div> -->
+
+
+        <div class="table-wrapper mt-5">
+            {% if grouped_assets.projector %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="10">
+                                <h2 class="table-title">Projector Assets</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Resolution</th>
+                            <th>Lumens</th>
+                            <th>Connectivity</th>
+                            <th>Date of Purchase</th>
+                            <th>Stock Register Number</th>
+                            <th>Account Head</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asset in grouped_assets.projector %}
+                            <tr>
+                                <td>{{ asset.ASSET_ID }}</td>
+                                <td>{{ asset.brand }}</td>
+                                <td>{{ asset.model }}</td>
+                                <td>{{ asset.resolution }}</td>
+                                <td>{{ asset.lumens }}</td>
+                                <td>{{ asset.connectivity }}</td>
+                                <td>{{ asset.date_of_purchase }}</td>
+                                <td>{{ asset.stock_register_number }}</td>
+                                <td>{{ asset.account_head }}</td>
+                                <td>
+                                    <a href="{% url 'update-projector' asset.id %}" class="btn icon-button" title="Update asset details">
+                                        <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
+                                    </a>
+                                    
+                                    <a href="{% url 'move_projector' asset.id %}" class="btn icon-button" title="Move asset">
+                                        <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
+                                    </a>
+                                    
+                                    <a href="{% url 'confirm_invalid_projector' asset.id %}" class="btn icon-button" title="Move to incorrect entry">
+                                        <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                    </a>
+                                    
+                                    <a href="{% url 'confirm_scrapped_projector' asset.id %}" class="btn icon-button" title="Move to scrapped assets">
+                                        <img src="{% static 'images/table-icons/delete.png' %}" alt="Scrap" class="table-icon">
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
+        
         
        
         <!-- Software Assets Table -->
-        <div class="table-wrapper mt-5">
+        <!-- <div class="table-wrapper mt-5">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th colspan="9">  <!-- Changed colspan from 8 to 9 to account for the new column -->
+                        <th colspan="9">  
                             <h2 class="table-title">Software Assets</h2>
                         </th>
                     </tr>
@@ -212,40 +345,85 @@
                             <td>{{ asset.stock_register_number }}</td>
                             <td>{{ asset.account_head }}</td>
                             <td>
-                                <a href="{% url 'update_software' asset.pk %}" class="btn icon-button">
-                                    <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
+                                <a href="{% url 'update_software' asset.pk %}" class="btn icon-button" title="Update asset details">
+                                    <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
                                 </a>
-                                <a href="{% url 'move_software' asset.id %}" class="btn icon-button">
+                                <a href="{% url 'move_software' asset.id %}" class="btn icon-button" title="Move asset">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
                                 
-                                <a href="{% url 'confirm_invalid_entry' asset.id %}" class="btn icon-button">
+                                <a href="{% url 'confirm_invalid_entry' asset.id %}" class="btn icon-button" title="Move to incorrect entry">
                                     <img src="{% static 'images/table-icons/invalid.png' %}" alt="Delete" class="table-icon">
                                 </a>
-                                <a href="{% url 'confirm_scrapped_asset' asset.id %}" class="btn icon-button">
+                                <a href="{% url 'confirm_scrapped_asset' asset.id %}" class="btn icon-button"  title="Move to scrapped assets">
                                     <img src="{% static 'images/table-icons/delete.png' %}" alt="Delete" class="table-icon">
                                 </a>
-                                
-                                
-
-                               
-
-                               
-                                
                             </td>
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="9" class="text-center">No software assets found.</td> <!-- Updated colspan to 9 -->
+                            <td colspan="9" class="text-center">No software assets found.</td> 
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div> -->
+
+        <div class="table-wrapper mt-5">
+            {% if grouped_assets.software %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="9">
+                                <h2 class="table-title">Software Assets</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Software Version</th>
+                            <th>Date of Purchase</th>
+                            <th>Stock Register Number</th>
+                            <th>Account Head</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asset in grouped_assets.software %}
+                            <tr>
+                                <td>{{ asset.ASSET_ID }}</td>
+                                <td>{{ asset.brand }}</td>
+                                <td>{{ asset.model }}</td>
+                                <td>{{ asset.software_version }}</td>
+                                <td>{{ asset.date_of_purchase }}</td>
+                                <td>{{ asset.stock_register_number }}</td>
+                                <td>{{ asset.account_head }}</td>
+                                <td>
+                                    <a href="{% url 'update_software' asset.pk %}" class="btn icon-button" title="Update asset details">
+                                        <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'move_software' asset.id %}" class="btn icon-button" title="Move asset">
+                                        <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'confirm_invalid_entry' asset.id %}" class="btn icon-button" title="Move to incorrect entry">
+                                        <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'confirm_scrapped_asset' asset.id %}" class="btn icon-button" title="Move to scrapped assets">
+                                        <img src="{% static 'images/table-icons/delete.png' %}" alt="Scrap" class="table-icon">
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
         
+
     
         <!-- Books Table -->
-        <div class="table-wrapper mt-5">
+        <!-- <div class="table-wrapper mt-5">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -279,16 +457,21 @@
                             <td>{{ book.stock_register_number }}</td>
                             <td>{{ book.account_head }}</td>
                             <td>
-                                <a href="{% url 'update_book' book.pk %}" class="btn icon-button">
-                                    <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
+                                <a href="{% url 'update_book' book.pk %}" class="btn icon-button" title="Update asset details">
+                                    <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
                                 </a>
                                 
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'move_book' book.pk %}" class="btn icon-button" title="Move asset">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
-                                <a href="#" class="btn icon-button">
+                                
+                                <a href="{% url 'invalid_book' book.id %}" class="btn icon-button" title="Move to incorrect entry">
+                                    <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                </a>
+                                <a href="{% url 'scrapped_book' book.id %}" class="btn icon-button" title="Move to scrapped assets">
                                     <img src="{% static 'images/table-icons/delete.png' %}" alt="Delete" class="table-icon">
                                 </a>
+                                
                             </td>
                         </tr>
                     {% empty %}
@@ -298,8 +481,63 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>-->
+
+
+        <div class="table-wrapper mt-5">
+            {% if grouped_assets.books %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="10">
+                                <h2 class="table-title">Books</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Title</th>
+                            <th>Publisher</th>
+                            <th>Author</th>
+                            <th>Publishing House</th>
+                            <th>Edition</th>
+                            <th>Date of Purchase</th>
+                            <th>Stock Register Number</th>
+                            <th>Account Head</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in grouped_assets.books %}
+                            <tr>
+                                <td>{{ book.ASSET_ID }}</td>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.publisher }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.publishing_house }}</td>
+                                <td>{{ book.edition }}</td>
+                                <td>{{ book.date_of_purchase }}</td>
+                                <td>{{ book.stock_register_number }}</td>
+                                <td>{{ book.account_head }}</td>
+                                <td>
+                                    <a href="{% url 'update_book' book.pk %}" class="btn icon-button" title="Update asset details">
+                                        <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'move_book' book.pk %}" class="btn icon-button" title="Move asset">
+                                        <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'invalid_book' book.id %}" class="btn icon-button" title="Move to incorrect entry">
+                                        <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'scrapped_book' book.id %}" class="btn icon-button" title="Move to scrapped assets">
+                                        <img src="{% static 'images/table-icons/delete.png' %}" alt="Delete" class="table-icon">
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
-       
         
 
 
@@ -307,7 +545,7 @@
 
 
         <!-- table to display computer peripherals -->
-        <div class="table-wrapper mt-5">
+        <!-- <div class="table-wrapper mt-5">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -337,15 +575,20 @@
                             <td>{{ peripheral.stock_register_number }}</td>
                             <td>{{ peripheral.account_head }}</td>
                             <td>
-                                <a href="{% url 'update_computer_peripheral' peripheral.pk %}" class="btn icon-button">
-                                    <img src="{% static 'images/table-icons/update.png' %}" alt="Update" class="table-icon">
+                                <a href="{% url 'update_computer_peripheral' peripheral.pk %}" class="btn icon-button" title="Update asset details">
+                                    <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
                                 </a>
-                                <a href="#" class="btn icon-button">
+                                <a href="{% url 'move_peripheral' peripheral.pk %}" class="btn icon-button" title="Move asset">
                                     <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
                                 </a>
-                                <a href="#" class="btn icon-button">
+                                
+                                <a href="{% url 'move_to_invalid_computer_peripherals' peripheral.id %}" class="btn icon-button" title="Move to incorrect entry">
+                                    <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                </a>
+                                <a href="{% url 'move_to_scrapped_computer_peripherals' peripheral.id %}" class="btn icon-button"  title="Move to scrapped assets">
                                     <img src="{% static 'images/table-icons/delete.png' %}" alt="Delete" class="table-icon">
                                 </a>
+                                
                             </td>
                         </tr>
                     {% empty %}
@@ -355,10 +598,120 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div> -->
+
+
+
+        <div class="table-wrapper mt-5">
+            {% if grouped_assets.computer_peripherals %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="8">
+                                <h2 class="table-title">Computer Peripherals</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Peripheral Type</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Date of Purchase</th>
+                            <th>Stock Register Number</th>
+                            <th>Account Head</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for peripheral in grouped_assets.computer_peripherals %}
+                            <tr>
+                                <td>{{ peripheral.ASSET_ID }}</td>
+                                <td>{{ peripheral.peripheral_type }}</td>
+                                <td>{{ peripheral.brand }}</td>
+                                <td>{{ peripheral.model }}</td>
+                                <td>{{ peripheral.date_of_purchase }}</td>
+                                <td>{{ peripheral.stock_register_number }}</td>
+                                <td>{{ peripheral.account_head }}</td>
+                                <td>
+                                    <a href="{% url 'update_computer_peripheral' peripheral.pk %}" class="btn icon-button" title="Update asset details">
+                                        <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'move_peripheral' peripheral.pk %}" class="btn icon-button" title="Move asset">
+                                        <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'move_to_invalid_computer_peripherals' peripheral.id %}" class="btn icon-button" title="Move to incorrect entry">
+                                        <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                    </a>
+                                    <a href="{% url 'move_to_scrapped_computer_peripherals' peripheral.id %}" class="btn icon-button" title="Move to scrapped assets">
+                                        <img src="{% static 'images/table-icons/delete.png' %}" alt="Delete" class="table-icon">
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
         
 
+        
+        
+        
+    
 
+        <!-- table for furniture assets -->
+        <div class="table-wrapper mt-5">
+            {% if grouped_assets.furniture %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="8">
+                                <h2 class="table-title">Furniture Assets</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Type of Furniture</th>
+                            <th>Subtype</th>
+                            <th>Date of Purchase</th>
+                            <th>Account Head</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for furniture in grouped_assets.furniture %}
+                            <tr>
+                                <td>{{ furniture.ASSET_ID }}</td>
+                                <td>{{ furniture.type_of_furniture }}</td>
+                                <td>{{ furniture.subtype }}</td>
+                                <td>{{ furniture.date_of_purchase }}</td>
+                                <td>{{ furniture.account_head }}</td>
+                                <td>
+                                    <a href="#" class="btn icon-button" title="Update asset details">
+                                        <img src="{% static 'images/table-icons/update-new.png' %}" alt="Update" class="table-icon">
+                                    </a>
+                                    <a href="#" class="btn icon-button" title="Move asset">
+                                        <img src="{% static 'images/table-icons/move.png' %}" alt="Move" class="table-icon">
+                                    </a>
+                                    <a href="#" class="btn icon-button" title="Move to incorrect entry">
+                                        <img src="{% static 'images/table-icons/invalid.png' %}" alt="Invalid" class="table-icon">
+                                    </a>
+                                    <a href="#" class="btn icon-button" title="Move to scrapped assets">
+                                        <img src="{% static 'images/table-icons/delete.png' %}" alt="Delete" class="table-icon">
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+        
+        
+        <div class="d-flex justify-content-center align-items-center">
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to dashboard ⬅️</a>
+        </div>
+        
 
 
     </div>
