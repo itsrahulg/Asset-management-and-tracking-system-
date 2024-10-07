@@ -3,16 +3,13 @@ import datetime
 
 class Software(models.Model):
     LOCATIONS = [
-        ('isl_lab', 'ISL Lab'),
-        ('cc_lab', 'CC Lab'),
-        ('project_lab', 'Project Lab'),
-        ('ibm_lab', 'IBM Lab'),
-        # ('g1_class_first_year', 'G1 Class First Year'),
-        # ('g1_class_second_year', 'G1 Class Second Year'),
-        # ('g2_class_first_year', 'G2 Class First Year'),
-        ('K505_seminar_hall', 'K505-Seminar Hall'),
-        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
-        ('library', 'Library'),
+        ('ISL Lab', 'ISL Lab'),
+        ('CC Lab', 'CC Lab'),
+        ('Project Lab', 'Project Lab'),
+        ('iIBM Lab', 'IBM Lab'),
+        ('K505-Seminar Hall', 'K505-Seminar Hall'),
+        ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
+        ('E-learning Center', 'E-learning Center'),
     ]
 
     ASSET_ID = models.CharField(max_length=50)
@@ -89,9 +86,6 @@ class SoftwareUpdateLog(models.Model):
             'cc_lab': 'CC Lab',
             'project_lab': 'Project Lab',
             'ibm_lab': 'IBM Lab',
-            # 'g1_class_first_year': 'G1 Class First Year',
-            # 'g1_class_second_year': 'G1 Class Second Year',
-            # 'g2_class_first_year': 'G2 Class First Year',
             'K505-Seminar Hall': 'K505-Seminar Hall',
             'wireless_communication_lab': 'Wireless Communication Laboratory',
             'library': 'Library',
@@ -176,16 +170,13 @@ class SoftwareMovement(models.Model):
 
 class ComputerHardware(models.Model):
         LOCATIONS = [
-        ('isl_lab', 'ISL Lab'),
-        ('cc_lab', 'CC Lab'),
-        ('project_lab', 'Project Lab'),
-        ('ibm_lab', 'IBM Lab'),
-        # ('g1_class_first_year', 'G1 Class First Year'),
-        # ('g1_class_second_year', 'G1 Class Second Year'),
-        # ('g2_class_first_year', 'G2 Class First Year'),
-        ('K505_seminar_hall', 'K505-Seminar-Hall'),
-        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
-        ('e_learning_center', 'E-learning-Center'),
+       ('ISL Lab', 'ISL Lab'),
+        ('CC Lab', 'CC Lab'),
+        ('Project Lab', 'Project Lab'),
+        ('iIBM Lab', 'IBM Lab'),
+        ('K505-Seminar Hall', 'K505-Seminar Hall'),
+        ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
+        ('E-learning Center', 'E-learning Center'),
     ]
 
         RAM_CHOICES = [
@@ -457,17 +448,13 @@ class ComputerHardwareMovement(models.Model):
 from django.utils import timezone
 class Projector(models.Model):
     LOCATIONS = [
-        ('isl_lab', 'ISL Lab'),
-        ('cc_lab', 'CC Lab'),
-        ('project_lab', 'Project Lab'),
-        ('ibm_lab', 'IBM Lab'),
-        # ('g1_class_first_year', 'G1 Class First Year'),
-        # ('g1_class_second_year', 'G1 Class Second Year'),
-        # ('g2_class_first_year', 'G2 Class First Year'),
-        ('K505_seminar_hall', 'K505-Seminar Hall'),
-        ('e_learning_center', 'E-learning-Center'),
-        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
-        # ('library', 'Library'),
+        ('ISL Lab', 'ISL Lab'),
+        ('CC Lab', 'CC Lab'),
+        ('Project Lab', 'Project Lab'),
+        ('iIBM Lab', 'IBM Lab'),
+        ('K505-Seminar Hall', 'K505-Seminar Hall'),
+        ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
+        ('E-learning Center', 'E-learning Center'),
     ]
     
     RESOLUTIONS = [
@@ -652,18 +639,13 @@ class ProjectorMovement(models.Model):
 #model for books
 class Books(models.Model):
     LOCATIONS = [
-        ('isl_lab', 'ISL Lab'),
-        ('cc_lab', 'CC Lab'),
-        ('project_lab', 'Project Lab'),
-        ('ibm_lab', 'IBM Lab'),
-        # ('g1_class_first_year', 'G1 Class First Year'),
-        # ('g1_class_second_year', 'G1 Class Second Year'),
-        # ('g2_class_first_year', 'G2 Class First Year'),
-        # ('g2_class_second_year', 'G2 Class Second Year'),
-        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
-        # ('library', 'Library'),
-        ('K505_seminar_hall', 'K505-Seminar Hall'),
-        ('e_learning_center', 'E-learning-Center'),
+        ('ISL Lab', 'ISL Lab'),
+        ('CC Lab', 'CC Lab'),
+        ('Project Lab', 'Project Lab'),
+        ('iIBM Lab', 'IBM Lab'),
+        ('K505-Seminar Hall', 'K505-Seminar Hall'),
+        ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
+        ('E-learning Center', 'E-learning Center'),
     ]
 
     ASSET_ID = models.CharField(max_length=50, default='TEMP_ID')
@@ -816,13 +798,13 @@ class MovedBooks(models.Model):
 #computer peripherals model
 class ComputerPeripherals(models.Model):
     LOCATIONS = [
-        ('isl_lab', 'ISL Lab'),
-        ('cc_lab', 'CC Lab'),
-        ('project_lab', 'Project Lab'),
-        ('ibm_lab', 'IBM Lab'),
-        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
-        ('K505_seminar_hall', 'K505-Seminar Hall'),
-        ('e_learning_center', 'E-learning-Center'),
+        ('ISL Lab', 'ISL Lab'),
+        ('CC Lab', 'CC Lab'),
+        ('Project Lab', 'Project Lab'),
+        ('iIBM Lab', 'IBM Lab'),
+        ('K505-Seminar Hall', 'K505-Seminar Hall'),
+        ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
+        ('E-learning Center', 'E-learning Center'),
     ]
 
     PERIPHERALS = [
@@ -1038,38 +1020,42 @@ class Furniture(models.Model):
     ASSET_ID = models.CharField(max_length=50, primary_key=True)  # Manual entry for asset ID
 
     TYPE_OF_FURNITURE_CHOICES = [
-        ('desk', 'Desk'),
-        ('chair', 'Chair'),
-        ('cupboard', 'Cupboard'),
-        ('almirah', 'Almirah'),
-        ('table', 'Table'),
-        ('board', 'Board'),
+        ('Desk', 'Desk'),
+        ('Chair', 'Chair'),
+        ('Cupboard', 'Cupboard'),
+        ('Almirah', 'Almirah'),
+        ('Table', 'Table'),
+        ('Board', 'Board'),
     ]
     
     SUBTYPE_CHOICES = [
-        ('desk_with_cupboard', 'Desk with Cupboard'),
-        ('desk_without_cupboard', 'Desk without Cupboards'),
-        ('2_seater_working_table', '2 Seater Working Table'),
-        ('3_seater_working_table', '3 Seater Working Table'),
-        ('chair_with_study_desk', 'Chair with Study Desk Attached'),
-        ('wooden_chair', 'Wooden Chair'),
-        ('steel_chair', 'Steel Chair'),
-        ('metal_revolving_chair', 'Metal Revolving Chair'),
-        ('conference_table', 'Conference Table'),
-        ('whiteboard', 'Whiteboard'),
-        ('blackboard', 'Blackboard'),
-        ('pinboard', 'Pinboard'),
-        ('noticeboard', 'Noticeboard'),
+        ('Desk with Cupboard', 'Desk with Cupboard'),
+        ('Desk without Cupboards', 'Desk without Cupboards'),
+        ('2 Seater Working Table', '2 Seater Working Table'),
+        ('3 Seater Working Table', '3 Seater Working Table'),
+        ('Chair with Study Desk Attached', 'Chair with Study Desk Attached'),
+        ('Wooden chair', 'Wooden Chair'),
+        ('Steel chair', 'Steel Chair'),
+        ('Metal Revolving Chair', 'Metal Revolving Chair'),
+        ('Conference Table', 'Conference Table'),
+        ('Whiteboard', 'Whiteboard'),
+        ('Blackboard', 'Blackboard'),
+        ('Pinboard', 'Pinboard'),
+        ('Noticeboard', 'Noticeboard'),
+        ('Wooden Almirah', 'Wooden Almirah'),
+        ('Steel Almirah', 'Steel Almirah'),
+        ('Wooden Cupboard', 'Wooden Cupboard'),
+        ('Steel Cupboard', 'Steel Cupboard'),
     ]
 
     LOCATION_CHOICES = [
-        ('isl_lab', 'ISL Lab'),
-        ('cc_lab', 'CC Lab'),
-        ('project_lab', 'Project Lab'),
-        ('ibm_lab', 'IBM Lab'),
-        ('wireless_communication_lab', 'Wireless Communication Laboratory'),
-        ('K505_seminar_hall', 'K505-Seminar Hall'),
-        ('e_learning_center', 'E-learning Center'),
+        ('ISL Lab', 'ISL Lab'),
+        ('CC Lab', 'CC Lab'),
+        ('Project Lab', 'Project Lab'),
+        ('iIBM Lab', 'IBM Lab'),
+        ('K505-Seminar Hall', 'K505-Seminar Hall'),
+        ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
+        ('E-learning Center', 'E-learning Center'),
     ]
     
     type_of_furniture = models.CharField(max_length=50, choices=TYPE_OF_FURNITURE_CHOICES)
