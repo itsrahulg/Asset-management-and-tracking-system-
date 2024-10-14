@@ -730,7 +730,88 @@ class FurnitureForm(forms.ModelForm):
 
 
 
+#form to update the furniture asset
+from .models import FurnitureUpdateLog
+
+class FurnitureUpdateLogForm(forms.ModelForm):
+    class Meta:
+        model = FurnitureUpdateLog
+        fields = [
+            'ASSET_ID',
+            'type_of_furniture',
+            'subtype',
+            'date_of_purchase',
+            'account_head',
+            'location',
+            'date_of_update',  # Date of the update
+            'updated_by',      # Person who updated the record
+        ]
+        widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control'}),
+            'type_of_furniture': forms.Select(attrs={'class': 'form-control'}),
+            'subtype': forms.Select(attrs={'class': 'form-control'}),
+            'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.Select(attrs={'class': 'form-control'}),
+            'date_of_update': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'updated_by': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 
 
 
+#form for the invalid and scrapped assets 
+from django import forms
+from .models import InvalidFurniture, ScrappedFurniture
+
+class InvalidFurnitureForm(forms.ModelForm):
+    class Meta:
+        model = InvalidFurniture
+        fields = [
+            'ASSET_ID',
+            'type_of_furniture',
+            'subtype',
+            'date_of_purchase',
+            'account_head',
+            'location',
+            'date_of_movement',
+            'reason_for_invalidity',
+            'date_logged',
+        ]
+        widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
+            'type_of_furniture': forms.Select(attrs={'class': 'form-control'}),
+            'subtype': forms.Select(attrs={'class': 'form-control'}),
+            'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
+            'location': forms.Select(attrs={'class': 'form-control'}),
+            'date_of_movement': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'reason_for_invalidity': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Reason for Invalidity'}),
+            'date_logged': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+
+class ScrappedFurnitureForm(forms.ModelForm):
+    class Meta:
+        model = ScrappedFurniture
+        fields = [
+            'ASSET_ID',
+            'type_of_furniture',
+            'subtype',
+            'date_of_purchase',
+            'account_head',
+            'location',
+            'date_of_movement',
+            'reason_for_scrapping',
+            'date_logged',
+        ]
+        widgets = {
+            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
+            'type_of_furniture': forms.Select(attrs={'class': 'form-control'}),
+            'subtype': forms.Select(attrs={'class': 'form-control'}),
+            'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
+            'location': forms.Select(attrs={'class': 'form-control'}),
+            'date_of_movement': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'reason_for_scrapping': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Reason for Scrapping'}),
+            'date_logged': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }

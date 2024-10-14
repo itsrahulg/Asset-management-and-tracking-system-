@@ -47,7 +47,40 @@
     <br>
     <br>
 
-
+         <!-- first table -->
+         <!-- table for furniture assets -->
+         <div class="table-wrapper mt-5">
+            {% if grouped_assets.furniture %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="8">
+                                <h2 class="table-title">Furniture Assets</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Type of Furniture</th>
+                            <th>Subtype</th>
+                            <th>Date of Purchase</th>
+                            <th>Account Head</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for furniture in grouped_assets.furniture %}
+                            <tr>
+                                <td>{{ furniture.ASSET_ID }}</td>
+                                <td>{{ furniture.type_of_furniture }}</td>
+                                <td>{{ furniture.subtype }}</td>
+                                <td>{{ furniture.date_of_purchase }}</td>
+                                <td>{{ furniture.account_head }}</td>
+                                
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
 
 
 

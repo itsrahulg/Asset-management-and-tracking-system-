@@ -87,6 +87,12 @@ urlpatterns = [
 
 
     path('add-furniture/', views.add_furniture, name='add_furniture'),
+    path('furniture/update/<str:pk>/', views.update_furniture, name='update_furniture'),
+    path('furniture/logs/', views.furniture_update_logs, name='furniture_update_logs'),
+    path('furniture/move-to-invalid/<str:asset_id>/', views.move_to_invalid_furniture, name='move_to_invalid_furniture'),
+    path('furniture/move-to-scrapped/<str:asset_id>/', views.move_to_scrapped_furniture, name='move_to_scrapped_furniture'),
+    path('furniture/invalid/', views.invalid_furniture_list, name='invalid_furniture'),
+    path('furniture/scrapped/', views.scrapped_furniture_list, name='scrapped_furniture'),
 
 ] 
 

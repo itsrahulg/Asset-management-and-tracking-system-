@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Furniture to Scrapped</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="mb-0">Move Furniture to Scrapped</h3>
+            </div>
+            <div class="card-body p-4">
+                <!-- Display Original Asset Details -->
+                <h4 class="mb-3">Furniture Details</h4>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item"><strong>Asset ID:</strong> {{ furniture.ASSET_ID }}</li>
+                    <li class="list-group-item"><strong>Type of Furniture:</strong> {{ furniture.type_of_furniture }}</li>
+                    <li class="list-group-item"><strong>Subtype:</strong> {{ furniture.subtype }}</li>
+                    <li class="list-group-item"><strong>Date of Purchase:</strong> {{ furniture.date_of_purchase }}</li>
+                    <li class="list-group-item"><strong>Account Head:</strong> {{ furniture.account_head }}</li>
+                    <li class="list-group-item"><strong>Location:</strong> {{ furniture.location }}</li>
+                </ul>
+
+                <!-- Movement Form -->
+                <h4 class="mb-3">Move to Scrapped</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">Reason for Scrapping</label>
+                        {{ form.reason }}
+                        {% if form.reason.errors %}
+                            <div class="text-danger">
+                                {% for error in form.reason.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_of_movement" class="form-label">Date of Movement</label>
+                        {{ form.date_of_movement }}
+                        {% if form.date_of_movement.errors %}
+                            <div class="text-danger">
+                                {% for error in form.date_of_movement.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-warning">Move to Scrapped</button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+</body>
+</html>

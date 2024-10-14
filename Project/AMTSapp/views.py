@@ -1393,6 +1393,8 @@ def add_furniture(request):
         if form.is_valid():
             form.save()
             return redirect('asset_types')  # Replace 'asset_types' with your desired redirect URL
+        else:
+            print(form.errors) 
     else:
         form = FurnitureForm()
     return render(request, 'AMTSapp/furniture-asset.html', {'form': form})
@@ -1400,16 +1402,102 @@ def add_furniture(request):
 
 
 
+#View to render the update form for a furniture asset 
+from .models import Furniture, FurnitureUpdateLog
+from .forms import FurnitureUpdateLogForm
+
+def update_furniture(request, pk):
+    furniture = get_object_or_404(Furniture, pk=pk)
+
+    if request.method == 'POST':
+        form = FurnitureForm(request.POST, instance=furniture)
+        if form.is_valid():
+            updated_furniture = form.save()
+
+            # Create an update log entry and make sure to set the furniture field
+            FurnitureUpdateLog.objects.create(
+                furniture=updated_furniture,  # Set the furniture instance
+                type_of_furniture=updated_furniture.type_of_furniture,
+                subtype=updated_furniture.subtype,
+                date_of_purchase=updated_furniture.date_of_purchase,
+                account_head=updated_furniture.account_head,
+                location=updated_furniture.location,
+                date_of_update=request.POST.get('date_of_update'),  # Manual date entry
+                updated_by=request.POST.get('updated_by'),  # Get the updated_by field
+                logged_by=request.user.username  # Get the currently logged-in user
+            )
+
+            return redirect('dashboard')  # Redirect after updating
+    else:
+        form = FurnitureForm(instance=furniture)
+
+    return render(request, 'AMTSapp/update_furniture.html', {'form': form, 'furniture': furniture})
 
 
 
 
+#view to render the update log 
+def furniture_update_logs(request):
+    logs = FurnitureUpdateLog.objects.all()
+    return render(request, 'AMTSapp/furniture_update_logs.html', {'logs': logs})
+
+#view to render the invalid and scrapped assets form 
+from .forms import InvalidFurnitureForm, ScrappedFurnitureForm
+from .models import Furniture, InvalidFurniture, ScrappedFurniture
+
+# View for moving furniture to invalid
+def move_to_invalid_furniture(request, asset_id):
+    furniture = get_object_or_404(Furniture, ASSET_ID=asset_id)  # Get the original furniture record
+
+    if request.method == 'POST':
+        form = InvalidFurnitureForm(request.POST)
+        if form.is_valid():
+            invalid_furniture = form.save(commit=False)  # Create an instance without saving
+            invalid_furniture.ASSET_ID = furniture.ASSET_ID  # Set ASSET_ID from the original furniture
+            invalid_furniture.save()  # Save the invalid furniture entry
+            furniture.delete()  # Delete the original furniture record
+            return redirect('scrapped-log')  # Redirect to a success page or list
+    else:
+        form = InvalidFurnitureForm()
+
+    return render(request, 'AMTSapp/confirm_invalid_furniture.html', {
+        'form': form,
+        'furniture': furniture
+    })
+
+# View for moving furniture to scrapped
+def move_to_scrapped_furniture(request, asset_id):
+    furniture = get_object_or_404(Furniture, ASSET_ID=asset_id)  # Get the original furniture record
+
+    if request.method == 'POST':
+        form = ScrappedFurnitureForm(request.POST)
+        if form.is_valid():
+            scrapped_furniture = form.save(commit=False)  # Create an instance without saving
+            scrapped_furniture.ASSET_ID = furniture.ASSET_ID  # Set ASSET_ID from the original furniture
+            scrapped_furniture.save()  # Save the scrapped furniture entry
+            furniture.delete()  # Delete the original furniture record
+            return redirect('scrapped-log')  # Redirect to a success page or list
+    else:
+        form = ScrappedFurnitureForm()
+
+    return render(request, 'AMTSapp/confirm_scrapped_furniture.html', {
+        'form': form,
+        'furniture': furniture
+    })
 
 
 
 
+#view to display the invalid and scrapped furniture assets
+from .models import InvalidFurniture, ScrappedFurniture
 
+def invalid_furniture_list(request):
+    invalid_furniture = InvalidFurniture.objects.all()
+    return render(request, 'invalid_furniture.html', {'invalid_furniture': invalid_furniture})
 
+def scrapped_furniture_list(request):
+    scrapped_furniture = ScrappedFurniture.objects.all()
+    return render(request, 'scrapped_furniture.html', {'scrapped_furniture': scrapped_furniture})
 
 
 
@@ -1471,7 +1559,7 @@ def assets_by_location(request, location):
 
 
 #to render the user dashboard without the icons
-from django.shortcuts import render
+# from django.shortcuts import render
 # from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals  # Import your models
 
 # def assets_by_location_user(request, location):
@@ -1524,10 +1612,6 @@ def assets_by_location_user(request, location):
         'grouped_assets': grouped_assets,
         'location': location
     })
-
-
-
-
 
 
 

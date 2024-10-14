@@ -1070,8 +1070,101 @@ class Furniture(models.Model):
 
 
 
+#model for furniture update 
+from django.db import models
+from django.utils import timezone
+
+class FurnitureUpdateLog(models.Model):
+    furniture = models.ForeignKey('Furniture', on_delete=models.CASCADE)
+    
+    # Fields from Furniture model
+    ASSET_ID = models.CharField(max_length=50)
+    type_of_furniture = models.CharField(max_length=50, choices=[
+        ('Desk', 'Desk'),
+        ('Chair', 'Chair'),
+        ('Cupboard', 'Cupboard'),
+        ('Almirah', 'Almirah'),
+        ('Table', 'Table'),
+        ('Board', 'Board'),
+    ])
+    subtype = models.CharField(max_length=50, choices=[
+        ('Desk with Cupboard', 'Desk with Cupboard'),
+        ('Desk without Cupboards', 'Desk without Cupboards'),
+        ('2 Seater Working Table', '2 Seater Working Table'),
+        ('3 Seater Working Table', '3 Seater Working Table'),
+        ('Chair with Study Desk Attached', 'Chair with Study Desk Attached'),
+        ('Wooden chair', 'Wooden Chair'),
+        ('Steel chair', 'Steel Chair'),
+        ('Metal Revolving Chair', 'Metal Revolving Chair'),
+        ('Conference Table', 'Conference Table'),
+        ('Whiteboard', 'Whiteboard'),
+        ('Blackboard', 'Blackboard'),
+        ('Pinboard', 'Pinboard'),
+        ('Noticeboard', 'Noticeboard'),
+        ('Wooden Almirah', 'Wooden Almirah'),
+        ('Steel Almirah', 'Steel Almirah'),
+        ('Wooden Cupboard', 'Wooden Cupboard'),
+        ('Steel Cupboard', 'Steel Cupboard'),
+    ])
+    date_of_purchase = models.DateField()
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50, choices=[
+        ('ISL Lab', 'ISL Lab'),
+        ('CC Lab', 'CC Lab'),
+        ('Project Lab', 'Project Lab'),
+        ('IBM Lab', 'IBM Lab'),
+        ('K505-Seminar Hall', 'K505-Seminar Hall'),
+        ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
+        ('E-learning Center', 'E-learning Center'),
+    ])
+    
+    # Additional fields for update log
+    date_of_update = models.DateField()  # Manual update date entry
+    updated_by = models.CharField(max_length=100)  # Text input for who updated
+    logged_by = models.CharField(max_length=100)  # Username of the currently logged-in user
+    date_logged = models.DateField(default=timezone.now) 
+
+    def __str__(self):
+        return f"Update log for {self.furniture} - {self.date_of_update}"
 
 
     
 
 
+#model for moving furniture to invalid and scrapped furniture asset tables
+# incorrect entry model
+class InvalidFurniture(models.Model):
+    # Fields from the original Furniture model
+    ASSET_ID = models.CharField(max_length=50)
+    type_of_furniture = models.CharField(max_length=50)
+    subtype = models.CharField(max_length=50)
+    date_of_purchase = models.DateField(default=datetime.date.today)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+
+    # Additional fields for invalid furniture
+    date_of_movement = models.DateField(default=datetime.date.today)
+    reason_for_invalidity = models.TextField()
+    date_logged = models.DateField(default=datetime.date.today)
+
+    def __str__(self):
+        return f"Invalid {self.type_of_furniture} - {self.ASSET_ID}"
+
+
+#scrapped assets entry model
+class ScrappedFurniture(models.Model):
+    # Fields from the original Furniture model
+    ASSET_ID = models.CharField(max_length=50)
+    type_of_furniture = models.CharField(max_length=50)
+    subtype = models.CharField(max_length=50)
+    date_of_purchase = models.DateField(default=datetime.date.today)
+    account_head = models.CharField(max_length=100)
+    location = models.CharField(max_length=50)
+
+    # Additional fields for scrapped furniture
+    date_of_movement = models.DateField(default=datetime.date.today)
+    reason_for_scrapping = models.TextField()
+    date_logged = models.DateField(default=datetime.date.today)
+
+    def __str__(self):
+        return f"Scrapped {self.type_of_furniture} - {self.ASSET_ID}"
