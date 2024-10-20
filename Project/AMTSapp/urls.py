@@ -10,6 +10,8 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('dashboard',views.dashboard_view,name="dashboard"),
     
+
+
     path('log',views.updatelog,name="log"),
     path('google-login/', views.google_login, name='google_login'),
     path('oauth2callback/', views.google_callback, name='google_callback'),
@@ -17,6 +19,8 @@ urlpatterns = [
     path('users/', views.user_list_and_update, name='user_list_and_update'),
    
    
+
+
     path('assets/<str:location>/', views.assets_by_location, name='assets_by_location'),
     path('asset-types/', views.asset_types, name='asset_types'),
     path('scrapped-log/',views.scrapped_log,name="scrapped-log"),
@@ -38,6 +42,7 @@ urlpatterns = [
 
 
 
+
     path('add_computer_hardware/', views.add_computer_hardware, name='add_computer_hardware'),
     path('computer-hardware/update/<int:pk>/', views.update_computer_hardware, name='update-computer-hardware'),
     path('computer-hardware/update-log/', views.computer_hardware_update_log, name='computer-hardware-update-log'),
@@ -50,6 +55,7 @@ urlpatterns = [
 
 
 
+
     path('add_projector/', views.add_projector, name='add_projector'),
     path('update-projector/<int:id>/', views.update_projector, name='update-projector'),
     path('projector-update-log/', views.projector_update_log, name='projector-update-log'),
@@ -59,6 +65,8 @@ urlpatterns = [
     path('projectors/scrapped/<int:asset_id>/', views.scrapped_projector, name='confirm_scrapped_projector'),
     path('projectors/<int:id>/move/', views.move_projector, name='move_projector'),
     path('projectors/moved/', views.moved_projector_list, name='moved_projector_list'),
+
+
 
 
     path('add_book/', views.add_book, name='add_book'),
@@ -93,6 +101,14 @@ urlpatterns = [
     path('furniture/move-to-scrapped/<str:asset_id>/', views.move_to_scrapped_furniture, name='move_to_scrapped_furniture'),
     path('furniture/invalid/', views.invalid_furniture_list, name='invalid_furniture'),
     path('furniture/scrapped/', views.scrapped_furniture_list, name='scrapped_furniture'),
+
+
+
+
+    path('professor/assets/add/', views.add_professor_assets, name='add_professor_assets'),
+    path('professor_assets_list/', views.professor_assets_list, name='professor_assets_list'),
+
+
 
 ] 
 

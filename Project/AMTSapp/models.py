@@ -6,7 +6,7 @@ class Software(models.Model):
         ('ISL Lab', 'ISL Lab'),
         ('CC Lab', 'CC Lab'),
         ('Project Lab', 'Project Lab'),
-        ('iIBM Lab', 'IBM Lab'),
+        ('IBM Lab', 'IBM Lab'),
         ('K505-Seminar Hall', 'K505-Seminar Hall'),
         ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
         ('E-learning Center', 'E-learning Center'),
@@ -173,7 +173,7 @@ class ComputerHardware(models.Model):
        ('ISL Lab', 'ISL Lab'),
         ('CC Lab', 'CC Lab'),
         ('Project Lab', 'Project Lab'),
-        ('iIBM Lab', 'IBM Lab'),
+        ('IBM Lab', 'IBM Lab'),
         ('K505-Seminar Hall', 'K505-Seminar Hall'),
         ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
         ('E-learning Center', 'E-learning Center'),
@@ -451,7 +451,7 @@ class Projector(models.Model):
         ('ISL Lab', 'ISL Lab'),
         ('CC Lab', 'CC Lab'),
         ('Project Lab', 'Project Lab'),
-        ('iIBM Lab', 'IBM Lab'),
+        ('IBM Lab', 'IBM Lab'),
         ('K505-Seminar Hall', 'K505-Seminar Hall'),
         ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
         ('E-learning Center', 'E-learning Center'),
@@ -642,7 +642,7 @@ class Books(models.Model):
         ('ISL Lab', 'ISL Lab'),
         ('CC Lab', 'CC Lab'),
         ('Project Lab', 'Project Lab'),
-        ('iIBM Lab', 'IBM Lab'),
+        ('IBM Lab', 'IBM Lab'),
         ('K505-Seminar Hall', 'K505-Seminar Hall'),
         ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
         ('E-learning Center', 'E-learning Center'),
@@ -801,7 +801,7 @@ class ComputerPeripherals(models.Model):
         ('ISL Lab', 'ISL Lab'),
         ('CC Lab', 'CC Lab'),
         ('Project Lab', 'Project Lab'),
-        ('iIBM Lab', 'IBM Lab'),
+        ('IBM Lab', 'IBM Lab'),
         ('K505-Seminar Hall', 'K505-Seminar Hall'),
         ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
         ('E-learning Center', 'E-learning Center'),
@@ -1052,7 +1052,7 @@ class Furniture(models.Model):
         ('ISL Lab', 'ISL Lab'),
         ('CC Lab', 'CC Lab'),
         ('Project Lab', 'Project Lab'),
-        ('iIBM Lab', 'IBM Lab'),
+        ('IBM Lab', 'IBM Lab'),
         ('K505-Seminar Hall', 'K505-Seminar Hall'),
         ('Wireless Communication Laboratory', 'Wireless Communication Laboratory'),
         ('E-learning Center', 'E-learning Center'),
@@ -1168,3 +1168,67 @@ class ScrappedFurniture(models.Model):
 
     def __str__(self):
         return f"Scrapped {self.type_of_furniture} - {self.ASSET_ID}"
+    
+
+
+
+
+
+#model for the staff rooom
+from django.db import models
+from django.utils import timezone
+
+class ProfessorAssets(models.Model):
+    professor_name = models.CharField(max_length=100)
+
+    desk_asset_id = models.CharField(max_length=50, blank=True)
+    desk_make = models.CharField(max_length=100, blank=True)
+    desk_model = models.CharField(max_length=100, blank=True)
+    desk_stock_register_number = models.CharField(max_length=50, blank=True)
+    desk_account_head = models.CharField(max_length=100, blank=True)
+    desk_date_of_purchase = models.DateField(default=timezone.now)
+
+    chair_asset_id = models.CharField(max_length=50, blank=True)
+    chair_make = models.CharField(max_length=100, blank=True)
+    chair_model = models.CharField(max_length=100, blank=True)
+    chair_stock_register_number = models.CharField(max_length=50, blank=True)
+    chair_account_head = models.CharField(max_length=100, blank=True)
+    chair_date_of_purchase = models.DateField(default=timezone.now)
+
+    cupboard_asset_id = models.CharField(max_length=50, blank=True)
+    cupboard_make = models.CharField(max_length=100, blank=True)
+    cupboard_model = models.CharField(max_length=100, blank=True)
+    cupboard_stock_register_number = models.CharField(max_length=50, blank=True)
+    cupboard_account_head = models.CharField(max_length=100, blank=True)
+    cupboard_date_of_purchase = models.DateField(default=timezone.now)
+
+    computer_asset_id = models.CharField(max_length=50, blank=True)
+    computer_make = models.CharField(max_length=100, blank=True)
+    computer_model = models.CharField(max_length=100, blank=True)
+    computer_stock_register_number = models.CharField(max_length=50, blank=True)
+    computer_account_head = models.CharField(max_length=100, blank=True)
+    computer_date_of_purchase = models.DateField(default=timezone.now)
+
+    monitor_asset_id = models.CharField(max_length=50, blank=True)
+    monitor_make = models.CharField(max_length=100, blank=True)
+    monitor_model = models.CharField(max_length=100, blank=True)
+    monitor_stock_register_number = models.CharField(max_length=50, blank=True)
+    monitor_account_head = models.CharField(max_length=100, blank=True)
+    monitor_date_of_purchase = models.DateField(default=timezone.now)
+
+    mouse_asset_id = models.CharField(max_length=50, blank=True)
+    mouse_make = models.CharField(max_length=100, blank=True)
+    mouse_model = models.CharField(max_length=100, blank=True)
+    mouse_stock_register_number = models.CharField(max_length=50, blank=True)
+    mouse_account_head = models.CharField(max_length=100, blank=True)
+    mouse_date_of_purchase = models.DateField(default=timezone.now)
+
+    keyboard_asset_id = models.CharField(max_length=50, blank=True)
+    keyboard_make = models.CharField(max_length=100, blank=True)
+    keyboard_model = models.CharField(max_length=100, blank=True)
+    keyboard_stock_register_number = models.CharField(max_length=50, blank=True)
+    keyboard_account_head = models.CharField(max_length=100, blank=True)
+    keyboard_date_of_purchase = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.professor_name

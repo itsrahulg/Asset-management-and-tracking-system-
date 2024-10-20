@@ -1,0 +1,239 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Assets Details</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/view-assets.css' %}">
+    <!-- Bootstrap CSS 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-container {
+            margin-bottom: 30px;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .table-header {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <h1 class="mb-4 text-center">Staff Room Assets Details</h1>
+
+        <div class="table-container">
+            <div class="table-header">Professor: {{ professor_name }}</div>
+
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Asset Type</th>
+                        <th>Asset ID</th>
+                        <th>Make and Model</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                        <th>Date of Purchase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desk</td>
+                        <td>{{ professor_assets.desk_asset_id }}</td>
+                        <td>{{ professor_assets.desk_make_model }}</td>
+                        <td>{{ professor_assets.desk_stock_register_number }}</td>
+                        <td>{{ professor_assets.desk_account_head }}</td>
+                        <td>{{ professor_assets.desk_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Chair</td>
+                        <td>{{ professor_assets.chair_asset_id }}</td>
+                        <td>{{ professor_assets.chair_make_model }}</td>
+                        <td>{{ professor_assets.chair_stock_register_number }}</td>
+                        <td>{{ professor_assets.chair_account_head }}</td>
+                        <td>{{ professor_assets.chair_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cupboard</td>
+                        <td>{{ professor_assets.cupboard_asset_id }}</td>
+                        <td>{{ professor_assets.cupboard_make_model }}</td>
+                        <td>{{ professor_assets.cupboard_stock_register_number }}</td>
+                        <td>{{ professor_assets.cupboard_account_head }}</td>
+                        <td>{{ professor_assets.cupboard_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Computer</td>
+                        <td>{{ professor_assets.computer_asset_id }}</td>
+                        <td>{{ professor_assets.computer_make_model }}</td>
+                        <td>{{ professor_assets.computer_stock_register_number }}</td>
+                        <td>{{ professor_assets.computer_account_head }}</td>
+                        <td>{{ professor_assets.computer_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Monitor</td>
+                        <td>{{ professor_assets.monitor_asset_id }}</td>
+                        <td>{{ professor_assets.monitor_make_model }}</td>
+                        <td>{{ professor_assets.monitor_stock_register_number }}</td>
+                        <td>{{ professor_assets.monitor_account_head }}</td>
+                        <td>{{ professor_assets.monitor_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Mouse</td>
+                        <td>{{ professor_assets.mouse_asset_id }}</td>
+                        <td>{{ professor_assets.mouse_make_model }}</td>
+                        <td>{{ professor_assets.mouse_stock_register_number }}</td>
+                        <td>{{ professor_assets.mouse_account_head }}</td>
+                        <td>{{ professor_assets.mouse_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Keyboard</td>
+                        <td>{{ professor_assets.keyboard_asset_id }}</td>
+                        <td>{{ professor_assets.keyboard_make_model }}</td>
+                        <td>{{ professor_assets.keyboard_stock_register_number }}</td>
+                        <td>{{ professor_assets.keyboard_account_head }}</td>
+                        <td>{{ professor_assets.keyboard_date_of_purchase }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+ -->
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Assets Details</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/view-assets.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-container {
+            margin-bottom: 30px;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .table-header {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-5">
+        <h1 class="mb-4 text-center">Staff Room Assets Details</h1>
+
+        {% for professor in professor_assets %}
+        <div class="table-container">
+            <div class="table-header">Professor: {{ professor.professor_name }}</div>
+
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Asset Type</th>
+                        <th>Asset ID</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Stock Register Number</th>
+                        <th>Account Head</th>
+                        <th>Date of Purchase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desk</td>
+                        <td>{{ professor.desk_asset_id }}</td>
+                        <td>{{ professor.desk_make }}</td>
+                        <td>{{ professor.desk_model }}</td>
+                        <td>{{ professor.desk_stock_register_number }}</td>
+                        <td>{{ professor.desk_account_head }}</td>
+                        <td>{{ professor.desk_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Chair</td>
+                        <td>{{ professor.chair_asset_id }}</td>
+                        <td>{{ professor.chair_make }}</td>
+                        <td>{{ professor.chair_model }}</td>
+                        <td>{{ professor.chair_stock_register_number }}</td>
+                        <td>{{ professor.chair_account_head }}</td>
+                        <td>{{ professor.chair_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cupboard</td>
+                        <td>{{ professor.cupboard_asset_id }}</td>
+                        <td>{{ professor.cupboard_make }}</td>
+                        <td>{{ professor.cupboard_model }}</td>
+                        <td>{{ professor.cupboard_stock_register_number }}</td>
+                        <td>{{ professor.cupboard_account_head }}</td>
+                        <td>{{ professor.cupboard_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Computer</td>
+                        <td>{{ professor.computer_asset_id }}</td>
+                        <td>{{ professor.computer_make }}</td>
+                        <td>{{ professor.computer_model }}</td>
+                        <td>{{ professor.computer_stock_register_number }}</td>
+                        <td>{{ professor.computer_account_head }}</td>
+                        <td>{{ professor.computer_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Monitor</td>
+                        <td>{{ professor.monitor_asset_id }}</td>
+                        <td>{{ professor.monitor_make }}</td>
+                        <td>{{ professor.monitor_model }}</td>
+                        <td>{{ professor.monitor_stock_register_number }}</td>
+                        <td>{{ professor.monitor_account_head }}</td>
+                        <td>{{ professor.monitor_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Mouse</td>
+                        <td>{{ professor.mouse_asset_id }}</td>
+                        <td>{{ professor.mouse_make }}</td>
+                        <td>{{ professor.mouse_model }}</td>
+                        <td>{{ professor.mouse_stock_register_number }}</td>
+                        <td>{{ professor.mouse_account_head }}</td>
+                        <td>{{ professor.mouse_date_of_purchase }}</td>
+                    </tr>
+                    <tr>
+                        <td>Keyboard</td>
+                        <td>{{ professor.keyboard_asset_id }}</td>
+                        <td>{{ professor.keyboard_make }}</td>
+                        <td>{{ professor.keyboard_model }}</td>
+                        <td>{{ professor.keyboard_stock_register_number }}</td>
+                        <td>{{ professor.keyboard_account_head }}</td>
+                        <td>{{ professor.keyboard_date_of_purchase }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% empty %}
+        <p>No professor assets found.</p>
+        {% endfor %}
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

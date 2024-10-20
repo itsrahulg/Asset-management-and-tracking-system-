@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <div class="card shadow">
             <div class="card-header bg-warning text-dark">
                 <h3 class="mb-0">Scrapped Furniture Assets</h3>
@@ -32,7 +32,7 @@
                                     <td>{{ furniture.type_of_furniture }}</td>
                                     <td>{{ furniture.subtype }}</td>
                                     <td>{{ furniture.date_of_movement }}</td>
-                                    <td>{{ furniture.reason }}</td>
+                                    <td>{{ furniture.reason_for_scrapping }}</td>
                                     <td>{{ furniture.date_logged }}</td>
                                 </tr>
                             {% endfor %}

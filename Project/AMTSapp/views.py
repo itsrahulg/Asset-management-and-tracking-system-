@@ -1441,22 +1441,34 @@ def furniture_update_logs(request):
     logs = FurnitureUpdateLog.objects.all()
     return render(request, 'AMTSapp/furniture_update_logs.html', {'logs': logs})
 
+
+
+
+
+
+
 #view to render the invalid and scrapped assets form 
 from .forms import InvalidFurnitureForm, ScrappedFurnitureForm
 from .models import Furniture, InvalidFurniture, ScrappedFurniture
 
 # View for moving furniture to invalid
+# View for moving furniture to invalid
 def move_to_invalid_furniture(request, asset_id):
-    furniture = get_object_or_404(Furniture, ASSET_ID=asset_id)  # Get the original furniture record
+    furniture = get_object_or_404(Furniture, ASSET_ID=asset_id)
 
     if request.method == 'POST':
         form = InvalidFurnitureForm(request.POST)
         if form.is_valid():
-            invalid_furniture = form.save(commit=False)  # Create an instance without saving
-            invalid_furniture.ASSET_ID = furniture.ASSET_ID  # Set ASSET_ID from the original furniture
-            invalid_furniture.save()  # Save the invalid furniture entry
-            furniture.delete()  # Delete the original furniture record
-            return redirect('scrapped-log')  # Redirect to a success page or list
+            invalid_furniture = form.save(commit=False)
+            invalid_furniture.ASSET_ID = furniture.ASSET_ID
+            invalid_furniture.type_of_furniture = furniture.type_of_furniture
+            invalid_furniture.subtype = furniture.subtype
+            invalid_furniture.date_of_purchase = furniture.date_of_purchase
+            invalid_furniture.account_head = furniture.account_head
+            invalid_furniture.location = furniture.location
+            invalid_furniture.save()
+            furniture.delete()
+            return redirect('scrapped-log')
     else:
         form = InvalidFurnitureForm()
 
@@ -1465,25 +1477,36 @@ def move_to_invalid_furniture(request, asset_id):
         'furniture': furniture
     })
 
+
+
+
+
+
 # View for moving furniture to scrapped
 def move_to_scrapped_furniture(request, asset_id):
-    furniture = get_object_or_404(Furniture, ASSET_ID=asset_id)  # Get the original furniture record
+    furniture = get_object_or_404(Furniture, ASSET_ID=asset_id)  # Fetch the original furniture
 
     if request.method == 'POST':
         form = ScrappedFurnitureForm(request.POST)
         if form.is_valid():
-            scrapped_furniture = form.save(commit=False)  # Create an instance without saving
-            scrapped_furniture.ASSET_ID = furniture.ASSET_ID  # Set ASSET_ID from the original furniture
-            scrapped_furniture.save()  # Save the scrapped furniture entry
-            furniture.delete()  # Delete the original furniture record
-            return redirect('scrapped-log')  # Redirect to a success page or list
+            scrapped_furniture = form.save(commit=False)
+            scrapped_furniture.ASSET_ID = furniture.ASSET_ID  # Set non-editable fields manually
+            scrapped_furniture.type_of_furniture = furniture.type_of_furniture
+            scrapped_furniture.subtype = furniture.subtype
+            scrapped_furniture.date_of_purchase = furniture.date_of_purchase
+            scrapped_furniture.account_head = furniture.account_head
+            scrapped_furniture.location = furniture.location
+            scrapped_furniture.save()  # Save scrapped entry
+            furniture.delete()  # Delete original furniture record
+            return redirect('scrapped-log')  # Redirect after successful movement
     else:
         form = ScrappedFurnitureForm()
 
     return render(request, 'AMTSapp/confirm_scrapped_furniture.html', {
         'form': form,
-        'furniture': furniture
+        'furniture': furniture,  # Pass the original furniture data for display
     })
+
 
 
 
@@ -1493,11 +1516,71 @@ from .models import InvalidFurniture, ScrappedFurniture
 
 def invalid_furniture_list(request):
     invalid_furniture = InvalidFurniture.objects.all()
-    return render(request, 'invalid_furniture.html', {'invalid_furniture': invalid_furniture})
+    return render(request, 'AMTSapp/invalid_furniture_list.html', {'invalid_furniture': invalid_furniture})
 
 def scrapped_furniture_list(request):
     scrapped_furniture = ScrappedFurniture.objects.all()
-    return render(request, 'scrapped_furniture.html', {'scrapped_furniture': scrapped_furniture})
+    return render(request, 'AMTSapp/scrapped_furniture_list.html', {'scrapped_furniture': scrapped_furniture})
+
+
+
+
+
+
+
+
+
+#view to enter the staff room assets
+from .models import ProfessorAssets
+from .forms import ProfessorAssetsForm
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def add_professor_assets(request):
+    if request.method == 'POST':
+        form = ProfessorAssetsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirect to a suitable page after saving
+    else:
+        form = ProfessorAssetsForm()
+
+    return render(request, 'AMTSapp/add_professor_assets.html', {'form': form})
+
+
+
+
+from django.shortcuts import render
+from .models import ProfessorAssets
+
+def professor_assets_list(request):
+    professor_assets = ProfessorAssets.objects.all()
+    return render(request, 'AMTSapp/professor_assets.html', {
+        'professor_assets': professor_assets,
+    })
+
+
+# from django.shortcuts import render, get_object_or_404
+# from .models import ProfessorAssets  # Import your model here
+
+# def display_professor_assets(request, professor_id):
+#     # Get the professor's assets based on the professor's ID
+#     professor_assets = get_object_or_404(ProfessorAssets, id=professor_id)
+
+#     context = {
+#         'professor_assets': professor_assets,
+#     }
+
+#     return render(request, 'AMTSapp/professor_assets.html', context)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1528,6 +1611,21 @@ def scrapped_furniture_list(request):
 #         'grouped_assets': grouped_assets,
 #         'location': location
 #     })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 from .models import ComputerHardware, Projector, Software, Books, ComputerPeripherals, Furniture  # Make sure to import Furniture
 

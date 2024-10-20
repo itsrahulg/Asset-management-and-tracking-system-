@@ -764,54 +764,152 @@ class FurnitureUpdateLogForm(forms.ModelForm):
 from django import forms
 from .models import InvalidFurniture, ScrappedFurniture
 
+# class InvalidFurnitureForm(forms.ModelForm):
+#     class Meta:
+#         model = InvalidFurniture
+#         fields = [
+#             'ASSET_ID',
+#             'type_of_furniture',
+#             'subtype',
+#             'date_of_purchase',
+#             'account_head',
+#             'location',
+#             'date_of_movement',
+#             'reason_for_invalidity',
+#             'date_logged',
+#         ]
+#         widgets = {
+#             'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
+#             'type_of_furniture': forms.Select(attrs={'class': 'form-control'}),
+#             'subtype': forms.Select(attrs={'class': 'form-control'}),
+#             'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+#             'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
+#             'location': forms.Select(attrs={'class': 'form-control'}),
+#             'date_of_movement': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+#             'reason_for_invalidity': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Reason for Invalidity'}),
+#             'date_logged': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+#         }
+
 class InvalidFurnitureForm(forms.ModelForm):
     class Meta:
         model = InvalidFurniture
         fields = [
-            'ASSET_ID',
-            'type_of_furniture',
-            'subtype',
-            'date_of_purchase',
-            'account_head',
-            'location',
-            'date_of_movement',
-            'reason_for_invalidity',
-            'date_logged',
+            'date_of_movement',  # Only keep this field for movement
+            'reason_for_invalidity',  # Editable field for the form
         ]
         widgets = {
-            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
-            'type_of_furniture': forms.Select(attrs={'class': 'form-control'}),
-            'subtype': forms.Select(attrs={'class': 'form-control'}),
-            'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
-            'location': forms.Select(attrs={'class': 'form-control'}),
             'date_of_movement': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'reason_for_invalidity': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Reason for Invalidity'}),
-            'date_logged': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
+
+
+
+# class ScrappedFurnitureForm(forms.ModelForm):
+#     class Meta:
+#         model = ScrappedFurniture
+#         fields = [
+#             'ASSET_ID',
+#             'type_of_furniture',
+#             'subtype',
+#             'date_of_purchase',
+#             'account_head',
+#             'location',
+#             'date_of_movement',
+#             'reason_for_scrapping',
+#             'date_logged',
+#         ]
+#         widgets = {
+#             'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
+#             'type_of_furniture': forms.Select(attrs={'class': 'form-control'}),
+#             'subtype': forms.Select(attrs={'class': 'form-control'}),
+#             'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+#             'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
+#             'location': forms.Select(attrs={'class': 'form-control'}),
+#             'date_of_movement': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+#             'reason_for_scrapping': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Reason for Scrapping'}),
+#             'date_logged': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+#         }
 
 class ScrappedFurnitureForm(forms.ModelForm):
     class Meta:
         model = ScrappedFurniture
-        fields = [
-            'ASSET_ID',
-            'type_of_furniture',
-            'subtype',
-            'date_of_purchase',
-            'account_head',
-            'location',
-            'date_of_movement',
-            'reason_for_scrapping',
-            'date_logged',
-        ]
+        fields = ['date_of_movement', 'reason_for_scrapping']  # Only include the required fields for scrapping
         widgets = {
-            'ASSET_ID': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Asset ID'}),
-            'type_of_furniture': forms.Select(attrs={'class': 'form-control'}),
-            'subtype': forms.Select(attrs={'class': 'form-control'}),
-            'date_of_purchase': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Account Head'}),
-            'location': forms.Select(attrs={'class': 'form-control'}),
             'date_of_movement': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'reason_for_scrapping': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Reason for Scrapping'}),
-            'date_logged': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+
+
+
+
+
+
+
+#form to enter the staff room asset details
+from django import forms
+from .models import ProfessorAssets
+
+class ProfessorAssetsForm(forms.ModelForm):
+    class Meta:
+        model = ProfessorAssets
+        fields = [
+            'professor_name',
+            'desk_asset_id', 'desk_make', 'desk_model', 'desk_stock_register_number', 'desk_account_head', 'desk_date_of_purchase',
+            'chair_asset_id', 'chair_make', 'chair_model', 'chair_stock_register_number', 'chair_account_head', 'chair_date_of_purchase',
+            'cupboard_asset_id', 'cupboard_make', 'cupboard_model', 'cupboard_stock_register_number', 'cupboard_account_head', 'cupboard_date_of_purchase',
+            'computer_asset_id', 'computer_make', 'computer_model', 'computer_stock_register_number', 'computer_account_head', 'computer_date_of_purchase',
+            'monitor_asset_id', 'monitor_make', 'monitor_model', 'monitor_stock_register_number', 'monitor_account_head', 'monitor_date_of_purchase',
+            'mouse_asset_id', 'mouse_make', 'mouse_model', 'mouse_stock_register_number', 'mouse_account_head', 'mouse_date_of_purchase',
+            'keyboard_asset_id', 'keyboard_make', 'keyboard_model', 'keyboard_stock_register_number', 'keyboard_account_head', 'keyboard_date_of_purchase'
+        ]
+        widgets = {
+            'professor_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Professor Name'}),
+            'desk_asset_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Desk Asset ID'}),
+            'desk_make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Desk Make'}),
+            'desk_model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Desk Model'}),
+            'desk_stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Desk Stock Register Number'}),
+            'desk_account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Desk Account Head'}),
+            'desk_date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Desk Date of Purchase', 'type': 'date'}),
+
+            'chair_asset_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Chair Asset ID'}),
+            'chair_make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Chair Make'}),
+            'chair_model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Chair Model'}),
+            'chair_stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Chair Stock Register Number'}),
+            'chair_account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Chair Account Head'}),
+            'chair_date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Chair Date of Purchase', 'type': 'date'}),
+
+            'cupboard_asset_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cupboard Asset ID'}),
+            'cupboard_make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cupboard Make'}),
+            'cupboard_model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cupboard Model'}),
+            'cupboard_stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cupboard Stock Register Number'}),
+            'cupboard_account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cupboard Account Head'}),
+            'cupboard_date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Cupboard Date of Purchase', 'type': 'date'}),
+
+            'computer_asset_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Computer Asset ID'}),
+            'computer_make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Computer Make'}),
+            'computer_model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Computer Model'}),
+            'computer_stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Computer Stock Register Number'}),
+            'computer_account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Computer Account Head'}),
+            'computer_date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Computer Date of Purchase', 'type': 'date'}),
+
+            'monitor_asset_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Monitor Asset ID'}),
+            'monitor_make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Monitor Make'}),
+            'monitor_model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Monitor Model'}),
+            'monitor_stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Monitor Stock Register Number'}),
+            'monitor_account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Monitor Account Head'}),
+            'monitor_date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Monitor Date of Purchase', 'type': 'date'}),
+
+            'mouse_asset_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mouse Asset ID'}),
+            'mouse_make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mouse Make'}),
+            'mouse_model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mouse Model'}),
+            'mouse_stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mouse Stock Register Number'}),
+            'mouse_account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Mouse Account Head'}),
+            'mouse_date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Mouse Date of Purchase', 'type': 'date'}),
+
+            'keyboard_asset_id': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Keyboard Asset ID'}),
+            'keyboard_make': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Keyboard Make'}),
+            'keyboard_model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Keyboard Model'}),
+            'keyboard_stock_register_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Keyboard Stock Register Number'}),
+            'keyboard_account_head': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Keyboard Account Head'}),
+            'keyboard_date_of_purchase': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Keyboard Date of Purchase', 'type': 'date'}),
         }

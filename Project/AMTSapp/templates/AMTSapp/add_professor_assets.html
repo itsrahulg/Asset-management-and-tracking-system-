@@ -1,0 +1,272 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Professor Assets</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add-asset.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        fieldset {
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        legend {
+            padding: 0 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Add Professor Assets</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="professor_name">Professor's Name:</label>
+                <input type="text" class="form-control" name="professor_name" required>
+            </div>
+
+            <fieldset>
+                <legend>Desk</legend>
+                <div class="form-group">
+                    {{ form.desk_asset_id.label_tag }} 
+                    {{ form.desk_asset_id }} 
+                </div>
+                <div class="form-group">
+                    <label for="desk_make">Make:</label>
+                    {{ form.desk_make }} 
+                </div>
+                <div class="form-group">
+                    <label for="desk_model">Model:</label>
+                    {{ form.desk_model }} 
+                </div>
+                <div class="form-group">
+                    {{ form.desk_stock_register_number.label_tag }} 
+                    {{ form.desk_stock_register_number }} 
+                </div>
+                <div class="form-group">
+                    {{ form.desk_account_head.label_tag }} 
+                    {{ form.desk_account_head }} 
+                </div>
+                <div class="form-group">
+                    {{ form.desk_date_of_purchase.label_tag }} 
+                    {{ form.desk_date_of_purchase }} 
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Chair</legend>
+                <div class="form-group">
+                    {{ form.chair_asset_id.label_tag }} 
+                    {{ form.chair_asset_id }} 
+                </div>
+                <div class="form-group">
+                    <label for="chair_make">Make:</label>
+                    {{ form.chair_make }} 
+                </div>
+                <div class="form-group">
+                    <label for="chair_model">Model:</label>
+                    {{ form.chair_model }} 
+                </div>
+                <div class="form-group">
+                    {{ form.chair_stock_register_number.label_tag }} 
+                    {{ form.chair_stock_register_number }} 
+                </div>
+                <div class="form-group">
+                    {{ form.chair_account_head.label_tag }} 
+                    {{ form.chair_account_head }} 
+                </div>
+                <div class="form-group">
+                    {{ form.chair_date_of_purchase.label_tag }} 
+                    {{ form.chair_date_of_purchase }} 
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Cupboard</legend>
+                <div class="form-group">
+                    {{ form.cupboard_asset_id.label_tag }} 
+                    {{ form.cupboard_asset_id }} 
+                </div>
+                <div class="form-group">
+                    <label for="cupboard_make">Make:</label>
+                    {{ form.cupboard_make }} 
+                </div>
+                <div class="form-group">
+                    <label for="cupboard_model">Model:</label>
+                    {{ form.cupboard_model }} 
+                </div>
+                <div class="form-group">
+                    {{ form.cupboard_stock_register_number.label_tag }} 
+                    {{ form.cupboard_stock_register_number }} 
+                </div>
+                <div class="form-group">
+                    {{ form.cupboard_account_head.label_tag }} 
+                    {{ form.cupboard_account_head }} 
+                </div>
+                <div class="form-group">
+                    {{ form.cupboard_date_of_purchase.label_tag }} 
+                    {{ form.cupboard_date_of_purchase }} 
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Computer</legend>
+                <div class="form-group">
+                    {{ form.computer_asset_id.label_tag }} 
+                    {{ form.computer_asset_id }} 
+                </div>
+                <div class="form-group">
+                    <label for="computer_make">Make:</label>
+                    {{ form.computer_make }} 
+                </div>
+                <div class="form-group">
+                    <label for="computer_model">Model:</label>
+                    {{ form.computer_model }} 
+                </div>
+                <div class="form-group">
+                    {{ form.computer_stock_register_number.label_tag }} 
+                    {{ form.computer_stock_register_number }} 
+                </div>
+                <div class="form-group">
+                    {{ form.computer_account_head.label_tag }} 
+                    {{ form.computer_account_head }} 
+                </div>
+                <div class="form-group">
+                    {{ form.computer_date_of_purchase.label_tag }} 
+                    {{ form.computer_date_of_purchase }} 
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Monitor</legend>
+                <div class="form-group">
+                    {{ form.monitor_asset_id.label_tag }} 
+                    {{ form.monitor_asset_id }} 
+                </div>
+                <div class="form-group">
+                    <label for="monitor_make">Make:</label>
+                    {{ form.monitor_make }} 
+                </div>
+                <div class="form-group">
+                    <label for="monitor_model">Model:</label>
+                    {{ form.monitor_model }} 
+                </div>
+                <div class="form-group">
+                    {{ form.monitor_stock_register_number.label_tag }} 
+                    {{ form.monitor_stock_register_number }} 
+                </div>
+                <div class="form-group">
+                    {{ form.monitor_account_head.label_tag }} 
+                    {{ form.monitor_account_head }} 
+                </div>
+                <div class="form-group">
+                    {{ form.monitor_date_of_purchase.label_tag }} 
+                    {{ form.monitor_date_of_purchase }} 
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Mouse</legend>
+                <div class="form-group">
+                    {{ form.mouse_asset_id.label_tag }} 
+                    {{ form.mouse_asset_id }} 
+                </div>
+                <div class="form-group">
+                    <label for="mouse_make">Make:</label>
+                    {{ form.mouse_make }} 
+                </div>
+                <div class="form-group">
+                    <label for="mouse_model">Model:</label>
+                    {{ form.mouse_model }} 
+                </div>
+                <div class="form-group">
+                    {{ form.mouse_stock_register_number.label_tag }} 
+                    {{ form.mouse_stock_register_number }} 
+                </div>
+                <div class="form-group">
+                    {{ form.mouse_account_head.label_tag }} 
+                    {{ form.mouse_account_head }} 
+                </div>
+                <div class="form-group">
+                    {{ form.mouse_date_of_purchase.label_tag }} 
+                    {{ form.mouse_date_of_purchase }} 
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Keyboard</legend>
+                <div class="form-group">
+                    {{ form.keyboard_asset_id.label_tag }} 
+                    {{ form.keyboard_asset_id }} 
+                </div>
+                <div class="form-group">
+                    <label for="keyboard_make">Make:</label>
+                    {{ form.keyboard_make }} 
+                </div>
+                <div class="form-group">
+                    <label for="keyboard_model">Model:</label>
+                    {{ form.keyboard_model }} 
+                </div>
+                <div class="form-group">
+                    {{ form.keyboard_stock_register_number.label_tag }} 
+                    {{ form.keyboard_stock_register_number }} 
+                </div>
+                <div class="form-group">
+                    {{ form.keyboard_account_head.label_tag }} 
+                    {{ form.keyboard_account_head }} 
+                </div>
+                <div class="form-group">
+                    {{ form.keyboard_date_of_purchase.label_tag }} 
+                    {{ form.keyboard_date_of_purchase }} 
+                </div>
+            </fieldset>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{% url 'asset_types' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Professor Assets</title>
+    <link rel="stylesheet" href="{% static 'css/add-asset.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Add Assets for Professor</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- This will display the form fields nicely 
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html> -->
